@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Met Office :: ThreeJS Data Visualisation</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
+</head>
+<body class="pure-g">
+<div id="content">
+    <img id="logo" src="img/met-office-logo.svg" alt="Met Office Logo" />
+</div>
+
+<!-- ---------------- Custom Shader Code ------------------------ -->
+<script id="glowVertexShader" type="x-shader/x-vertex">
+varying vec3 vNormal;
+void main()
+{
+    vNormal = normalize( normalMatrix * normal );
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+}
+
+
+</script>
+<script id="glowFragmentShader" type="x-shader/x-vertex">
+varying vec3 vNormal;
+void main()
+{
+	float intensity = pow( 0.7 - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) ), 4.0 );
+    gl_FragColor = vec4( 0.57, 0.80, 0.04, 1.0 ) * intensity;
+}
+
+
+</script>
+
+
+<script id="cloudVertexShader" type="x-shader/x-vertex">
+      #define textureSize 128.0
+      #define texelSize 1.0 / 2048.0
+      vec4 texture2D_bilinear( sampler2D tex, vec2 uv )
+      {
+        vec2 f = fract( uv.xy * textureSize );
+        vec4 t00 = texture2D( tex, uv );
+        vec4 t10 = texture2D( tex, uv + vec2( texelSize, 0.0 ));
+        vec4 tA = mix( t00, t10, f.x );
+        vec4 t01 = texture2D( tex, uv + vec2( 0.0, texelSize ) );
+        vec4 t11 = texture2D( tex, uv + vec2( texelSize, texelSize ) );
+        vec4 tB = mix( t01, t11, f.x );
+        return mix( tA, tB, f.y );
+      }
+
+      uniform sampler2D textureClouds;
+      uniform float height;
+      varying vec3 vNormal;
+      varying vec2 vUv;
+
+      void main() {
+        vec4 newVertexPos;
+        vec4 dv;
+        float df;
+
+        //  this looks up the color from the texture and applies a transform for the vertex
+        dv = texture2D_bilinear( textureClouds, uv.xy );
+        df = 0.30*dv.x + 0.59*dv.y + 0.11*dv.z;
+
+        //  we do this to round out the cloud vertex push
+        df = sqrt(df);
+        newVertexPos = vec4(normal * df * height, 0.0);
+
+        //  add the final position for the vertex
+        newVertexPos += vec4( position, 1.0);
+
+        //  now place it where it should be on screen
+        gl_Position = projectionMatrix * modelViewMatrix * newVertexPos;
+
+        vNormal = normalize( normalMatrix * normal );
+        vUv = uv;
+      }
+</script>
+<script id="cloudFragmentShader" type="x-shader/x-fragment">
+      uniform sampler2D textureClouds;
+      uniform float edgeFade;
+      varying vec3 vNormal;
+      varying vec2 vUv;
+      void main() {
+
+        //  fade out at the edges when drawn onto globe
+        float intensity = dot( vNormal, vec3(0.0, -0.05, 2.5 - edgeFade ) );
+
+        //  cap the values, but also power it up
+        intensity = clamp( pow( intensity, 22.0), 0.0, 1.0 )  ;
+
+        //  look up the texture color
+        vec3 diffuse = texture2D( textureClouds, vUv ).xyz;
+
+        //  blend it with the texture color
+        intensity = intensity * diffuse.x;
+
+        //  cap the final value
+        float finalColor = clamp( intensity, 0.0, 1.0 );
+
+        gl_FragColor = vec4( finalColor );
+        if(intensity < 0.2) {
+            gl_FragColor.a = 0.0;
+        }
+      }
+</script>
+<!-- ----------------------------------------------------------- -->
+
+<script type="text/javascript" src="js/app.min.js"></script>
+</body>
+</html>

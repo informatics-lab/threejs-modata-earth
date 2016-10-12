@@ -1,0 +1,20 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+$brand-color: #93cd0b;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+  background-color: black;
+
+  #content {
+    position: relative;
+
+    #logo {
+      position: absolute;
+      height:90px;
+    }
+
+  }
+
+}
