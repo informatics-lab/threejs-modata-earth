@@ -1,0 +1,5 @@
+.idea
+build
+node_modules
+img
+threejs-modata-earth.iml
