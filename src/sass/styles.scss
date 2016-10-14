@@ -6,6 +6,8 @@ body {
   font: 100% $font-stack;
   color: $primary-color;
   background-color: black;
+  word-spacing: normal;
+  letter-spacing: normal;
 
   #content {
     position: relative;
