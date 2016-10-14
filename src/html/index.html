@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Met Office :: ThreeJS Data Visualisation</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css"/>
     <link rel="stylesheet" type="text/css" href="css/styles.css"/>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
 </head>
@@ -95,13 +94,14 @@ void main()
         vec3 diffuse = texture2D( textureClouds, vUv ).xyz;
 
         //  blend it with the texture color
-        intensity = intensity * diffuse.x;
+        //intensity = intensity * diffuse.x;
+        intensity = 1.5 * diffuse.x;
 
         //  cap the final value
         float finalColor = clamp( intensity, 0.0, 1.0 );
 
         gl_FragColor = vec4( finalColor );
-        if(intensity < 0.2) {
+        if(intensity < 0.3) {
             gl_FragColor.a = 0.0;
         }
       }
