@@ -102,9 +102,8 @@ function init() {
     data = new GlobeData.hadcrut4(globeMesh);
     // data.play();
 
-    annotations = new GlobeAnnotations(globeMesh);
-    annotations.add(50.71, -3.53, "A message");
 
+    annotations = new GlobeAnnotations(globeMesh);
     // press 'h' to show/hide gui
 
     gui = new dat.GUI();
@@ -112,18 +111,18 @@ function init() {
     var obj = {
         test : function() {
             console.log("clicked");
-            GlobeUtils.tweenCameraToLatLon(camera, 30, -3)
+            GlobeUtils.tweenCameraToLatLon(camera, 30, -3);
+
+            annotations.add(50.71, -3.53, "A message");
         }
     };
     gui.add(obj,'test');
 
     var guiCamFolder = gui.addFolder('camera');
-    guiCamFolder.add(camera.position, 'x');
-    guiCamFolder.add(camera.position, 'y');
-    guiCamFolder.add(camera.position, 'z');
+    guiCamFolder.add(camera.position, 'x', -5, 5).listen();
+    guiCamFolder.add(camera.position, 'y', -5, 5).listen();
+    guiCamFolder.add(camera.position, 'z', -5, 5).listen();
 
-    //
-    // gui.add(GlobeControls, 'message');
     animate();
 }
 

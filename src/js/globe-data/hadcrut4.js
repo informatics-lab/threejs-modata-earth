@@ -81,7 +81,8 @@ module.exports = function (globe) {
             }
         }
 
-        update_data(hadcrut4.start_year);
+        // update_data(hadcrut4.start_year);
+        update_data(2000);
 
         self.data_mesh_geometry.addAttribute('position', new THREE.BufferAttribute(self.data_mesh_positions, 3));
         self.data_mesh_geometry.addAttribute('color', new THREE.BufferAttribute(self.data_mesh_colors, 3));
@@ -145,6 +146,7 @@ module.exports = function (globe) {
                 self.data_mesh_colors[index + 16] = color.g;
                 self.data_mesh_colors[index + 17] = color.b;
             }
+
         }
     }
 

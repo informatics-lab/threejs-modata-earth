@@ -28,9 +28,9 @@ function getAnnotationRing(lat, lon) {
 
     var ringMaterial = new THREE.LineDashedMaterial({
         color: 0x93cd0b,
-        linewidth: 2,
-        transparent: true,
-        opacity: 0.6
+        linewidth: 3
+        // transparent: true,
+        // opacity: 0.6
     });
 
     var ringGeometry = new THREE.CircleGeometry(GLOBE_RADIUS / 10, 64);
