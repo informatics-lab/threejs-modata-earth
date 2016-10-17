@@ -22,10 +22,6 @@ const BUILD_DEST = "./build";
 gulp.task('clean', function () {
     return del([BUILD_DEST]);
 });
-
-gulp.task('clean:img', function () {
-    return del([BUILD_DEST + "/img/**/*.*"]);
-});
 gulp.task('clean:html', function () {
     return del([BUILD_DEST + "/*.html"]);
 });
@@ -33,17 +29,16 @@ gulp.task('clean:html', function () {
 gulp.task('clean:js', function () {
     return del([BUILD_DEST + "/js/**/*.*"]);
 });
-
 gulp.task('clean:css', function () {
     return del([BUILD_DEST + "/css/**/*.*"]);
 });
 
 
-gulp.task('build:img', function() {
-    return gulp.src('./src/img/**/*')
-        .pipe(gulp.dest(BUILD_DEST+"/img"));
-});
 //BUILD
+gulp.task('build:static', function() {
+    return gulp.src('./src/static/**/*')
+        .pipe(gulp.dest(BUILD_DEST));
+});
 gulp.task('build:html', function () {
     return gulp.src('./src/html/*.html')
         .pipe(htmlmin({collapseWhitespace: true}))
@@ -73,7 +68,7 @@ gulp.task('build:css', function () {
         .pipe(gulp.dest(BUILD_DEST + '/css'));
 });
 
-gulp.task('build', ['build:img', 'build:html', 'build:css', 'build:js']);
+gulp.task('build', ['build:static', 'build:html', 'build:css', 'build:js']);
 
 //SERVE
 gulp.task('serve', ['clean', 'build', 'watch'], function() {
