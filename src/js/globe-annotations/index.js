@@ -27,6 +27,7 @@ function getAnnotationRing(lat, lon) {
     var ringOrigin = GlobeUtils.latLonToVector3(lat,lon,GLOBE_RADIUS,0.01);
 
     var ringMaterial = new THREE.LineDashedMaterial({
+        color: 0x93cd0b,
         linewidth: 2,
         transparent: true,
         opacity: 0.6

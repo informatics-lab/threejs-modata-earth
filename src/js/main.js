@@ -44,7 +44,7 @@ function init() {
     controls.enablePan = false;
     // controls.autoRotate = true;
     controls.minDistance = GLOBE_RADIUS * 2;
-    controls.maxDistance = GLOBE_RADIUS * 4;
+    controls.maxDistance = GLOBE_RADIUS * 3;
     controls.minPolarAngle = (Math.PI / 10) * 2.5; // radians
     controls.maxPolarAngle = (Math.PI / 10) * 6.5;
     
@@ -95,15 +95,15 @@ function init() {
 
     renderer = new THREE.WebGLRenderer({antialias:true});
     renderer.setSize( width, window.innerHeight );
-    renderer.setClearColor( 0x111111 );
+    renderer.setClearColor( 0x000000 );
 
     document.getElementById('content').appendChild( renderer.domElement );
 
-    // data = new GlobeData(globeMesh);
+    data = new GlobeData.hadcrut4(globeMesh);
     // data.play();
 
-    // annotations = new GlobeAnnotations(globeMesh);
-    // annotations.add(50.71, -3.53, "A message");
+    annotations = new GlobeAnnotations(globeMesh);
+    annotations.add(50.71, -3.53, "A message");
 
     // press 'h' to show/hide gui
 
@@ -117,11 +117,13 @@ function init() {
     };
     gui.add(obj,'test');
 
-    // var guiCamFolder = gui.addFolder('camera');
-    // guiCamFolder.add(camera.position.x, 'x');
+    var guiCamFolder = gui.addFolder('camera');
+    guiCamFolder.add(camera.position, 'x');
+    guiCamFolder.add(camera.position, 'y');
+    guiCamFolder.add(camera.position, 'z');
+
     //
     // gui.add(GlobeControls, 'message');
-
     animate();
 }
 
@@ -131,10 +133,10 @@ function animate(time) {
     controls.update();
 
     GlobeUtils.distanceBetween(camera.position, ORIGIN);
-    // annotations.animate();
+    annotations.animate();
     GlobeUtils.animate(time);
 
-    // data.animate();
+    data.animate();
 
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
