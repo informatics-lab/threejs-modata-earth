@@ -1,6 +1,8 @@
 /**
  * Created by tom on 14/10/2016.
  */
+const GLOBE_RADIUS = 1;
+
 module.exports = function(globe) {
 
     var self = this;

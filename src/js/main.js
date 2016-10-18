@@ -99,10 +99,9 @@ function init() {
 
     document.getElementById('content').appendChild( renderer.domElement );
 
-    data = new GlobeData.hadcrut4(globeMesh);
+    // data = new GlobeData.indianMonsoonSeason(globeMesh);
     // data.play();
-
-
+    
     annotations = new GlobeAnnotations(globeMesh);
     // press 'h' to show/hide gui
 
@@ -135,7 +134,7 @@ function animate(time) {
     annotations.animate();
     GlobeUtils.animate(time);
 
-    data.animate();
+    // data.animate();
 
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
