@@ -46,15 +46,18 @@ function init() {
         directionalLight.position.copy(camera.position);
     });
 
-    var globe = new Globe(scene, 1);
-    var data = new GlobeData.rawDataSphereMesh(scene, 1.02, hadcrut4);
-    var annotations = new GlobeData.annotations(data);
-
     renderer = new THREE.WebGLRenderer({antialias:true});
     renderer.setSize( width, window.innerHeight );
     renderer.setClearColor( 0x000000 );
 
     document.getElementById('content').appendChild( renderer.domElement );
+
+
+    var globe = new Globe(scene, 1);
+    var data = new GlobeData.rawDataSphereMesh(scene, 1.02, hadcrut4);
+    var annotations = new GlobeData.annotations(data);
+
+
 
     // data = new GlobeData.indianMonsoonSeason(globeMesh);
     // data.play();
@@ -73,12 +76,16 @@ function init() {
         },
         dec : function() {
             data.decreaseCDI();
+        },
+        annotate : function() {
+            annotations.add(50.3,-3.3,"hello world");
         }
 
     };
     var guiDataFolder = gui.addFolder('data');
     guiDataFolder.add(obj,'inc');
     guiDataFolder.add(obj,'dec');
+    guiDataFolder.add(obj,'annotate');
 
     var guiCamFolder = gui.addFolder('camera');
     guiCamFolder.add(camera.position, 'x', -5, 5).listen();

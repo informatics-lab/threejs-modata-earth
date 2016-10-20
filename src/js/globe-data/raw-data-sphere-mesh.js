@@ -23,13 +23,12 @@ module.exports = function(scene, radius, data) {
     self.scene = scene;
     self.radius = radius;
     self.data = data;
-    self.cdi = 0;
+    var cdi = 0;
 
     var faceOffsetDegrees = 0.125;
     var faceWidth = 180 / data.num_lat;
     var faceHeight = 360 / data.num_lng;
     var dataOpacity  = 0.6;
-
 
     /**
      * Generates a single Sphere Face Buffer Geometry given the origin vector3
@@ -106,6 +105,16 @@ module.exports = function(scene, radius, data) {
         return mesh;
     };
 
+    function controls() {
+        var slider = document.createElement('input');
+        slider.id = "year";
+        slider.type = 'range';
+        slider.value = 90;
+        slider.setAttribute('class', 'slider');
+
+        document.getElementById('controls').appendChild( slider );
+    }
+
     /**
      * Sets the mesh to the specified data
      * @param dataSet
@@ -136,7 +145,10 @@ module.exports = function(scene, radius, data) {
     self.dataMesh = getSphereDataMesh();
     self.scene.add(self.dataMesh);
 
-    setMeshToDataSet(self.data.datas[self.cdi].data);
+    //init the data mesh to the first data set
+    setMeshToDataSet(self.data.datas[cdi].data);
+
+    controls();
 
     self.scene.addEventListener("animate", function(evt){
 
@@ -149,21 +161,21 @@ module.exports = function(scene, radius, data) {
         origin : self.scene.origin,
 
         increaseCDI : function() {
-            if(self.cdi < self.data.datas.length) {
-                self.cdi++;
-                setMeshToDataSet(self.data.datas[self.cdi].data);
+            if(cdi < self.data.datas.length) {
+                cdi++;
+                setMeshToDataSet(self.data.datas[cdi].data);
             }
         },
         decreaseCDI : function() {
-            if(self.cdi > 0) {
-                self.cdi--;
-                setMeshToDataSet(self.data.datas[self.cdi].data);
+            if(cdi > 0) {
+                cdi--;
+                setMeshToDataSet(self.data.datas[cdi].data);
             }
         },
         setCDI : function(i) {
-            if(i <= self.data.datas.length && i >= 0 && i != self.cdi) {
-                self.cdi = i;
-                setMeshToDataSet(self.data.datas[self.cdi].data);
+            if(i <= self.data.datas.length && i >= 0 && i != cdi) {
+                cdi = i;
+                setMeshToDataSet(self.data.datas[cdi].data);
             }
         }
 

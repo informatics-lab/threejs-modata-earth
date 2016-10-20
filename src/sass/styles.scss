@@ -2,21 +2,50 @@ $font-stack:    Helvetica, sans-serif;
 $primary-color: #333;
 $brand-color: #93cd0b;
 
+@import "range.scss";
+
+
 body {
   font: 100% $font-stack;
   color: $primary-color;
   background-color: black;
   word-spacing: normal;
   letter-spacing: normal;
+  position: relative;
 
   #content {
     position: relative;
+    z-index: -1;
 
     #logo {
       position: absolute;
       height:90px;
     }
 
+
+
   }
+
+  #controls {
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 1;
+
+    .slider {
+      position: absolute;
+      z-index: 1;
+    }
+
+    #year {
+      width: 70vh;
+      transform: rotate(90deg);
+      top: 50vh;
+      left: -25vh;
+    }
+
+  }
+
+
 
 }
