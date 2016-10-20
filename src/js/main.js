@@ -1,34 +1,28 @@
 
 const GLOBE_RADIUS = 1;
-const ORIGIN = new THREE.Vector3(0,0,0);
 
 var OrbitControls = require('three-orbit-controls')(THREE);
 var dat = require('dat-gui');
 
+var Globe = require('./globe');
 var GlobeData = require('./globe-data');
 var GlobeUtils = require('./globe-utils');
-var GlobeAnnotations = require('./globe-annotations');
-var GlobeControls = require('./globe-controls');
 
 // var THREE = require("three");
 
 var scene, camera, renderer, controls;
-var globeGeometry, globeMaterial, globeMesh;
-var glowGeometry, glowMaterial, glowMesh;
-
-var gui;
-var data;
-var annotations;
 
 init();
 
 // initialises scene
 function init() {
+
     window.addEventListener('resize', onWindowResize, false);
 
     var width = window.innerWidth;
 
     scene = new THREE.Scene();
+    scene.origin = new THREE.Vector3(0,0,0);
 
     camera = new THREE.PerspectiveCamera( 45, width / window.innerHeight, 0.01, 1000 );
     camera.position.z = GLOBE_RADIUS * 3;
@@ -52,46 +46,9 @@ function init() {
         directionalLight.position.copy(camera.position);
     });
 
-    var textureLoader = new THREE.TextureLoader();
-
-    var map = textureLoader.load('/img/earthSatTexture.jpg', function(texture) {
-        return texture;
-    });
-    var bump = textureLoader.load('/img/bump.jpg', function(texture) {
-        return texture;
-    });
-    var specular = textureLoader.load('/img/specular.png', function(texture) {
-        return texture;
-    });
-
-    globeGeometry = new THREE.SphereGeometry(GLOBE_RADIUS, 32, 32 );
-    globeMaterial = new THREE.MeshPhongMaterial({
-        map: map,
-        bumpMap: bump,
-        bumpScale: 0.015,
-        specularMap: specular,
-        specular: new THREE.Color('grey'),
-        shininess: 10
-    });
-
-    globeMesh = new THREE.Mesh( globeGeometry, globeMaterial );
-
-    glowGeometry = new THREE.SphereGeometry(GLOBE_RADIUS, 32, 32);
-    glowMaterial = new THREE.ShaderMaterial({
-            uniforms: {  },
-            vertexShader:   document.getElementById( 'glowVertexShader'   ).textContent,
-            fragmentShader: document.getElementById( 'glowFragmentShader' ).textContent,
-            side: THREE.BackSide,
-            blending: THREE.AdditiveBlending,
-            transparent: true
-    });
-
-    glowMesh = new THREE.Mesh( glowGeometry, glowMaterial );
-    var glowScale = GLOBE_RADIUS * 1.2;
-    glowMesh.scale.set(glowScale, glowScale, glowScale);
-    globeMesh.add( glowMesh );
-
-    scene.add( globeMesh );
+    var globe = new Globe(scene, 1);
+    var data = new GlobeData.rawDataSphereMesh(scene, 1.02, hadcrut4);
+    var annotations = new GlobeData.annotations(data);
 
     renderer = new THREE.WebGLRenderer({antialias:true});
     renderer.setSize( width, window.innerHeight );
@@ -102,20 +59,26 @@ function init() {
     // data = new GlobeData.indianMonsoonSeason(globeMesh);
     // data.play();
     
-    annotations = new GlobeAnnotations(globeMesh);
+    // annotations = new GlobeAnnotations(globeMesh);
     // press 'h' to show/hide gui
 
-    gui = new dat.GUI();
+    var gui = new dat.GUI();
+
 
     var obj = {
-        test : function() {
+        inc : function() {
             console.log("clicked");
-            GlobeUtils.tweenCameraToLatLon(camera, 30, -3);
-
-            annotations.add(50.71, -3.53, "A message");
+            data.increaseCDI();
+            // annotations.add(50.3,-3.3,"hello world");
+        },
+        dec : function() {
+            data.decreaseCDI();
         }
+
     };
-    gui.add(obj,'test');
+    var guiDataFolder = gui.addFolder('data');
+    guiDataFolder.add(obj,'inc');
+    guiDataFolder.add(obj,'dec');
 
     var guiCamFolder = gui.addFolder('camera');
     guiCamFolder.add(camera.position, 'x', -5, 5).listen();
@@ -128,14 +91,8 @@ function init() {
 // animates the scene
 function animate(time) {
 
+    scene.dispatchEvent({type:"animate", message: time});
     controls.update();
-
-    GlobeUtils.distanceBetween(camera.position, ORIGIN);
-    annotations.animate();
-    GlobeUtils.animate(time);
-
-    // data.animate();
-
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
 

@@ -9,6 +9,24 @@ var TWEEN = require('tween.js');
 module.exports = {
 
     /**
+     * Gets the xyz position of a given lat lon
+     * @param lat
+     * @param lng
+     * @param radius
+     * @returns {{x: number, y: number, z: number}}
+     */
+    xyzFromLatLng : function(lat, lng, radius) {
+        var phi = (90.0 - lat) * Math.PI / 180.0;
+        var theta = (360.0 - lng) * Math.PI / 180.0;
+
+        return {
+            x: radius * Math.sin(phi) * Math.cos(theta),
+            y: radius * Math.cos(phi),
+            z: radius * Math.sin(phi) * Math.sin(theta)
+        };
+    },
+
+    /**
      * Converts a Lat/Lon to a Vector3 above a sphere's surface
      * @param lat - latitude
      * @param lon - longitude

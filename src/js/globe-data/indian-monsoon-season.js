@@ -34,8 +34,7 @@ module.exports = function(globe) {
     var dataScale = GLOBE_RADIUS * 1.002;
     self.dataMesh.scale.set(dataScale, dataScale, dataScale);
     self.globe.add( self.dataMesh );
-
-
+    
     return {
 
         play : function() {
