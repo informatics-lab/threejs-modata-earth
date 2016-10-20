@@ -1,5 +1,10 @@
 .idea
 build
 node_modules
-img
 threejs-modata-earth.iml
+
+#ignore big movie files
+**/*.webm
+**/*.ogg
+**/*.wmv
+**/*.mp4
