@@ -7,7 +7,7 @@ input[type=range]:focus {
 }
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
-  height: 1.4px;
+  height: 4px;
   cursor: pointer;
   //animate: 0.2s;
   box-shadow: none;
@@ -31,6 +31,7 @@ input[type=range]::-webkit-slider-thumb {
   cursor: pointer;
   -webkit-appearance: none;
   margin-top: -14px;
+  z-index: 1;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
   background: #ffffff;

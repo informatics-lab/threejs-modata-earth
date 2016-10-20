@@ -113,6 +113,11 @@ module.exports = function(scene, radius, data) {
         slider.setAttribute('class', 'slider');
 
         document.getElementById('controls').appendChild( slider );
+
+        slider.addEventListener('input', function(evt){
+
+            console.log('slidey!')
+        });
     }
 
     /**
