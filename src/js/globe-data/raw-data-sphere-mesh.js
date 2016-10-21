@@ -2,7 +2,7 @@
  * Created by tom on 17/10/2016.
  */
 var GlobeUtils = require('../globe-utils');
-
+var DataControls = require('./data-controls');
 
 // data must be in the format :
 // {
@@ -23,7 +23,6 @@ module.exports = function(scene, radius, data) {
     self.scene = scene;
     self.radius = radius;
     self.data = data;
-    var cdi = 0;
 
     var faceOffsetDegrees = 0.125;
     var faceWidth = 180 / data.num_lat;
@@ -105,21 +104,6 @@ module.exports = function(scene, radius, data) {
         return mesh;
     };
 
-    function controls() {
-        var slider = document.createElement('input');
-        slider.id = "year";
-        slider.type = 'range';
-        slider.value = 90;
-        slider.setAttribute('class', 'slider');
-
-        document.getElementById('controls').appendChild( slider );
-
-        slider.addEventListener('input', function(evt){
-
-            console.log('slidey!')
-        });
-    }
-
     /**
      * Sets the mesh to the specified data
      * @param dataSet
@@ -149,11 +133,10 @@ module.exports = function(scene, radius, data) {
 
     self.dataMesh = getSphereDataMesh();
     self.scene.add(self.dataMesh);
+    self.controls = new DataControls(self.data, setMeshToDataSet);
 
     //init the data mesh to the first data set
-    setMeshToDataSet(self.data.datas[cdi].data);
-
-    controls();
+    setMeshToDataSet(self.data.datas[self.controls.getControlIndex()].data);
 
     self.scene.addEventListener("animate", function(evt){
 
@@ -166,24 +149,14 @@ module.exports = function(scene, radius, data) {
         origin : self.scene.origin,
 
         increaseCDI : function() {
-            if(cdi < self.data.datas.length) {
-                cdi++;
-                setMeshToDataSet(self.data.datas[cdi].data);
+            if(self.controls.getControlIndex() < self.data.datas.length) {
+                self.controls.setControls(self.controls.getControlIndex() + 1);
             }
         },
         decreaseCDI : function() {
-            if(cdi > 0) {
-                cdi--;
-                setMeshToDataSet(self.data.datas[cdi].data);
-            }
-        },
-        setCDI : function(i) {
-            if(i <= self.data.datas.length && i >= 0 && i != cdi) {
-                cdi = i;
-                setMeshToDataSet(self.data.datas[cdi].data);
+            if(self.controls.getControlIndex() > 0) {
+                self.controls.setControls(self.controls.getControlIndex() - 1);
             }
         }
-
-
     }
 };

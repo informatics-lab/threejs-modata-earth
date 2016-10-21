@@ -15,14 +15,11 @@ body {
 
   #content {
     position: relative;
-    z-index: -1;
 
     #logo {
       position: absolute;
       height:90px;
     }
-
-
 
   }
 
@@ -31,21 +28,32 @@ body {
     top:0;
     left:0;
     z-index: 1;
+    color: white;
 
     .slider {
       position: absolute;
       z-index: 1;
     }
 
-    #year {
+    #controlSlider {
       width: 70vh;
       transform: rotate(90deg);
       top: 50vh;
-      left: -25vh;
+      left: -30vh;
+    }
+
+    span {
+      float:left;
+    }
+
+    #majorControlText {
+      font-size:32px;
+    }
+
+    #minorControlText {
+      font-size: 10px;
     }
 
   }
-
-
 
 }

@@ -11,7 +11,7 @@
     <!--<img id="logo" src="img/met-office-logo.svg" alt="Met Office Logo" />-->
 </div>
 <div id="controls">
-
+    <input class="slider" id="controlSlider" type="range" />
 </div>
 
 <!-- ---------------- Custom Shader Code ------------------------ -->
@@ -22,9 +22,8 @@ void main()
     vNormal = normalize( normalMatrix * normal );
     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }
-
-
 </script>
+
 <script id="glowFragmentShader" type="x-shader/x-vertex">
 varying vec3 vNormal;
 void main()
@@ -32,8 +31,6 @@ void main()
 	float intensity = pow( 0.7 - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) ), 4.0 );
     gl_FragColor = vec4( 0.57, 0.80, 0.04, 1.0 ) * intensity;
 }
-
-
 </script>
 
 
@@ -80,6 +77,7 @@ void main()
         vUv = uv;
       }
 </script>
+
 <script id="cloudFragmentShader" type="x-shader/x-fragment">
       uniform sampler2D textureClouds;
       uniform float edgeFade;
