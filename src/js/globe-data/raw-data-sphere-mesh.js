@@ -149,13 +149,15 @@ module.exports = function(scene, radius, data) {
         origin : self.scene.origin,
 
         increaseCDI : function() {
-            if(self.controls.getControlIndex() < self.data.datas.length) {
-                self.controls.setControls(self.controls.getControlIndex() + 1);
+            if(self.controls.getControlIndex() < self.data.datas.length-1) {
+                var val = Number(self.controls.getControlIndex());
+                self.controls.setControls(val+1);
             }
         },
         decreaseCDI : function() {
             if(self.controls.getControlIndex() > 0) {
-                self.controls.setControls(self.controls.getControlIndex() - 1);
+                var val = Number(self.controls.getControlIndex());
+                self.controls.setControls(val-1);
             }
         }
     }

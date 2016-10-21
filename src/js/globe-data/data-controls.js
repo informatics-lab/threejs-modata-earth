@@ -67,7 +67,7 @@ module.exports = function (data, updateDataFnc) {
         },
 
         setControls: function (i) {
-            if(i <= data.datas.length && i >= 0 && i != self.cdi) {
+            if(i <= data.datas.length-1 && i >= 0 && i != self.cdi) {
                 self.cdi = i;
                 controls.value = i;
                 var datum = data.datas[i];
