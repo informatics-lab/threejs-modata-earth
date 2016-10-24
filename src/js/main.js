@@ -2,11 +2,9 @@
 const GLOBE_RADIUS = 1;
 
 var OrbitControls = require('three-orbit-controls')(THREE);
-var dat = require('dat-gui');
 
 var Globe = require('./globe');
 var GlobeData = require('./globe-data');
-var GlobeUtils = require('./globe-utils');
 
 // var THREE = require("three");
 
@@ -52,44 +50,11 @@ function init() {
         directionalLight.position.copy(camera.position);
     });
 
-
-
     var globe = new Globe(scene, 1);
-    var data = new GlobeData.rawDataSphereMesh(scene, 1.02, hadcrut4);
-    var annotations = new GlobeData.annotations(data);
 
 
-
-    // data = new GlobeData.indianMonsoonSeason(globeMesh);
-    // data.play();
-    
-    // annotations = new GlobeAnnotations(globeMesh);
-    // press 'h' to show/hide gui
-
-    var gui = new dat.GUI();
-
-
-    var obj = {
-        inc : function() {
-            data.increaseCDI();
-        },
-        dec : function() {
-            data.decreaseCDI();
-        },
-        annotate : function() {
-            annotations.add(50.3,-3.3,"hello world");
-        }
-
-    };
-    var guiDataFolder = gui.addFolder('data');
-    guiDataFolder.add(obj,'inc');
-    guiDataFolder.add(obj,'dec');
-    guiDataFolder.add(obj,'annotate');
-
-    var guiCamFolder = gui.addFolder('camera');
-    guiCamFolder.add(camera.position, 'x', -5, 5).listen();
-    guiCamFolder.add(camera.position, 'y', -5, 5).listen();
-    guiCamFolder.add(camera.position, 'z', -5, 5).listen();
+    data = new GlobeData.indianMonsoonSeason(scene, 1.01);
+    data.play();
 
     animate();
 }
@@ -99,9 +64,9 @@ function animate(time) {
 
     scene.dispatchEvent({type:"animate", message: time});
     controls.update();
+
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
-
 }
 
 function onWindowResize() {

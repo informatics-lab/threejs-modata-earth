@@ -1,25 +1,26 @@
 /**
  * Created by tom on 14/10/2016.
  */
-const GLOBE_RADIUS = 1;
 
-module.exports = function(globe) {
+module.exports = function(scene, radius) {
 
     var self = this;
-    self.globe = globe;
-    self.video = document.createElement('video');
-    self.video.src = "/img/monsoon.ogg";
-    self.video.loop = true;
-    self.video.load();
+    self.scene = scene;
 
-    self.dataTexture = new THREE.Texture(self.video);
-    self.dataTexture.minFilter = THREE.LinearFilter;
-    self.dataTexture.magFilter = THREE.LinearFilter;
+    var video = document.createElement('video');
+    video.src = "/data/monsoon.mp4";
+    video.loop = true;
+    video.load();
 
-    self.dataGeometry = new THREE.SphereGeometry(GLOBE_RADIUS, 64, 64);
-    self.dataMaterial = new THREE.ShaderMaterial({
+    var dataTexture = new THREE.Texture(video);
+    dataTexture.minFilter = THREE.NearestFilter;
+    dataTexture.magFilter = THREE.NearestFilter;
+    dataTexture.wrapS = THREE.ClampToEdgeWrapping;
+
+    var dataGeometry = new THREE.SphereGeometry(radius, 64, 64);
+    var dataMaterial = new THREE.ShaderMaterial({
         uniforms: {
-            'textureClouds': { type: 't', value: self.dataTexture },
+            'textureClouds': { type: 't', value: dataTexture },
             'height': { type: 'f', value: 0.0 },
             'edgeFade': { type: 'f', value: 0.0 }
         },
@@ -30,24 +31,31 @@ module.exports = function(globe) {
         transparent: true
     });
 
-    self.dataMesh = new THREE.Mesh( self.dataGeometry, self.dataMaterial );
-    var dataScale = GLOBE_RADIUS * 1.002;
-    self.dataMesh.scale.set(dataScale, dataScale, dataScale);
-    self.globe.add( self.dataMesh );
+    // var dataMaterial = new THREE.MeshPhongMaterial({
+    //     map:dataTexture,
+    //     transparent: true,
+    //     opacity: 0.6,
+    //     side: THREE.bothSides
+    //
+    // });
+
+
+
+    var dataMesh = new THREE.Mesh(dataGeometry, dataMaterial);
+
+    self.scene.add(dataMesh );
+
+    scene.addEventListener("animate", function(){
+        dataTexture.needsUpdate = true;
+    });
     
     return {
-
         play : function() {
-            self.video.play();
+            video.play();
         },
 
         stop : function() {
-            self.video.stop();
-        },
-
-        animate : function() {
-            self.dataTexture.needsUpdate = true;
+            video.stop();
         }
-
     };
 };
