@@ -1,9 +1,9 @@
-$font-stack:    Helvetica, sans-serif;
+@import "range.scss";
+@import "font_emeric.scss";
+
+$font-stack:    "Emeric", sans-serif;
 $primary-color: #333;
 $brand-color: #93cd0b;
-
-@import "range.scss";
-
 
 body {
   font: 100% $font-stack;

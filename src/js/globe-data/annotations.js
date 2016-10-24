@@ -32,7 +32,7 @@ module.exports = function(globeData) {
         if ( parameters === undefined ) parameters = {};
 
         var fontface = parameters.hasOwnProperty("fontface") ?
-            parameters["fontface"] : "Arial";
+            parameters["fontface"] : "Emeric";
 
         var fontsize = parameters.hasOwnProperty("fontsize") ?
             parameters["fontsize"] : 18;
