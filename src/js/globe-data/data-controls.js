@@ -1,3 +1,5 @@
+const DATA_PLAY_SPEED = 1000/2;
+
 module.exports = function (data, updateDataFnc) {
 
     var self = this;
@@ -6,7 +8,7 @@ module.exports = function (data, updateDataFnc) {
 
     var playPause = document.getElementById('controlPlayPause');
     playPause.addEventListener('click', function(evt){
-        console.log("play/pause")
+        console.log("play/pause");
         if(self.playing) {
             pause();
         } else {
@@ -49,7 +51,7 @@ module.exports = function (data, updateDataFnc) {
         var controlTop = controlCentrePos - (controlLength/2);
         var controlLeft = Number(controlCss.left.substring(0, controlCss.left.length - 2));
         var controlStep = controlLength / controls.max;
-        var newTopPos = (controls.value * controlStep) + controlTop - (controls.value*4);
+        var newTopPos = (controls.value * controlStep) + controlTop - (controls.value* (4/controls.max));
         var newLeftPos = 10 + (Math.abs(controlLength/controlLeft)/windowHeight) * 800;
         controlTextContainer.setAttribute("style", "position:absolute; top:"+newTopPos+"px; left:"+newLeftPos+"vh;");
     }
@@ -80,7 +82,7 @@ module.exports = function (data, updateDataFnc) {
             } else {
                 setControls(0);
             }
-        }, 1000);
+        }, DATA_PLAY_SPEED);
         self.playing = true;
     };
 
