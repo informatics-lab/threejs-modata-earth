@@ -2,6 +2,17 @@ module.exports = function (data, updateDataFnc) {
 
     var self = this;
     self.cdi = 0;
+    self.playing = false;
+
+    var playPause = document.getElementById('controlPlayPause');
+    playPause.addEventListener('click', function(evt){
+        console.log("play/pause")
+        if(self.playing) {
+            pause();
+        } else {
+            play();
+        }
+    });
 
     var controls = document.getElementById('controlSlider');
     controls.value = self.cdi;
@@ -25,11 +36,7 @@ module.exports = function (data, updateDataFnc) {
     controlTextContainer.appendChild(minorControlText);
 
     controls.addEventListener('input', function(evt) {
-        self.cdi = controls.value;
-        var datum = data.datas[controls.value];
-        updateDataFnc(datum.data);
-        setControlTextPos();
-        setControlTextContent(datum.date_time);
+        setControls(controls.value);
     });
 
     window.addEventListener('resize', setControlTextPos, false);
@@ -55,6 +62,34 @@ module.exports = function (data, updateDataFnc) {
         minorControlText.innerHTML = mnth;
     }
 
+    function setControls(i) {
+        if(i <= data.datas.length-1 && i >= 0 && i != self.cdi) {
+            self.cdi = i;
+            controls.value = i;
+            var datum = data.datas[i];
+            updateDataFnc(datum.data);
+            setControlTextPos();
+            setControlTextContent(datum.date_time);
+        }
+    }
+
+    function play() {
+        self.loop = setInterval(function() {
+            if(self.cdi < data.datas.length-1) {
+                setControls(Number(self.cdi)+1);
+            } else {
+                setControls(0);
+            }
+        }, 1000);
+        self.playing = true;
+    };
+
+    function pause() {
+        clearInterval(self.loop);
+        self.playing = false;
+    }
+
+    //init
     setControlTextPos();
     setControlTextContent(data.datas[self.cdi].date_time);
 
@@ -67,14 +102,7 @@ module.exports = function (data, updateDataFnc) {
         },
 
         setControls: function (i) {
-            if(i <= data.datas.length-1 && i >= 0 && i != self.cdi) {
-                self.cdi = i;
-                controls.value = i;
-                var datum = data.datas[i];
-                updateDataFnc(datum.data);
-                setControlTextPos();
-                setControlTextContent(datum.date_time);
-            }
+            setControls(i);
         }
 
     };

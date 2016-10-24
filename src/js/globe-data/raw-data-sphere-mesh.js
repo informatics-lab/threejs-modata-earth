@@ -14,7 +14,7 @@ var DataControls = require('./data-controls');
 //      start_date_time :
 //      datas : [ { date_time : UTC , data: [] }, ... ]
 // }
-
+//
 // Some of the ideas here are inspired by Callum Prentice's work.
 // See http://callumprentice.github.io/apps/global_temperature_change_webgl/index.html
 module.exports = function(scene, radius, data) {
