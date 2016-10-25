@@ -52,7 +52,7 @@ gulp.task('build:js', function () {
     });
 
     return b.bundle()
-        .pipe(source('app.min.js'))
+        .pipe(source('app.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         // Add transformation tasks to the pipeline here.
