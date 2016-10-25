@@ -118,7 +118,7 @@ module.exports = function(scene, radius, data, dataAnnotations) {
 
         self.dataMesh.children.forEach(function(sf, i) {
 
-            var datum = dataSet[i];
+            var datum = dataSet.data[i];
             sf.material.opacity = dataOpacity;
 
             //if no data
@@ -140,13 +140,13 @@ module.exports = function(scene, radius, data, dataAnnotations) {
     self.dataMesh = getSphereDataMesh();
     self.scene.add(self.dataMesh);
     self.controls = new DataControls(self.data, setMeshToDataSet);
-    self.annotations = new Annotations(self.dataMesh, self.dataAnnotations);
+    self.annotations = new Annotations(self, self.dataAnnotations);
 
     //init the data mesh to the first data set
-    setMeshToDataSet(self.data.datas[self.controls.getControlIndex()].data);
+    setMeshToDataSet(self.data.datas[self.controls.getControlIndex()]);
 
     self.scene.addEventListener("animate", function(evt){
-
+        self.dataMesh.dispatchEvent({type:"animate", message: evt.time});
     });
 
     return {

@@ -54,8 +54,8 @@ function init() {
 
 
 
-    var globe = new Globe(scene, 1);
-    var data = new GlobeData.rawDataSphereMesh(scene, 1.02, hadcrut4);
+    var globe = new Globe(scene, GLOBE_RADIUS);
+    var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS*1.02, hadcrut4, hadcrut4_annotations);
     var annotations = new GlobeData.annotations(data);
 
 

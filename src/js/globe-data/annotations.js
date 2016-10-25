@@ -5,12 +5,15 @@ const ORIGIN = new THREE.Vector3(0,0,0);
 
 var GlobeUtils = require('../globe-utils');
 
-module.exports = function(globeDataMesh, dataAnnotations) {
+module.exports = function(globeData, dataAnnotations) {
 
     var self = this;
-    self.globeDataMesh = globeDataMesh;
+    self.globeData = globeData;
     self.dataAnnotations = dataAnnotations;
     self.activeAnnotations = [];
+    var annotationsList = document.createElement("ul");
+    annotationsList.id = "annotations";
+    document.getElementById("content").appendChild(annotationsList);
 
     function addPointer() {
         var pointerMaterial = new THREE.LineBasicMaterial({
@@ -116,29 +119,47 @@ module.exports = function(globeDataMesh, dataAnnotations) {
         spotMesh.lookAt(self.globeData.origin);
         return spotMesh;
     }
+
+    function getAnnotationLine(){}
+
+    function addAnnotationText(annotation){
+        var annotationDOM = document.createElement("p");
+        annotationDOM.innerHTML = annotation.annotation;
+        annotationDOM.id = annotation.id;
+        annotationsList.appendChild(annotationDOM);
+    }
+
+    function removeAnnotationText(annotation){
+        var annotationDOM = document.getElementById(annotation.id);
+        annotationsList.removeChild(annotationDOM);
+    }
     
-    function addAnnotation(lat, lon, message) {
+    function addAnnotation(annotation) {
+        if(annotation.location){
+            var annotationOrigin = GlobeUtils.xyzFromLatLng(annotation.location.lat,
+                                                            annotation.location.lon,
+                                                            (self.globeData.radius * 1.01));
+            var wrapper = new THREE.Object3D();
+            var ringSize = self.globeData.radius / 10;
+            var annotationRing = getAnnotationRing(annotationOrigin, ringSize);
+            var annotationSpot = getAnnotationSpot(annotationOrigin, ringSize/3);
+            // var annotationLine = getAnnotationLine();
 
-        var annotationOrigin = GlobeUtils.xyzFromLatLng(lat,lon, (self.globeData.radius * 1.01));
+            wrapper.add(annotationRing);
+            wrapper.add(annotationSpot);
+            // wrapper.add(annotationLine);
 
-        var annotation = new THREE.Object3D();
-        var ringSize = self.globeData.radius / 10;
-        var annotationRing = getAnnotationRing(annotationOrigin, ringSize);
-        var annotationSpot = getAnnotationSpot(annotationOrigin, ringSize/3);
+            self.globeData.mesh.add(wrapper);
+        }
 
-        var spritey = makeTextSprite( " World! ",
-            { fontsize: 32, fontface: "Georgia", borderColor: {r:0, g:0, b:255, a:1.0} } );
-        spritey.position.set(annotationOrigin.x, annotationOrigin.y, annotationOrigin.z);
-        annotation.add( spritey );
+        addAnnotationText(annotation);
 
-        annotation.add(annotationRing);
-        annotation.add(annotationSpot);
-        self.globeData.mesh.add(annotation);
+        self.activeAnnotations.push(annotation);
     }
 
     function activateAnnotations(year) {
         self.dataAnnotations.forEach(function(annotation) {
-            if(annotation.start-year == year) {
+            if(annotation.start_year == year) {
                 addAnnotation(annotation);
             }
         });
@@ -146,11 +167,15 @@ module.exports = function(globeDataMesh, dataAnnotations) {
 
     function deactivateAnnotations(year) {
         self.activeAnnotations.forEach(function(annotation){
-            if(annotation.end-year == year) {
+            if(annotation.end_year == year) {
                 removeAnnotation(annotation);
             }
         })
     }
+
+    // self.globeData.mesh.addEventListener("animate", function(evt){
+        //
+    // });
 
     return {
 
@@ -158,7 +183,7 @@ module.exports = function(globeDataMesh, dataAnnotations) {
             var dateTime = new Date(dataSet.date_time);
             var yr = dateTime.getFullYear();
             activateAnnotations(yr);
-            deactivateAnnotations(yr);
+            // deactivateAnnotations(yr);
         },
 
         add : function(lat, lon, msg) {

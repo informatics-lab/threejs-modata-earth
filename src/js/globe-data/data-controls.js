@@ -71,7 +71,7 @@ module.exports = function (data, updateDataFnc) {
             self.cdi = i;
             controls.value = i;
             var datum = data.datas[i];
-            updateDataFnc(datum.data);
+            updateDataFnc(datum);
             setControlTextPos();
             setControlTextContent(datum.date_time);
         }
