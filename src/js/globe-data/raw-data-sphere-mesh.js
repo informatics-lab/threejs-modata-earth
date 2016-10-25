@@ -24,6 +24,7 @@ module.exports = function(scene, radius, data, dataAnnotations) {
     self.scene = scene;
     self.radius = radius;
     self.data = data;
+    self.dataPoints = [];
     self.dataAnnotations = dataAnnotations;
 
     var faceOffsetDegrees = 0.125;
@@ -99,7 +100,9 @@ module.exports = function(scene, radius, data, dataAnnotations) {
 
         for(var y = startY; y < 90; y += faceHeight) {
             for (var x = startX; x < 180; x += faceWidth) {
-                mesh.add(getSphereFaceBufferGeometry(y,x));
+                var sphereFace = getSphereFaceBufferGeometry(y,x)
+                mesh.add(sphereFace);
+                self.dataPoints.push(sphereFace);
             }
         }
 
@@ -116,7 +119,7 @@ module.exports = function(scene, radius, data, dataAnnotations) {
             self.annotations.update(dataSet);
         }
 
-        self.dataMesh.children.forEach(function(sf, i) {
+        self.dataPoints.forEach(function(sf, i) {
 
             var datum = dataSet.data[i];
             sf.material.opacity = dataOpacity;

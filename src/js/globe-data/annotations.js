@@ -99,7 +99,7 @@ module.exports = function(globeData, dataAnnotations) {
         var ringMesh = new THREE.LineSegments( ringGeometry, ringMaterial );
 
         ringMesh.position.set(origin.x, origin.y, origin.z);
-        ringMesh.lookAt(self.globeData.origin);
+        ringMesh.lookAt(self.globeData.scene.origin);
         return ringMesh;
     }
     
@@ -116,7 +116,7 @@ module.exports = function(globeData, dataAnnotations) {
         var spotMesh = new THREE.Mesh( spotGeometry, spotMaterial );
 
         spotMesh.position.set(origin.x, origin.y, origin.z);
-        spotMesh.lookAt(self.globeData.origin);
+        spotMesh.lookAt(self.globeData.scene.origin);
         return spotMesh;
     }
 
@@ -149,7 +149,7 @@ module.exports = function(globeData, dataAnnotations) {
             wrapper.add(annotationSpot);
             // wrapper.add(annotationLine);
 
-            self.globeData.mesh.add(wrapper);
+            self.globeData.dataMesh.add(wrapper);
         }
 
         addAnnotationText(annotation);
@@ -157,9 +157,18 @@ module.exports = function(globeData, dataAnnotations) {
         self.activeAnnotations.push(annotation);
     }
 
+    function removeAnnotation(annotation) {
+        // if(annotation.location){
+
+        // }
+        removeAnnotationText(annotation);
+        self.activeAnnotations = self.activeAnnotations.filter(function(el){return el.id != annotation.id});
+    }
+
     function activateAnnotations(year) {
+        var activeIds = self.activeAnnotations.map(function(el){return el.id});
         self.dataAnnotations.forEach(function(annotation) {
-            if(annotation.start_year == year) {
+            if(annotation.start_year <= year && year < annotation.end_year && activeIds.indexOf(annotation.id) == -1) {
                 addAnnotation(annotation);
             }
         });
@@ -167,7 +176,7 @@ module.exports = function(globeData, dataAnnotations) {
 
     function deactivateAnnotations(year) {
         self.activeAnnotations.forEach(function(annotation){
-            if(annotation.end_year == year) {
+            if(year < annotation.start_year || year >= annotation.end_year) {
                 removeAnnotation(annotation);
             }
         })
@@ -183,7 +192,7 @@ module.exports = function(globeData, dataAnnotations) {
             var dateTime = new Date(dataSet.date_time);
             var yr = dateTime.getFullYear();
             activateAnnotations(yr);
-            // deactivateAnnotations(yr);
+            deactivateAnnotations(yr);
         },
 
         add : function(lat, lon, msg) {
