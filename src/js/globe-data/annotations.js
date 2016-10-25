@@ -5,11 +5,12 @@ const ORIGIN = new THREE.Vector3(0,0,0);
 
 var GlobeUtils = require('../globe-utils');
 
-module.exports = function(globeData, dataAnnotations) {
+module.exports = function(globeData, dataAnnotations, camera) {
     var self = this;
     self.globeData = globeData;
     self.dataAnnotations = dataAnnotations;
     self.activeAnnotations = [];
+    self.camera = camera;
     var annotationsList = document.createElement("ul");
     annotationsList.id = "annotations";
     document.getElementById("content").appendChild(annotationsList);
@@ -119,13 +120,29 @@ module.exports = function(globeData, dataAnnotations) {
         return spotMesh;
     }
 
-    function getAnnotationLine(){}
+    function getAnnotationLine(origin, annotationDOM){
+        var geometry = new THREE.Geometry();
+        geometry.vertices.push(new THREE.Vector3(origin.x, origin.y, origin.z));
+        var DOMpos = annotationDOM.getBoundingClientRect();
+        var vector = new THREE.Vector3( DOMpos.left, DOMpos.bottom, -1 ).unproject( self.camera );
+
+        geometry.vertices.push(vector);
+
+        var material = new THREE.LineBasicMaterial({
+            color: 0xffffff
+        });
+
+        var line = new THREE.Line(geometry, material);
+
+        return line;
+    }
 
     function addAnnotationText(annotation){
         var annotationDOM = document.createElement("p");
         annotationDOM.innerHTML = annotation.annotation;
         annotationDOM.id = annotation.id;
         annotationsList.appendChild(annotationDOM);
+        return annotationDOM;
     }
 
     function removeAnnotationText(annotation){
@@ -134,6 +151,7 @@ module.exports = function(globeData, dataAnnotations) {
     }
     
     function addAnnotation(annotation) {
+        var annotationDOM = addAnnotationText(annotation);
         if(annotation.location){
             var annotationOrigin = GlobeUtils.xyzFromLatLng(annotation.location.lat,
                                                             annotation.location.lon,
@@ -142,17 +160,15 @@ module.exports = function(globeData, dataAnnotations) {
             var ringSize = self.globeData.radius / 10;
             var annotationRing = getAnnotationRing(annotationOrigin, ringSize);
             var annotationSpot = getAnnotationSpot(annotationOrigin, ringSize/3);
-            // var annotationLine = getAnnotationLine();
+            var annotationLine = getAnnotationLine(annotationOrigin, annotationDOM);
 
             wrapper.add(annotationRing);
             wrapper.add(annotationSpot);
+            wrapper.add(annotationLine);
             wrapper.name = annotation.id;
-            // wrapper.add(annotationLine);
 
             self.globeData.dataMesh.add(wrapper);
         }
-
-        addAnnotationText(annotation);
 
         self.activeAnnotations.push(annotation);
     }

@@ -18,7 +18,7 @@ var Annotations = require('./annotations');
 //
 // Some of the ideas here are inspired by Callum Prentice's work.
 // See http://callumprentice.github.io/apps/global_temperature_change_webgl/index.html
-module.exports = function(scene, radius, data, dataAnnotations) {
+module.exports = function(scene, radius, data, dataAnnotations, camera) {
 
     var self = this;
     self.scene = scene;
@@ -26,6 +26,7 @@ module.exports = function(scene, radius, data, dataAnnotations) {
     self.data = data;
     self.dataPoints = [];
     self.dataAnnotations = dataAnnotations;
+    self.camera = camera;
 
     var faceOffsetDegrees = 0.125;
     var faceWidth = 180 / data.num_lat;
@@ -143,7 +144,7 @@ module.exports = function(scene, radius, data, dataAnnotations) {
     self.dataMesh = getSphereDataMesh();
     self.scene.add(self.dataMesh);
     self.controls = new DataControls(self.data, setMeshToDataSet);
-    self.annotations = new Annotations(self, self.dataAnnotations);
+    self.annotations = new Annotations(self, self.dataAnnotations, self.camera);
 
     //init the data mesh to the first data set
     setMeshToDataSet(self.data.datas[self.controls.getControlIndex()]);
