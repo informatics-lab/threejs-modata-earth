@@ -1,5 +1,6 @@
 var hadcrut4_annotations = [
-   {  "id": 0,
+   {
+      "id": 0,
       "start_year":1850,
       "end_year":1851,
       "annotation":"The HadCRUT4 dataset begins: Temperature data are now available from enough monitoring stations to reliably construct the global average temperature at the Earth's surface."

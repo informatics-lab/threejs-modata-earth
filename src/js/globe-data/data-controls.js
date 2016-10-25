@@ -43,17 +43,14 @@ module.exports = function (data, updateDataFnc) {
 
     window.addEventListener('resize', setControlTextPos, false);
 
-    //TODO fix this
     function setControlTextPos() {
         var windowHeight = window.innerHeight;
         var controlCss = window.getComputedStyle(controls);
-        var controlLength = Number(controlCss.width.substring(0, controlCss.width.length - 2)) - 5;
+        var controlLength = Number(controlCss.width.substring(0, controlCss.width.length - 2));
         var controlCentrePos = Number(controlCss.top.substring(0, controlCss.top.length - 2));
-        var controlTop = controlCentrePos - (controlLength/2);
+        var controlTop = (controlCentrePos - (controlLength/2)) / windowHeight;
         var controlLeft = Number(controlCss.left.substring(0, controlCss.left.length - 2));
-        var controlStep = controlLength / controls.max;
-        // var newTopPos = (controls.value * controlStep) + controlTop - (controls.value* (2/controls.max));
-        var newTopPos = (controls.value * controlStep * 0.9) + controlTop;
+        var newTopPos = ((((controlLength-40)/windowHeight) * (controls.value/controls.max)) + controlTop) * 100;
         var newLeftPos = 10 + (Math.abs(controlLength/controlLeft)/windowHeight) * 800;
         controlTextContainer.setAttribute("style", "position:absolute; top:"+newTopPos+"vh; left:"+newLeftPos+"vh;");
     }
