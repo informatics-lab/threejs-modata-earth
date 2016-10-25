@@ -6,7 +6,6 @@ const ORIGIN = new THREE.Vector3(0,0,0);
 var GlobeUtils = require('../globe-utils');
 
 module.exports = function(globeData, dataAnnotations) {
-
     var self = this;
     self.globeData = globeData;
     self.dataAnnotations = dataAnnotations;
@@ -147,6 +146,7 @@ module.exports = function(globeData, dataAnnotations) {
 
             wrapper.add(annotationRing);
             wrapper.add(annotationSpot);
+            wrapper.name = annotation.id;
             // wrapper.add(annotationLine);
 
             self.globeData.dataMesh.add(wrapper);
@@ -158,9 +158,10 @@ module.exports = function(globeData, dataAnnotations) {
     }
 
     function removeAnnotation(annotation) {
-        // if(annotation.location){
-
-        // }
+        if(annotation.location){
+            var thisObj = self.globeData.dataMesh.getObjectByName(annotation.id);
+            self.globeData.dataMesh.remove(thisObj);
+        }
         removeAnnotationText(annotation);
         self.activeAnnotations = self.activeAnnotations.filter(function(el){return el.id != annotation.id});
     }

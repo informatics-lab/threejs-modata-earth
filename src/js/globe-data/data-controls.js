@@ -1,4 +1,4 @@
-const DATA_PLAY_SPEED = 1000/2;
+const DATA_PLAY_SPEED = 1000/16;
 
 module.exports = function (data, updateDataFnc) {
 
