@@ -59,11 +59,6 @@ function init() {
     var annotations = new GlobeData.annotations(data);
 
 
-
-    // data = new GlobeData.indianMonsoonSeason(globeMesh);
-    // data.play();
-    
-    // annotations = new GlobeAnnotations(globeMesh);
     // press 'h' to show/hide gui
 
     var gui = new dat.GUI();

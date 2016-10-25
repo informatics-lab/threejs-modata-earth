@@ -5,11 +5,12 @@ const ORIGIN = new THREE.Vector3(0,0,0);
 
 var GlobeUtils = require('../globe-utils');
 
-module.exports = function(globeData) {
+module.exports = function(globeDataMesh, dataAnnotations) {
 
     var self = this;
-    self.globeData = globeData;
-    self.list = [];
+    self.globeDataMesh = globeDataMesh;
+    self.dataAnnotations = dataAnnotations;
+    self.activeAnnotations = [];
 
     function addPointer() {
         var pointerMaterial = new THREE.LineBasicMaterial({
@@ -135,7 +136,30 @@ module.exports = function(globeData) {
         self.globeData.mesh.add(annotation);
     }
 
+    function activateAnnotations(year) {
+        self.dataAnnotations.forEach(function(annotation) {
+            if(annotation.start-year == year) {
+                addAnnotation(annotation);
+            }
+        });
+    }
+
+    function deactivateAnnotations(year) {
+        self.activeAnnotations.forEach(function(annotation){
+            if(annotation.end-year == year) {
+                removeAnnotation(annotation);
+            }
+        })
+    }
+
     return {
+
+        update: function(dataSet) {
+            var dateTime = new Date(dataSet.date_time);
+            var yr = dateTime.getFullYear();
+            activateAnnotations(yr);
+            deactivateAnnotations(yr);
+        },
 
         add : function(lat, lon, msg) {
             addAnnotation(lat, lon, msg);

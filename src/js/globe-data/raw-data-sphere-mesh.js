@@ -3,6 +3,7 @@
  */
 var GlobeUtils = require('../globe-utils');
 var DataControls = require('./data-controls');
+var Annotations = require('./annotations');
 
 // data must be in the format :
 // {
@@ -17,12 +18,13 @@ var DataControls = require('./data-controls');
 //
 // Some of the ideas here are inspired by Callum Prentice's work.
 // See http://callumprentice.github.io/apps/global_temperature_change_webgl/index.html
-module.exports = function(scene, radius, data) {
+module.exports = function(scene, radius, data, dataAnnotations) {
 
     var self = this;
     self.scene = scene;
     self.radius = radius;
     self.data = data;
+    self.dataAnnotations = dataAnnotations;
 
     var faceOffsetDegrees = 0.125;
     var faceWidth = 180 / data.num_lat;
@@ -110,6 +112,10 @@ module.exports = function(scene, radius, data) {
      */
     function setMeshToDataSet(dataSet) {
 
+        if(self.dataAnnotations) {
+            self.annotations.update(dataSet);
+        }
+
         self.dataMesh.children.forEach(function(sf, i) {
 
             var datum = dataSet[i];
@@ -134,6 +140,7 @@ module.exports = function(scene, radius, data) {
     self.dataMesh = getSphereDataMesh();
     self.scene.add(self.dataMesh);
     self.controls = new DataControls(self.data, setMeshToDataSet);
+    self.annotations = new Annotations(self.dataMesh, self.dataAnnotations);
 
     //init the data mesh to the first data set
     setMeshToDataSet(self.data.datas[self.controls.getControlIndex()].data);
