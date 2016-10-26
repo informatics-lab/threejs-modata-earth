@@ -63,6 +63,30 @@ body {
       padding-left:6px;
     }
 
-  }
+    #controlPlayPause.pause {
+      background: url("/img/play_normal.svg");
+      &:hover{
+        background: url("/img/play_roll.svg");
+      }
+    }
+    
 
+    #controlPlayPause.play {
+      background: url("/img/pause_normal.svg");
+      &:hover{
+        background: url("/img/pause_roll.svg");
+      }
+    }
+
+    #controlPlayPause {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      left: 1.2vw;
+      top: 8vh;
+    }
+  }
 }

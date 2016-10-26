@@ -83,11 +83,15 @@ module.exports = function (data, updateDataFnc) {
             }
         }, DATA_PLAY_SPEED);
         self.playing = true;
+        var button = document.getElementById("controlPlayPause");
+        button.setAttribute("class", "play");
     };
 
     function pause() {
         clearInterval(self.loop);
         self.playing = false;
+        var button = document.getElementById("controlPlayPause");
+        button.setAttribute("class", "pause");
     }
 
     //init

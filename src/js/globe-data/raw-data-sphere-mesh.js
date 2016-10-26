@@ -5,6 +5,8 @@ var GlobeUtils = require('../globe-utils');
 var DataControls = require('./data-controls');
 var Annotations = require('./annotations');
 
+const SATURATION_CALIBRATION = 6;
+
 // data must be in the format :
 // {
 //      num_lat : 36,
@@ -131,9 +133,9 @@ module.exports = function(scene, radius, data, dataAnnotations, camera) {
             } else {
                 //set color of sphere face
                 if (datum > 0) {
-                    sf.material.color.setHSL(0.0, (datum / (self.data.max/4)), 0.5);
+                    sf.material.color.setHSL(0.0, (datum / (self.data.max/SATURATION_CALIBRATION)), 0.5);
                 } else {
-                    sf.material.color.setHSL(240.0 / 360.0, Math.abs(datum / (self.data.min/4)), 0.5);
+                    sf.material.color.setHSL(240.0 / 360.0, Math.abs(datum / (self.data.min/SATURATION_CALIBRATION)), 0.5);
                 }
             }
 
