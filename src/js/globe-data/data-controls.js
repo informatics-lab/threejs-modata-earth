@@ -1,4 +1,4 @@
-const DATA_PLAY_SPEED = 1000/2;
+const DATA_PLAY_SPEED = 1000/16;
 
 module.exports = function (data, updateDataFnc) {
 
@@ -46,14 +46,13 @@ module.exports = function (data, updateDataFnc) {
     function setControlTextPos() {
         var windowHeight = window.innerHeight;
         var controlCss = window.getComputedStyle(controls);
-        var controlLength = Number(controlCss.width.substring(0, controlCss.width.length - 2)) - 5;
+        var controlLength = Number(controlCss.width.substring(0, controlCss.width.length - 2));
         var controlCentrePos = Number(controlCss.top.substring(0, controlCss.top.length - 2));
-        var controlTop = controlCentrePos - (controlLength/2);
+        var controlTop = (controlCentrePos - (controlLength/2)) / windowHeight - 0.01; // magic number to align middle not top of DOM
         var controlLeft = Number(controlCss.left.substring(0, controlCss.left.length - 2));
-        var controlStep = controlLength / controls.max;
-        var newTopPos = (controls.value * controlStep) + controlTop - (controls.value* (4/controls.max));
+        var newTopPos = ((((controlLength-20)/windowHeight) * (controls.value/controls.max)) + controlTop) * 100; // magic number adjusts travel speed
         var newLeftPos = 10 + (Math.abs(controlLength/controlLeft)/windowHeight) * 800;
-        controlTextContainer.setAttribute("style", "position:absolute; top:"+newTopPos+"px; left:"+newLeftPos+"vh;");
+        controlTextContainer.setAttribute("style", "position:absolute; top:"+newTopPos+"vh; left:"+newLeftPos+"vh;");
     }
 
     function setControlTextContent(dt) {
@@ -69,7 +68,7 @@ module.exports = function (data, updateDataFnc) {
             self.cdi = i;
             controls.value = i;
             var datum = data.datas[i];
-            updateDataFnc(datum.data);
+            updateDataFnc(datum);
             setControlTextPos();
             setControlTextContent(datum.date_time);
         }
@@ -84,11 +83,15 @@ module.exports = function (data, updateDataFnc) {
             }
         }, DATA_PLAY_SPEED);
         self.playing = true;
+        var button = document.getElementById("controlPlayPause");
+        button.setAttribute("class", "play");
     };
 
     function pause() {
         clearInterval(self.loop);
         self.playing = false;
+        var button = document.getElementById("controlPlayPause");
+        button.setAttribute("class", "pause");
     }
 
     //init

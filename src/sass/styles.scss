@@ -1,7 +1,7 @@
 @import "range.scss";
 @import "font_emeric.scss";
 
-$font-stack:    "Emeric", sans-serif;
+$font-stack: "Emeric", sans-serif;
 $primary-color: #333;
 $brand-color: #93cd0b;
 
@@ -18,15 +18,39 @@ body {
 
     #logo {
       position: absolute;
-      height:90px;
+      height: 50px;
     }
 
+    h2 {
+      position: absolute;
+      top: 25px;
+      left: 57px;
+      font-weight: normal;
+      color: white;
+      font-size: 20px;
+    }
+
+    #annotations {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20vw;
+      color: white;
+
+      p {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        opacity: 0;
+        transition: opacity 1s ease;
+        -webkit-transition: opacity 1s ease;
+      }
+    }
   }
 
   #controls {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     z-index: 1;
     color: white;
 
@@ -36,25 +60,48 @@ body {
     }
 
     #controlSlider {
-      width: 70vh;
+      width: 60vh;
       transform: rotate(90deg);
-      top: 50vh;
-      left: -30vh;
+      top: 60vh;
+      left: -25vh;
     }
 
     span {
-      float:left;
+      float: left;
     }
 
     #majorControlText {
-      font-size:32px;
+      font-size: 32px;
     }
 
     #minorControlText {
       font-size: 11px;
-      padding-left:6px;
+      padding-left: 6px;
     }
 
-  }
+    #controlPlayPause.pause {
+      background: url("/img/play_normal.svg");
+      &:hover {
+        background: url("/img/play_roll.svg");
+      }
+    }
 
+    #controlPlayPause.play {
+      background: url("/img/pause_normal.svg");
+      &:hover {
+        background: url("/img/pause_roll.svg");
+      }
+    }
+
+    #controlPlayPause {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      left: 2vh;
+      top: 18vh;
+    }
+  }
 }

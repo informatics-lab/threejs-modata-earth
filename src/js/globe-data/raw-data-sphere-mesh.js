@@ -3,28 +3,35 @@
  */
 var GlobeUtils = require('../globe-utils');
 var DataControls = require('./data-controls');
+var Annotations = require('./annotations');
+
+const SATURATION_CALIBRATION = 6;
 
 // data must be in the format :
 // {
 //      num_lat : 36,
 //      num_lng : 72,
 //      mdi : missing data indicator
-//      max : ,
-//      min : ,
+//      max : 20.6,
+//      min : -21.6,
 //      start_date_time :
 //      datas : [ { date_time : UTC , data: [] }, ... ]
 // }
 //
 // Some of the ideas here are inspired by Callum Prentice's work.
 // See http://callumprentice.github.io/apps/global_temperature_change_webgl/index.html
-module.exports = function(scene, radius, data) {
+module.exports = function(scene, radius, data, dataAnnotations, camera) {
 
     var self = this;
     self.scene = scene;
     self.radius = radius;
     self.data = data;
+    self.dataPoints = [];
+    self.dataAnnotations = dataAnnotations;
+    self.camera = camera;
 
-    var faceOffsetDegrees = 0.125;
+    // var faceOffsetDegrees = 0.125;
+    var faceOffsetDegrees = 0.05;
     var faceWidth = 180 / data.num_lat;
     var faceHeight = 360 / data.num_lng;
     var dataOpacity  = 0.6;
@@ -97,7 +104,9 @@ module.exports = function(scene, radius, data) {
 
         for(var y = startY; y < 90; y += faceHeight) {
             for (var x = startX; x < 180; x += faceWidth) {
-                mesh.add(getSphereFaceBufferGeometry(y,x));
+                var sphereFace = getSphereFaceBufferGeometry(y,x)
+                mesh.add(sphereFace);
+                self.dataPoints.push(sphereFace);
             }
         }
 
@@ -110,9 +119,13 @@ module.exports = function(scene, radius, data) {
      */
     function setMeshToDataSet(dataSet) {
 
-        self.dataMesh.children.forEach(function(sf, i) {
+        if(self.dataAnnotations) {
+            self.annotations.update(dataSet);
+        }
 
-            var datum = dataSet[i];
+        self.dataPoints.forEach(function(sf, i) {
+
+            var datum = dataSet.data[i];
             sf.material.opacity = dataOpacity;
 
             //if no data
@@ -121,9 +134,9 @@ module.exports = function(scene, radius, data) {
             } else {
                 //set color of sphere face
                 if (datum > 0) {
-                    sf.material.color.setHSL(0.0, (datum / (self.data.max/4)), 0.5);
+                    sf.material.color.setHSL(0.0, (datum / (self.data.max/SATURATION_CALIBRATION)), 0.5);
                 } else {
-                    sf.material.color.setHSL(240.0 / 360.0, Math.abs(datum / (self.data.min/4)), 0.5);
+                    sf.material.color.setHSL(240.0 / 360.0, Math.abs(datum / (self.data.min/SATURATION_CALIBRATION)), 0.5);
                 }
             }
 
@@ -134,12 +147,13 @@ module.exports = function(scene, radius, data) {
     self.dataMesh = getSphereDataMesh();
     self.scene.add(self.dataMesh);
     self.controls = new DataControls(self.data, setMeshToDataSet);
+    self.annotations = new Annotations(self, self.dataAnnotations, self.camera);
 
     //init the data mesh to the first data set
-    setMeshToDataSet(self.data.datas[self.controls.getControlIndex()].data);
+    setMeshToDataSet(self.data.datas[self.controls.getControlIndex()]);
 
     self.scene.addEventListener("animate", function(evt){
-
+        self.dataMesh.dispatchEvent({type:"animate", message: evt.time});
     });
 
     return {
