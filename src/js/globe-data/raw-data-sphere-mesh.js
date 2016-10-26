@@ -4,6 +4,7 @@
 var GlobeUtils = require('../globe-utils');
 var DataControls = require('./data-controls');
 var Annotations = require('./annotations');
+var Chart = require('./chart');
 
 const SATURATION_CALIBRATION = 6;
 
@@ -122,6 +123,11 @@ module.exports = function(scene, radius, data, dataAnnotations) {
             self.annotations.update(dataSet);
         }
 
+        if(self.chart) {
+            self.chart.setCO2(dataSet.co2);
+            self.chart.setTemp(dataSet.temp);
+        }
+
         self.dataPoints.forEach(function(sf, i) {
 
             var datum = dataSet.data[i];
@@ -147,6 +153,7 @@ module.exports = function(scene, radius, data, dataAnnotations) {
     self.scene.add(self.dataMesh);
     self.controls = new DataControls(self.data, setMeshToDataSet);
     self.annotations = new Annotations(self.dataMesh, self.radius * 1.01, self.dataAnnotations);
+    self.chart = new Chart();
 
     //init the data mesh to the first data set
     setMeshToDataSet(self.data.datas[self.controls.getControlIndex()]);

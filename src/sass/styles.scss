@@ -13,6 +13,13 @@ body {
   letter-spacing: normal;
   position: relative;
 
+  #chart {
+     position: absolute;
+     color: white;  
+     left: 90%;
+     top: 90%;
+  }
+
   #content {
     position: relative;
 
