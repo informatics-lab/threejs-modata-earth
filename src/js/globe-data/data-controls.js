@@ -48,9 +48,9 @@ module.exports = function (data, updateDataFnc) {
         var controlCss = window.getComputedStyle(controls);
         var controlLength = Number(controlCss.width.substring(0, controlCss.width.length - 2));
         var controlCentrePos = Number(controlCss.top.substring(0, controlCss.top.length - 2));
-        var controlTop = (controlCentrePos - (controlLength/2)) / windowHeight;
+        var controlTop = (controlCentrePos - (controlLength/2)) / windowHeight - 0.01; // magic number to align middle not top of DOM
         var controlLeft = Number(controlCss.left.substring(0, controlCss.left.length - 2));
-        var newTopPos = ((((controlLength-40)/windowHeight) * (controls.value/controls.max)) + controlTop) * 100;
+        var newTopPos = ((((controlLength-20)/windowHeight) * (controls.value/controls.max)) + controlTop) * 100; // magic number adjusts travel speed
         var newLeftPos = 10 + (Math.abs(controlLength/controlLeft)/windowHeight) * 800;
         controlTextContainer.setAttribute("style", "position:absolute; top:"+newTopPos+"vh; left:"+newLeftPos+"vh;");
     }

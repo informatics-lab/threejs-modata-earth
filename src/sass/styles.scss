@@ -18,8 +18,17 @@ body {
 
     #logo {
       position: absolute;
-      height:90px;
+      height:50px;
     }
+  
+  h2 {
+    position: absolute;
+    top: 25px;
+    left: 57px;
+    font-weight: normal;
+    color: white;
+    font-size: 20px;
+  }
 
    #annotations {
     position: absolute;
@@ -44,10 +53,10 @@ body {
     }
 
     #controlSlider {
-      width: 70vh;
+      width: 60vh;
       transform: rotate(90deg);
-      top: 50vh;
-      left: -30vh;
+      top: 60vh;
+      left: -25vh;
     }
 
     span {
@@ -83,10 +92,10 @@ body {
       outline: none;
       cursor: pointer;
       position: absolute;
-      width: 40px;
-      height: 40px;
-      left: 1.2vw;
-      top: 8vh;
+      width: 50px;
+      height: 50px;
+      left: 2vh;
+      top: 18vh;
     }
   }
 }
