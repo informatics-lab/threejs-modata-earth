@@ -1,20 +1,17 @@
-
-
-const GLOBE_RADIUS = 1;
-const ORIGIN = new THREE.Vector3(0,0,0);
-
 var GlobeUtils = require('../globe-utils');
 
-module.exports = function(globeData, dataAnnotations, camera) {
+module.exports = function(globeDataMesh, radius, dataAnnotations) {
+
     var self = this;
-    self.globeData = globeData;
+    self.globeDataMesh = globeDataMesh;
+
+    self.radius = radius;
     self.dataAnnotations = dataAnnotations;
     self.activeAnnotations = [];
-    self.camera = camera;
+
     var annotationsList = document.createElement("ul");
     annotationsList.id = "annotations";
     document.getElementById("content").appendChild(annotationsList);
-
 
     function getAnnotationRing(origin, size) {
         var ringMaterial = new THREE.LineDashedMaterial({
@@ -29,7 +26,7 @@ module.exports = function(globeData, dataAnnotations, camera) {
         var ringMesh = new THREE.LineSegments( ringGeometry, ringMaterial );
 
         ringMesh.position.set(origin.x, origin.y, origin.z);
-        ringMesh.lookAt(self.globeData.scene.origin);
+        ringMesh.lookAt(self.globeDataMesh.parent.origin);
         ringMesh.name = "ring";
 
         return ringMesh;
@@ -48,7 +45,7 @@ module.exports = function(globeData, dataAnnotations, camera) {
         var spotMesh = new THREE.Mesh( spotGeometry, spotMaterial );
 
         spotMesh.position.set(origin.x, origin.y, origin.z);
-        spotMesh.lookAt(self.globeData.scene.origin);
+        spotMesh.lookAt(self.globeDataMesh.parent.origin);
         return spotMesh;
     }
 
@@ -76,9 +73,9 @@ module.exports = function(globeData, dataAnnotations, camera) {
         if(annotation.location){
             var annotationOrigin = GlobeUtils.xyzFromLatLng(annotation.location.lat,
                                                             annotation.location.lon,
-                                                            (self.globeData.radius * 1.01));
+                                                            self.radius);
             var wrapper = new THREE.Object3D();
-            var ringSize = self.globeData.radius / 10;
+            var ringSize = self.radius / 10;
             var annotationRing = getAnnotationRing(annotationOrigin, ringSize);
             var annotationSpot = getAnnotationSpot(annotationOrigin, ringSize/3);
 
@@ -87,7 +84,7 @@ module.exports = function(globeData, dataAnnotations, camera) {
             wrapper.name = annotation.id;
 
             annotation.wrapper = wrapper;
-            self.globeData.dataMesh.add(wrapper);
+            self.globeDataMesh.add(wrapper);
         }
 
         self.activeAnnotations.push(annotation);
@@ -95,8 +92,8 @@ module.exports = function(globeData, dataAnnotations, camera) {
 
     function removeAnnotation(annotation) {
         if(annotation.location){
-            var thisObj = self.globeData.dataMesh.getObjectByName(annotation.id);
-            self.globeData.dataMesh.remove(thisObj);
+            var thisObj = self.globeDataMesh.getObjectByName(annotation.id);
+            self.globeDataMesh.remove(thisObj);
         }
         removeAnnotationText(annotation);
         self.activeAnnotations = self.activeAnnotations.filter(function(el){return el.id != annotation.id});
@@ -119,11 +116,14 @@ module.exports = function(globeData, dataAnnotations, camera) {
         })
     }
 
-    // self.globeData.dataMesh.addEventListener("animate", function(evt){
-    //     self.activeAnnotations.forEach(function(annotation) {
-    //         annotation.wrapper.getChildByName("ring").rotateZ();
-    //     }) ;
-    // });
+    self.globeDataMesh.addEventListener('animate', function(){
+       self.activeAnnotations.forEach(function(annotation){
+          if (annotation.wrapper) {
+              var ring = annotation.wrapper.getObjectByName('ring');
+              ring.rotateZ(0.03);
+          }
+       });
+    });
 
     return {
         update: function(dataSet) {

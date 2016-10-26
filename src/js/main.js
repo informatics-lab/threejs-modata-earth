@@ -52,11 +52,8 @@ function init() {
         directionalLight.position.copy(camera.position);
     });
 
-
-
     var globe = new Globe(scene, GLOBE_RADIUS);
-    var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS*1.02, hadcrut4, hadcrut4_annotations, camera);
-    var annotations = new GlobeData.annotations(data);
+    var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS*1.02, hadcrut4, hadcrut4_annotations);
 
 
     // press 'h' to show/hide gui
@@ -65,21 +62,17 @@ function init() {
 
 
     var obj = {
-        inc : function() {
+        incDataIndex : function() {
             data.increaseCDI();
         },
-        dec : function() {
+        decDataIndex : function() {
             data.decreaseCDI();
-        },
-        annotate : function() {
-            annotations.add(50.3,-3.3,"hello world");
         }
 
     };
     var guiDataFolder = gui.addFolder('data');
-    guiDataFolder.add(obj,'inc');
-    guiDataFolder.add(obj,'dec');
-    guiDataFolder.add(obj,'annotate');
+    guiDataFolder.add(obj,'incDataIndex');
+    guiDataFolder.add(obj,'decDataIndex');
 
     var guiCamFolder = gui.addFolder('camera');
     guiCamFolder.add(camera.position, 'x', -5, 5).listen();
