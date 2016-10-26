@@ -4,7 +4,7 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
 
     var self = this;
     self.globeDataMesh = globeDataMesh;
-    
+
     self.radius = radius;
     self.dataAnnotations = dataAnnotations;
     self.activeAnnotations = [];
@@ -116,7 +116,14 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
         })
     }
 
-
+    self.globeDataMesh.addEventListener('animate', function(){
+       self.activeAnnotations.forEach(function(annotation){
+          if (annotation.wrapper) {
+              var ring = annotation.wrapper.getObjectByName('ring');
+              ring.rotateZ(0.03);
+          }
+       });
+    });
 
     return {
         update: function(dataSet) {
