@@ -59,7 +59,7 @@ function init() {
     // press 'h' to show/hide gui
 
     var gui = new dat.GUI();
-
+    dat.GUI.toggleHide();
 
     var obj = {
         incDataIndex : function() {
