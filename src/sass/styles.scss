@@ -36,6 +36,13 @@ body {
     right: 0;
     width: 20vw;
     color: white;
+
+    p {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
   }
 
   }

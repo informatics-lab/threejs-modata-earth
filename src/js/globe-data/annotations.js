@@ -74,12 +74,15 @@ module.exports = function(globeData, dataAnnotations, camera) {
         annotationDOM.innerHTML = annotation.annotation;
         annotationDOM.id = annotation.id;
         annotationsList.appendChild(annotationDOM);
+        annotationDOM.style.opacity = 1;
+
         return annotationDOM;
     }
 
     function removeAnnotationText(annotation){
         var annotationDOM = document.getElementById(annotation.id);
-        annotationsList.removeChild(annotationDOM);
+        annotationDOM.style.opacity = 0;
+        setTimeout(function(){annotationsList.removeChild(annotationDOM)}, 1000);
     }
     
     function addAnnotation(annotation) {
