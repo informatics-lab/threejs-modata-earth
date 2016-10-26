@@ -30,6 +30,8 @@ module.exports = function(globeData, dataAnnotations, camera) {
 
         ringMesh.position.set(origin.x, origin.y, origin.z);
         ringMesh.lookAt(self.globeData.scene.origin);
+        ringMesh.name = "ring";
+
         return ringMesh;
     }
     
@@ -50,39 +52,23 @@ module.exports = function(globeData, dataAnnotations, camera) {
         return spotMesh;
     }
 
-    function getAnnotationLine(origin, annotationDOM){
-        var geometry = new THREE.Geometry();
-        geometry.vertices.push(new THREE.Vector3(origin.x, origin.y, origin.z));
-
-        var annotationDOMpos = annotationDOM.getBoundingClientRect();
-
-
-        var vector = new THREE.Vector3( (annotationDOMpos.left/window.innerWidth)*2-1, -(annotationDOMpos.bottom/window.innerHeight)*2+1, -1).unproject( self.camera );
-        geometry.vertices.push(vector);
-
-        var material = new THREE.LineBasicMaterial({
-            color: 0xffffff
-        });
-
-        var line = new THREE.Line(geometry, material);
-
-        return line;
-    }
-
     function addAnnotationText(annotation){
         var annotationDOM = document.createElement("p");
         annotationDOM.innerHTML = annotation.annotation;
         annotationDOM.id = annotation.id;
         annotationsList.appendChild(annotationDOM);
-        annotationDOM.style.opacity = 1;
-
+        setTimeout(function() {
+            annotationDOM.style.opacity = 1;
+        },5);
         return annotationDOM;
     }
 
     function removeAnnotationText(annotation){
         var annotationDOM = document.getElementById(annotation.id);
         annotationDOM.style.opacity = 0;
-        setTimeout(function(){annotationsList.removeChild(annotationDOM)}, 1000);
+        setTimeout(function(){
+            annotationsList.removeChild(annotationDOM)
+        }, 500);
     }
     
     function addAnnotation(annotation) {
@@ -95,13 +81,12 @@ module.exports = function(globeData, dataAnnotations, camera) {
             var ringSize = self.globeData.radius / 10;
             var annotationRing = getAnnotationRing(annotationOrigin, ringSize);
             var annotationSpot = getAnnotationSpot(annotationOrigin, ringSize/3);
-            var annotationLine = getAnnotationLine(annotationOrigin, annotationDOM);
 
             wrapper.add(annotationRing);
             wrapper.add(annotationSpot);
-            wrapper.add(annotationLine);
             wrapper.name = annotation.id;
 
+            annotation.wrapper = wrapper;
             self.globeData.dataMesh.add(wrapper);
         }
 
@@ -134,27 +119,19 @@ module.exports = function(globeData, dataAnnotations, camera) {
         })
     }
 
-    // self.globeData.mesh.addEventListener("animate", function(evt){
-        //
+    // self.globeData.dataMesh.addEventListener("animate", function(evt){
+    //     self.activeAnnotations.forEach(function(annotation) {
+    //         annotation.wrapper.getChildByName("ring").rotateZ();
+    //     }) ;
     // });
 
     return {
-
         update: function(dataSet) {
             var dateTime = new Date(dataSet.date_time);
             var yr = dateTime.getFullYear();
             activateAnnotations(yr);
             deactivateAnnotations(yr);
-        },
-
-        add : function(lat, lon, msg) {
-            addAnnotation(lat, lon, msg);
-            self.list.push()
-        },
-
-        remove : function() {
-            //TODO
-        },
+        }
     }
 
 };

@@ -45,8 +45,8 @@ function init() {
     // controls.autoRotate = true;
     controls.minDistance = GLOBE_RADIUS * 2;
     controls.maxDistance = GLOBE_RADIUS * 3;
-    controls.minPolarAngle = (Math.PI / 10) * 2.5; // radians
-    controls.maxPolarAngle = (Math.PI / 10) * 6.5;
+    // controls.minPolarAngle = (Math.PI / 10) * 2.5; // radians
+    // controls.maxPolarAngle = (Math.PI / 10) * 6.5;
     
     controls.addEventListener('change', function(evt) {
         directionalLight.position.copy(camera.position);
@@ -55,7 +55,7 @@ function init() {
 
 
     var globe = new Globe(scene, GLOBE_RADIUS);
-    var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS*1.02, hadcrut4_1year_mean, hadcrut4_annotations, camera);
+    var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS*1.02, hadcrut4, hadcrut4_annotations, camera);
     var annotations = new GlobeData.annotations(data);
 
 

@@ -12,8 +12,8 @@ const SATURATION_CALIBRATION = 6;
 //      num_lat : 36,
 //      num_lng : 72,
 //      mdi : missing data indicator
-//      max : ,
-//      min : ,
+//      max : 20.6,
+//      min : -21.6,
 //      start_date_time :
 //      datas : [ { date_time : UTC , data: [] }, ... ]
 // }
@@ -30,7 +30,8 @@ module.exports = function(scene, radius, data, dataAnnotations, camera) {
     self.dataAnnotations = dataAnnotations;
     self.camera = camera;
 
-    var faceOffsetDegrees = 0.125;
+    // var faceOffsetDegrees = 0.125;
+    var faceOffsetDegrees = 0.05;
     var faceWidth = 180 / data.num_lat;
     var faceHeight = 360 / data.num_lng;
     var dataOpacity  = 0.6;
