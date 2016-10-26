@@ -56,7 +56,7 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
         annotationsList.appendChild(annotationDOM);
         setTimeout(function() {
             annotationDOM.style.opacity = 1;
-        },5);
+        }, 5);
         return annotationDOM;
     }
 
@@ -64,6 +64,7 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
         var annotationDOM = document.getElementById(annotation.id);
         annotationDOM.style.opacity = 0;
         setTimeout(function(){
+            var annotationDOM = document.getElementById(annotation.id);
             annotationsList.removeChild(annotationDOM)
         }, 500);
     }
