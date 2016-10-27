@@ -121,8 +121,8 @@ var hadcrut4_annotations = [
    },
    {
       "id": 16,
-      "start_year":1980,
-      "end_year":2017,
+      "start_year":1982,
+      "end_year":1984,
       "annotation":"Strong El Niño event and Eruption of El Chichón (March/April 1982) sort of cancel each other out",
       "location":{
          "lat":17.3604,
