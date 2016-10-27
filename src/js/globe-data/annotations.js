@@ -50,7 +50,7 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
     }
 
     function addAnnotationText(annotation){
-        var annotationDOM = document.createElement("p");
+        var annotationDOM = document.createElement("li");
         annotationDOM.innerHTML = annotation.annotation;
         annotationDOM.id = annotation.id;
         annotationsList.appendChild(annotationDOM);

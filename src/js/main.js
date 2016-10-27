@@ -1,8 +1,13 @@
+const MET_OFFICE = "Met Office";
+const INFORMATICS_LAB = "Informatics Lab";
+const APP_NAME = "HadCRUT4";
+
 const GLOBE_RADIUS = 1;
+
 
 var OrbitControls = require('three-orbit-controls')(THREE);
 var dat = require('dat-gui');
-var pace = require('pace-progress');
+// var pace = require('pace-progress');
 var rp = require('request-promise');
 
 
@@ -13,43 +18,45 @@ var GlobeData = require('./globe-data');
 
 var scene, camera, renderer, controls;
 
-pace.start({
-    ajax: false, // disabled
-    document: false, // disabled
-    eventLag: false, // disabled
-    elements: {
-        selectors: ['.ready']
-    }
-});
+// pace.start({
+//     ajax: false, // disabled
+//     document: false, // disabled
+//     eventLag: false, // disabled
+//     elements: {
+//         selectors: ['.ready']
+//     }
+// });
 init();
 
 // initialises scene
 function init() {
+
+    addAppTitle();
 
     window.addEventListener('resize', onWindowResize, false);
 
     var width = window.innerWidth;
 
     scene = new THREE.Scene();
-    scene.origin = new THREE.Vector3(0,0,0);
+    scene.origin = new THREE.Vector3(0, 0, 0);
 
-    camera = new THREE.PerspectiveCamera( 45, width / window.innerHeight, 0.01, 1000 );
+    camera = new THREE.PerspectiveCamera(45, width / window.innerHeight, 0.01, 1000);
     camera.position.z = GLOBE_RADIUS * 3;
 
-    var ambientLight = new THREE.AmbientLight( 0xffffff, 0.2); // soft white light
-    scene.add( ambientLight );
+    var ambientLight = new THREE.AmbientLight(0xffffff, 0.2); // soft white light
+    scene.add(ambientLight);
 
-    var directionalLight = new THREE.DirectionalLight( 0xbbbbbb, 0.8);
-    scene.add( directionalLight );
+    var directionalLight = new THREE.DirectionalLight(0xbbbbbb, 0.8);
+    scene.add(directionalLight);
     directionalLight.position.copy(camera.position);
 
-    renderer = new THREE.WebGLRenderer({antialias:true});
-    renderer.setSize( width, window.innerHeight );
-    renderer.setClearColor( 0x000000 );
+    renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(width, window.innerHeight);
+    renderer.setClearColor(0x000000);
 
-    document.getElementById('content').appendChild( renderer.domElement );
+    document.getElementById('content').appendChild(renderer.domElement);
 
-    controls = new OrbitControls( camera, renderer.domElement );
+    controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
     // controls.autoRotate = true;
     controls.minDistance = GLOBE_RADIUS * 2;
@@ -115,36 +122,43 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+/**
+ * Adds the title div to the app.
+ */
 function addAppTitle() {
-    var content = document.getElementById("content");
+
+    function addMOLogo(domElement) {
+        var moLogo = document.createElement('img');
+        moLogo.id = "moLogo";
+        moLogo.src = "img/met-office-logo.svg";
+        moLogo.alt = MET_OFFICE;
+        domElement.appendChild(moLogo)
+    }
+
+    function addInfoLabLogo(domElement) {
+        var infoLabLogo = document.createElement('h2');
+        infoLabLogo.id = "infoLabLogo";
+        infoLabLogo.innerHTML = INFORMATICS_LAB;
+        domElement.appendChild(infoLabLogo);
+    }
+
+    function addAppName(domElement) {
+        var appName = document.createElement('h1');
+        appName.id = "appName";
+        appName.innerHTML = APP_NAME;
+        domElement.appendChild(appName);
+    }
+
+    var app = document.getElementById("content");
 
     var titleDiv = document.createElement("div");
     titleDiv.id = "appTitle";
 
     addMOLogo(titleDiv);
+    addInfoLabLogo(titleDiv);
+    addAppName(titleDiv);
 
-    content.appendChild(titleDiv);
-
-    function addMOLogo(domElement) {
-        var moLogo = document.createElement('img');
-        moLogo.src = "img/met-office-logo.svg";
-        moLogo.alt = "Met Office";
-        domElement.appendChild(moLogo)
-    }
-
-    function addInfoLabLogo(domElement) {
-        var moLogo = document.createElement('img');
-        moLogo.src = "img/met-office-logo.svg";
-        moLogo.alt = "Met Office";
-        domElement.appendChild(moLogo)
-    }
-
-    function addAppName(domElement) {
-        var moLogo = document.createElement('img');
-        moLogo.src = "img/met-office-logo.svg";
-        moLogo.alt = "Met Office";
-        domElement.appendChild(moLogo)
-    }
+    app.appendChild(titleDiv);
 
 }
 
