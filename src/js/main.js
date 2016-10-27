@@ -114,3 +114,37 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
+
+function addAppTitle() {
+    var content = document.getElementById("content");
+
+    var titleDiv = document.createElement("div");
+    titleDiv.id = "appTitle";
+
+    addMOLogo(titleDiv);
+
+    content.appendChild(titleDiv);
+
+    function addMOLogo(domElement) {
+        var moLogo = document.createElement('img');
+        moLogo.src = "img/met-office-logo.svg";
+        moLogo.alt = "Met Office";
+        domElement.appendChild(moLogo)
+    }
+
+    function addInfoLabLogo(domElement) {
+        var moLogo = document.createElement('img');
+        moLogo.src = "img/met-office-logo.svg";
+        moLogo.alt = "Met Office";
+        domElement.appendChild(moLogo)
+    }
+
+    function addAppName(domElement) {
+        var moLogo = document.createElement('img');
+        moLogo.src = "img/met-office-logo.svg";
+        moLogo.alt = "Met Office";
+        domElement.appendChild(moLogo)
+    }
+
+}
+
