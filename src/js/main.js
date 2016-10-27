@@ -1,17 +1,26 @@
-
 const GLOBE_RADIUS = 1;
 
 var OrbitControls = require('three-orbit-controls')(THREE);
 var dat = require('dat-gui');
+var pace = require('pace-progress');
+var rp = require('request-promise');
+
 
 var Globe = require('./globe');
 var GlobeData = require('./globe-data');
-var GlobeUtils = require('./globe-utils');
 
 // var THREE = require("three");
 
 var scene, camera, renderer, controls;
 
+pace.start({
+    ajax: false, // disabled
+    document: false, // disabled
+    eventLag: false, // disabled
+    elements: {
+        selectors: ['.ready']
+    }
+});
 init();
 
 // initialises scene
@@ -47,48 +56,58 @@ function init() {
     controls.maxDistance = GLOBE_RADIUS * 3;
     // controls.minPolarAngle = (Math.PI / 10) * 2.5; // radians
     // controls.maxPolarAngle = (Math.PI / 10) * 6.5;
-    
-    controls.addEventListener('change', function(evt) {
+
+    controls.addEventListener('change', function (evt) {
         directionalLight.position.copy(camera.position);
     });
 
     var globe = new Globe(scene, GLOBE_RADIUS);
-    var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS*1.02, hadcrut4_1year_mean, hadcrut4_annotations);
 
-
-    // press 'h' to show/hide gui
-
-    var gui = new dat.GUI();
-    dat.GUI.toggleHide();
-
-    var obj = {
-        incDataIndex : function() {
-            data.increaseCDI();
-        },
-        decDataIndex : function() {
-            data.decreaseCDI();
-        }
-
+    var hadcrut4_opts = {
+        uri: document.location.origin + "/data/hadcrut.json",
+        json: true
     };
-    var guiDataFolder = gui.addFolder('data');
-    guiDataFolder.add(obj,'incDataIndex');
-    guiDataFolder.add(obj,'decDataIndex');
+    var hadcrut4_annotations_opts = {
+        uri: document.location.origin + "/data/hadcrut_annotations.json",
+        json: true
+    };
 
-    var guiCamFolder = gui.addFolder('camera');
-    guiCamFolder.add(camera.position, 'x', -5, 5).listen();
-    guiCamFolder.add(camera.position, 'y', -5, 5).listen();
-    guiCamFolder.add(camera.position, 'z', -5, 5).listen();
+    Promise.all([rp(hadcrut4_opts), rp(hadcrut4_annotations_opts)])
+        .then(function (arr) {
+            var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, arr[0], arr[1]);
 
-    animate();
+            var gui = new dat.GUI();
+            dat.GUI.toggleHide();
+
+            var obj = {
+                incDataIndex: function () {
+                    data.increaseCDI();
+                },
+                decDataIndex: function () {
+                    data.decreaseCDI();
+                }
+
+            };
+            var guiDataFolder = gui.addFolder('data');
+            guiDataFolder.add(obj, 'incDataIndex');
+            guiDataFolder.add(obj, 'decDataIndex');
+
+            var guiCamFolder = gui.addFolder('camera');
+            guiCamFolder.add(camera.position, 'x', -5, 5).listen();
+            guiCamFolder.add(camera.position, 'y', -5, 5).listen();
+            guiCamFolder.add(camera.position, 'z', -5, 5).listen();
+
+            animate();
+        });
 }
 
 // animates the scene
 function animate(time) {
 
-    scene.dispatchEvent({type:"animate", message: time});
+    scene.dispatchEvent({type: "animate", message: time});
     controls.update();
-    requestAnimationFrame( animate );
-    renderer.render( scene, camera );
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
 
 }
 
