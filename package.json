@@ -8,6 +8,9 @@
   "license": "GPLv3",
   "dependencies": {
     "dat-gui": "^0.5.0",
+    "pace-progress": "^1.0.2",
+    "request": "^2.76.0",
+    "request-promise": "^4.1.1",
     "three": "^0.80.1",
     "three-orbit-controls": "^72.0.0",
     "tween.js": "^16.3.5"

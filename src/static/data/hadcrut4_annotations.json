@@ -1,4 +1,4 @@
-var hadcrut4_annotations = [
+[
    {
       "id": 0,
       "start_year":1850,
@@ -205,4 +205,4 @@ var hadcrut4_annotations = [
       "end_year":2017,
       "annotation":"Every month of 2016 is the warmest on record globally. 2016 is likely to be the third consecutive year of record warmth."
    }
-];
+]
