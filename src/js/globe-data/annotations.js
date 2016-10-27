@@ -51,7 +51,7 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
 
     function addAnnotationText(annotation){
         var annotationDOM = document.createElement("li");
-        annotationDOM.innerHTML = annotation.annotation;
+        annotationDOM.innerHTML = "<h3>"+annotation.title+"</h3><p>"+annotation.annotation+"</p>";
         annotationDOM.id = annotation.id;
         annotationsList.appendChild(annotationDOM);
         setTimeout(function() {
@@ -66,7 +66,7 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
         setTimeout(function(){
             var annotationDOM = document.getElementById(annotation.id);
             annotationsList.removeChild(annotationDOM)
-        }, 500);
+        }, 1000);
     }
     
     function addAnnotation(annotation) {
@@ -102,6 +102,7 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
 
     function activateAnnotations(year) {
         var activeIds = self.activeAnnotations.map(function(el){return el.id});
+        console.log(dataAnnotations);
         self.dataAnnotations.forEach(function(annotation) {
             if(annotation.start_year <= year && year < annotation.end_year && activeIds.indexOf(annotation.id) == -1) {
                 addAnnotation(annotation);
