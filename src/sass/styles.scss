@@ -2,9 +2,11 @@ $font-stack: "Emeric", sans-serif;
 $primary-color: #333;
 $brand-color: #93cd0b;
 
-@import "pace-template.scss";
+@import "lib/pace-template";
+@import "lib/font_emeric";
+
 @import "range-slider.scss";
-@import "font_emeric.scss";
+
 
 body {
   font: 100% $font-stack;
