@@ -1,17 +1,27 @@
-module.exports = function() {
+module.exports = function(minco2, maxco2, mintemp, maxtemp) {
 
     var self = this;
 
+    var maxheight = 100;
+
+    var co2range = maxco2 - minco2;
     function updateCO2(val){
-        var bar = document.getElementById("co2");
-        bar.innerHTML = val;
-        var height = (val-285.0)*100;
+        var bar = document.querySelectorAll("#co2 .bar")[0];
+        bar.innerHTML = val.toPrecision(3);
+        var height = (val-minco2) / co2range * maxheight;
         bar.style.height = height+"px";
-        bar.style.top = (100 - height)+"px";
+        bar.style.top = (maxheight - height)+"px";
+        bar.style.backgroundColor = "rgba(255, 255, 255, "+height/100+")";
     };
 
+    var temprange = maxtemp - mintemp;
     function updateTemp(val){
-        document.getElementById("temp").innerHTML = val;
+        var bar = document.querySelectorAll("#temp .bar")[0];
+        bar.innerHTML = val.toPrecision(2);
+        var height = (val-mintemp) / temprange * maxheight;
+        bar.style.height = height+"px";
+        bar.style.top = (maxheight - height)+"px";
+        bar.style.opacity = height/100;
     };
 
     return {

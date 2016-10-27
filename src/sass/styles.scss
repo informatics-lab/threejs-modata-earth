@@ -17,23 +17,43 @@ body {
   #chart {
      position: absolute;
      color: white;
-     top: 60%;
-     left: 90%;
-     width: 150px;
+     bottom: 10%;
+     right: 5%;
+     width: 200px;
+     height: 300px;
 
      #co2 {
-      position: relative;
+      position: absolute;
       left: 0%;
+      width: 50%;
+      height: 100%;
      }
 
      #temp {
-      position: relative;
-      left: 50%;
+        position: absolute;
+        left: 50%;
+        width: 50%;
+        height: 100%;
      }
      
      .bar {
-         background-color: green;
-         width: 40px;
+        position: absolute;
+        background-color: green;
+        width: 5m;
+        margin: 0 auto;
+        text-align: center;
+        border-style: solid;
+        border-color: gray;
+        border-width: 2px;
+     }
+
+     .label {
+        position: absolute;
+        color: white;
+        width: 80%;
+        height: 10%;
+        bottom: 0%;
+        text-align: center;
      }
   }
 

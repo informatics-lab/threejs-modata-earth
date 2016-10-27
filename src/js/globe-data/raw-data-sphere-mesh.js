@@ -16,6 +16,11 @@ const SATURATION_CALIBRATION = 6;
 //      max : 20.6,
 //      min : -21.6,
 //      start_date_time :
+//      end_date_time:
+//      min_co2:
+//      max_co2:
+//      min_temp:
+//      max_temp:
 //      datas : [ { date_time : UTC , data: [] }, ... ]
 // }
 //
@@ -153,7 +158,7 @@ module.exports = function(scene, radius, data, dataAnnotations) {
     self.scene.add(self.dataMesh);
     self.controls = new DataControls(self.data, setMeshToDataSet);
     self.annotations = new Annotations(self.dataMesh, self.radius * 1.01, self.dataAnnotations);
-    self.chart = new Chart();
+    self.chart = new Chart(self.data.min_co2, self.data.max_co2, self.data.min_temp, self.data.max_temp);
 
     //init the data mesh to the first data set
     setMeshToDataSet(self.data.datas[self.controls.getControlIndex()]);
