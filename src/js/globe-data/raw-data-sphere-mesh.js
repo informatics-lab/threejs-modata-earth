@@ -125,7 +125,7 @@ module.exports = function(scene, radius, data, dataAnnotations) {
 
         if(self.chart) {
             self.chart.setCO2(dataSet.co2);
-            self.chart.setTemp(dataSet.temp);
+            self.chart.setTemp(dataSet.mean_temp);
         }
 
         self.dataPoints.forEach(function(sf, i) {
