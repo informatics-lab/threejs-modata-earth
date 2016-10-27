@@ -63,16 +63,16 @@ function init() {
 
     var globe = new Globe(scene, GLOBE_RADIUS);
 
-    var hadcrut4_opts = {
-        uri: document.location.origin + "/data/hadcrut.json",
+    var hadcrut4_1year_mean_opts = {
+        uri: document.location.origin + "/data/hadcrut4_1year_mean.json",
         json: true
     };
     var hadcrut4_annotations_opts = {
-        uri: document.location.origin + "/data/hadcrut_annotations.json",
+        uri: document.location.origin + "/data/hadcrut4_annotations.json",
         json: true
     };
 
-    Promise.all([rp(hadcrut4_opts), rp(hadcrut4_annotations_opts)])
+    Promise.all([rp(hadcrut4_1year_mean_opts), rp(hadcrut4_annotations_opts)])
         .then(function (arr) {
             var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, arr[0], arr[1]);
 
@@ -103,12 +103,10 @@ function init() {
 
 // animates the scene
 function animate(time) {
-
     scene.dispatchEvent({type: "animate", message: time});
     controls.update();
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
-
 }
 
 function onWindowResize() {
