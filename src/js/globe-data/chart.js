@@ -5,7 +5,9 @@ module.exports = function() {
     function updateCO2(val){
         var bar = document.getElementById("co2");
         bar.innerHTML = val;
-        bar.height = val-285.0;
+        var height = (val-285.0)*100;
+        bar.style.height = height+"px";
+        bar.style.top = (100 - height)+"px";
     };
 
     function updateTemp(val){

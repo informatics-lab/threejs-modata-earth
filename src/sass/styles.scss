@@ -18,10 +18,27 @@ body {
 
   #chart {
      position: absolute;
-     color: white;  
+     color: white;
+     top: 60%;
      left: 90%;
-     top: 90%;
+     width: 150px;
+
+     #co2 {
+      position: relative;
+      left: 0%;
+     }
+
+     #temp {
+      position: relative;
+      left: 50%;
+     }
+     
+     .bar {
+         background-color: green;
+         width: 40px;
+     }
   }
+
 
   #content {
     position: relative;
