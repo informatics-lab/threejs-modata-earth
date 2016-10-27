@@ -1,17 +1,66 @@
-module.exports = function() {
+module.exports = function(minco2, maxco2, mintemp, maxtemp) {
 
     var self = this;
 
+    var maxheight = 100;
+    var co2range = maxco2 - minco2;
+    var temprange = maxtemp - mintemp;
+
+    function initChart() {
+
+        function getBarChart(id, labelHTML) {
+            var barChart = document.createElement('div');
+            barChart.id = id;
+            barChart.setAttribute("class","barChart");
+
+            var bar = document.createElement('div');
+            bar.setAttribute("class", "barChartBar");
+
+            var label = document.createElement('span');
+            label.setAttribute("class", "barChartLabel");
+            label.innerHTML = labelHTML;
+
+            barChart.appendChild(bar);
+            barChart.appendChild(label);
+
+            return barChart;
+        }
+
+        var chart = document.createElement('div');
+        chart.id = "chart";
+
+        var co2Chart = getBarChart("co2BarChart", "CO<sub>2</sub> (ppm)");
+        chart.appendChild(co2Chart);
+
+        var tempChart = getBarChart("tempBarChart", "Temp anomaly (K)");
+        chart.appendChild(tempChart);
+
+        var app = document.getElementById('content');
+        app.appendChild(chart);
+    }
+    initChart();
+
     function updateCO2(val){
-        var bar = document.getElementById("co2");
-        bar.innerHTML = val;
-        var height = (val-285.0)*100;
+        var bar = document.querySelectorAll("#co2BarChart .barChartBar")[0];
+        bar.innerHTML = val.toPrecision(3);
+        var height = (val-minco2) / co2range * maxheight;
         bar.style.height = height+"px";
-        bar.style.top = (100 - height)+"px";
+        bar.style.opacity = height/100;
     };
 
     function updateTemp(val){
-        document.getElementById("temp").innerHTML = val;
+        var bar = document.querySelectorAll("#tempBarChart .barChartBar")[0];
+        bar.innerHTML = val.toPrecision(2);
+        var height = (val-mintemp) / temprange * maxheight;
+
+        if(val < 0 ) {
+            bar.style.backgroundColor = "#0000FF";
+        } else {
+            bar.style.backgroundColor = "#FF0000";
+        }
+
+        bar.style.height = height+"px";
+        bar.style.opacity = height/100;
     };
 
     return {
