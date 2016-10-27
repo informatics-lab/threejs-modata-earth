@@ -1,0 +1,75 @@
+/*
+ * Styles for the #controls div
+ */
+
+@import "mo-style-variables";
+@import "range-slider.scss";
+
+#controls {
+  position:absolute;
+  top:80px;
+  left:20px;
+  marign:0;
+  padding:0;
+
+  #dataSlider {
+    position:absolute;
+    top:70px;
+    left:20px;
+
+    #slider {
+      position:absolute;
+      --width : calc(80vh - 150px);
+      --halfWidth : calc(var(--width)/2);
+      top: var(--halfWidth);
+      left: calc(-1 * var(--halfWidth));
+      width: var(--width);
+      transform: rotate(90deg);
+    }
+
+    #sliderText {
+      position:absolute;
+      left:40px;
+
+      #majorSliderText {
+        color:$core-white;
+        font-size: 32px;
+        float:left;
+      }
+
+      #minorSliderText {
+        color:$core-white;
+        font-size:12px;
+        float:left;
+      }
+
+    }
+
+  }
+
+  #playPauseButton {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  #playPauseButton.pause {
+    background: url("/img/play_normal.svg");
+    &:hover {
+      background: url("/img/play_roll.svg");
+    }
+  }
+
+  #playPauseButton.play {
+    background: url("/img/pause_normal.svg");
+    &:hover {
+      background: url("/img/pause_roll.svg");
+    }
+  }
+
+}

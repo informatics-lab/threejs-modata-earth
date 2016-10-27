@@ -1,145 +1,25 @@
-$font-stack: "Emeric", sans-serif;
-$primary-color: #333;
-$brand-color: #93cd0b;
+/*
+ * Main style sheet - everything is loaded into this one :)
+ */
 
 @import "lib/pace-template";
 @import "lib/font_emeric";
-
-@import "range-slider.scss";
-
+@import "mo-style-variables";
 
 body {
   font: 100% $font-stack;
-  color: $primary-color;
-  background-color: black;
-  word-spacing: normal;
-  letter-spacing: normal;
-  position: relative;
-
-  #chart {
-     position: absolute;
-     color: white;
-     top: 60%;
-     left: 90%;
-     width: 150px;
-
-     #co2 {
-      position: relative;
-      left: 0%;
-     }
-
-     #temp {
-      position: relative;
-      left: 50%;
-     }
-     
-     .bar {
-         background-color: green;
-         width: 40px;
-     }
-  }
-
+  background-color: $core-black;
+  padding: 0;
+  margin: 0;
 
   #content {
     position: relative;
-
-    #logo {
-      position: absolute;
-      height: 50px;
-    }
-
-    h1 {
-      display: inline;
-      position: absolute;
-      text-align: center;
-      color: white;
-      margin-left: 30%;
-      margin-right: 30%;
-      margin-top: -1px;
-      font-weight: normal;
-    }
-
-    #informaticslab {
-      position: absolute;
-      top: 25px;
-      left: 57px;
-      font-weight: normal;
-      color: white;
-      font-size: 20px;
-    }
-
-    #annotations {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 20vw;
-      color: white;
-
-      p {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        opacity: 0;
-        transition: opacity 1s ease;
-        -webkit-transition: opacity 1s ease;
-      }
-    }
-  }
-
-  #controls {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    color: white;
-
-    .slider {
-      position: absolute;
-      z-index: 1;
-    }
-
-    #controlSlider {
-      width: 60vh;
-      transform: rotate(90deg);
-      top: 60vh;
-      left: -25vh;
-    }
-
-    span {
-      float: left;
-    }
-
-    #majorControlText {
-      font-size: 32px;
-    }
-
-    #minorControlText {
-      font-size: 11px;
-      padding-left: 6px;
-    }
-
-    #controlPlayPause.pause {
-      background: url("/img/play_normal.svg");
-      &:hover {
-        background: url("/img/play_roll.svg");
-      }
-    }
-
-    #controlPlayPause.play {
-      background: url("/img/pause_normal.svg");
-      &:hover {
-        background: url("/img/pause_roll.svg");
-      }
-    }
-
-    #controlPlayPause {
-      border: none;
-      outline: none;
-      cursor: pointer;
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      left: 2vh;
-      top: 18vh;
-    }
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
   }
 }
+
+@import "title";
+@import "controls";

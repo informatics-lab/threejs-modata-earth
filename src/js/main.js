@@ -1,13 +1,13 @@
 const MET_OFFICE = "Met Office";
 const INFORMATICS_LAB = "Informatics Lab";
-const APP_NAME = "HadCRUT4 surface temperature";
+const APP_NAME = "HadCRUT4";
 
 const GLOBE_RADIUS = 1;
 
 
 var OrbitControls = require('three-orbit-controls')(THREE);
 var dat = require('dat-gui');
-var pace = require('pace-progress');
+// var pace = require('pace-progress');
 var rp = require('request-promise');
 
 
@@ -18,14 +18,14 @@ var GlobeData = require('./globe-data');
 
 var scene, camera, renderer, controls;
 
-pace.start({
-    ajax: false, // disabled
-    document: false, // disabled
-    eventLag: false, // disabled
-    elements: {
-        selectors: ['.ready']
-    }
-});
+// pace.start({
+//     ajax: false, // disabled
+//     document: false, // disabled
+//     eventLag: false, // disabled
+//     elements: {
+//         selectors: ['.ready']
+//     }
+// });
 init();
 
 // initialises scene

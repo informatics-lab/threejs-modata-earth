@@ -1,108 +1,151 @@
-const DATA_PLAY_SPEED = 1000/16;
+const DATA_PLAY_SPEED = 1000 / 16;
 
 module.exports = function (data, updateDataFnc) {
 
     var self = this;
+    self.data = data;
+    self.updateDataFnc = updateDataFnc;
     self.cdi = 0;
     self.playing = false;
 
-    var playPause = document.getElementById('controlPlayPause');
-    playPause.addEventListener('click', function(evt){
-        console.log("play/pause");
-        if(self.playing) {
-            pause();
-        } else {
-            play();
-        }
-    });
+    function initControls() {
 
-    var controls = document.getElementById('controlSlider');
-    controls.value = self.cdi;
-    controls.min = 0;
-    controls.max = data.datas.length - 1;
+        function addDataSlider(domElement) {
+
+            function addSlider(domElement) {
+                var slider = document.createElement('input');
+                slider.id = "slider";
+                slider.type = "range";
+                slider.value = self.cdi;
+                slider.min = 0;
+                slider.max = data.datas.length - 1;
+
+                slider.addEventListener('input', function (evt) {
+                    setControls(slider.value);
+                });
+
+                domElement.appendChild(slider);
+                self.slider = slider;
+            }
+
+            function addSliderText(domElement) {
+                var sliderText = document.createElement('div');
+                sliderText.id = "sliderText";
+
+                var majorText = document.createElement('span');
+                majorText.id = "majorSliderText";
+                majorText.innerHTML = "Year";
+                self.majorText = majorText;
+
+                var minorText = document.createElement('span');
+                minorText.id = "minorSliderText";
+                minorText.innerHTML = "Month";
+                self.minorText = minorText;
+
+                sliderText.appendChild(majorText);
+                sliderText.appendChild(minorText);
+
+                domElement.appendChild(sliderText);
+                self.sliderText = sliderText;
+            }
+
+            var dataSlider = document.createElement('div');
+            dataSlider.id = "dataSlider";
+
+            addSlider(dataSlider);
+            addSliderText(dataSlider);
+
+            domElement.appendChild(dataSlider);
+        }
+
+        function addPlayPauseButton(domElement) {
+            var playPauseButton = document.createElement('button');
+            playPauseButton.id = "playPauseButton";
+            playPauseButton.setAttribute("class", "pause");
+
+            playPauseButton.addEventListener('click', function (evt) {
+                if (self.playing) {
+                    pause();
+                } else {
+                    play();
+                }
+            });
+
+            domElement.appendChild(playPauseButton);
+            self.playPauseButton = playPauseButton;
+        }
+
+        var controlsDiv = document.createElement('div');
+        controlsDiv.id = "controls";
+
+        addDataSlider(controlsDiv);
+        addPlayPauseButton(controlsDiv);
+
+        var app = document.getElementById('content');
+        app.appendChild(controlsDiv);
+    }
 
     var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ];
 
-    var controlTextContainer = document.createElement('div');
-    var majorControlText = document.createElement('span');
-    majorControlText.id = "majorControlText";
-    majorControlText.innerHTML = "Year";
-
-    var minorControlText = document.createElement('span');
-    minorControlText.id = "minorControlText";
-    minorControlText.innerHTML = "Month";
-
-    controlTextContainer.appendChild(majorControlText);
-    controlTextContainer.appendChild(minorControlText);
-
-    controls.addEventListener('input', function(evt) {
-        setControls(controls.value);
-    });
-
     window.addEventListener('resize', setControlTextPos, false);
 
     function setControlTextPos() {
         var windowHeight = window.innerHeight;
-        var controlCss = window.getComputedStyle(controls);
+        var controlCss = window.getComputedStyle(self.slider);
         var controlLength = Number(controlCss.width.substring(0, controlCss.width.length - 2));
         var controlCentrePos = Number(controlCss.top.substring(0, controlCss.top.length - 2));
-        var controlTop = (controlCentrePos - (controlLength/2)) / windowHeight - 0.01; // magic number to align middle not top of DOM
-        var controlLeft = Number(controlCss.left.substring(0, controlCss.left.length - 2));
-        var newTopPos = ((((controlLength-20)/windowHeight) * (controls.value/controls.max)) + controlTop) * 100; // magic number adjusts travel speed
-        var newLeftPos = 10 + (Math.abs(controlLength/controlLeft)/windowHeight) * 800;
-        controlTextContainer.setAttribute("style", "position:absolute; top:"+newTopPos+"vh; left:"+newLeftPos+"vh;");
+        var controlTop = (controlCentrePos - (controlLength / 2)) / windowHeight - 0.01;
+        var newTopPos = ((((controlLength - 20) / windowHeight) * (self.slider.value / self.slider.max)) + controlTop) * 100; // magic number adjusts travel speed
+        self.sliderText.setAttribute("style", "top:" + newTopPos + "vh;");
     }
 
     function setControlTextContent(dt) {
         var dateTime = new Date(dt);
         var yr = dateTime.getFullYear();
-        var mnth = monthNames[dateTime.getMonth()];
-        majorControlText.innerHTML = yr;
-        minorControlText.innerHTML = mnth;
+        var month = monthNames[dateTime.getMonth()];
+        self.majorText.innerHTML = yr;
+        self.minorText.innerHTML = month;
     }
 
     function setControls(i) {
-        if(i <= data.datas.length-1 && i >= 0 && i != self.cdi) {
+        if (i <= self.data.datas.length - 1 && i >= 0 && i != self.cdi) {
             self.cdi = i;
-            controls.value = i;
-            var datum = data.datas[i];
-            updateDataFnc(datum);
+            self.slider.value = i;
+            var datum = self.data.datas[i];
+            self.updateDataFnc(datum);
             setControlTextPos();
             setControlTextContent(datum.date_time);
         }
     }
 
     function play() {
-        self.loop = setInterval(function() {
-            if(self.cdi < data.datas.length-1) {
-                setControls(Number(self.cdi)+1);
+        self.loop = setInterval(function () {
+            if (self.cdi < self.data.datas.length - 1) {
+                setControls(Number(self.cdi) + 1);
             } else {
                 setControls(0);
             }
         }, DATA_PLAY_SPEED);
         self.playing = true;
-        var button = document.getElementById("controlPlayPause");
-        button.setAttribute("class", "play");
+        self.playPauseButton.setAttribute("class", "play");
     };
 
     function pause() {
         clearInterval(self.loop);
         self.playing = false;
-        var button = document.getElementById("controlPlayPause");
-        button.setAttribute("class", "pause");
+        self.playPauseButton.setAttribute("class", "pause");
     }
 
     //init
+    initControls();
     setControlTextPos();
-    setControlTextContent(data.datas[self.cdi].date_time);
-
-    document.getElementById('controls').appendChild(controlTextContainer);
+    setControlTextContent(self.data.datas[self.cdi].date_time);
 
     return {
-        
-        getControlIndex : function () {
+
+        getControlIndex: function () {
             return self.cdi;
         },
 
@@ -111,4 +154,4 @@ module.exports = function (data, updateDataFnc) {
         }
 
     };
-}
+};
