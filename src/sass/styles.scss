@@ -15,10 +15,27 @@ body {
 
   #chart {
      position: absolute;
-     color: white;  
-     left: 90%;
+     color: white;
      top: 90%;
+     left: 90%;
+     width: 150px;
+
+     #co2 {
+      position: relative;
+      left: 0%;
+     }
+
+     #temp {
+      position: relative;
+      left: 50%;
+     }
+     
+     .bar {
+         background-color: green;
+         width: 40px;
+     }
   }
+
 
   #content {
     position: relative;
