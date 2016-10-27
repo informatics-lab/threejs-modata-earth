@@ -16,8 +16,18 @@
     padding-bottom: 40px;
     color: $winter-grey;
     opacity: 0;
-    transition: opacity 500ms ease;
-    -webkit-transition: opacity 1s ease;
+    transition: opacity 1.5s ease;
+    -webkit-transition: opacity 1.5s ease
+
+    p {
+      margin-top: 1px;
+    }
+
+    h3 {
+      color: $core-white;
+      font-weight: normal;
+      margin-bottom: 1px;
+    }
   }
 
 }
