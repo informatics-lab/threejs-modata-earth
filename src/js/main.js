@@ -13,10 +13,13 @@ var rp = require('request-promise');
 
 var Globe = require('./globe');
 var GlobeData = require('./globe-data');
+var GlobeUtils = require('./globe-utils');
 
 var scene, camera, renderer, controls;
 
-
+var hadcrut4_1year_mean;
+var hadcrut4_annotations;
+var app_loaded = false;
 
 init();
 
@@ -26,7 +29,50 @@ function init() {
     function pageLoading() {
         pace.restart();
         pace.on('done', function () {
-            document.getElementById(APP_DIV_ID).style.opacity = 1;
+            if(!app_loaded) {
+                console.log("loading done!");
+                document.getElementById(APP_DIV_ID).style.opacity = 1;
+                var us = GlobeUtils.latLonToVector3(38.9, -77, 1, 5);
+                var aus = GlobeUtils.latLonToVector3(-25.2, 133.7, 1, 4);
+                var uk = GlobeUtils.latLonToVector3(55.3, -3.4, 1, 2);
+                GlobeUtils.tweenCameraToVector3(camera, us, 3000, 2000)
+                    .then(function () {
+                        return GlobeUtils.tweenCameraToVector3(camera, aus, 3000, 0);
+                    })
+                    .then(function () {
+                        return GlobeUtils.tweenCameraToVector3(camera, uk, 3000, 0);
+                    })
+                    .then(function () {
+                        console.log("called!!!");
+                        controls.minDistance = GLOBE_RADIUS * 2;
+                        controls.maxDistance = GLOBE_RADIUS * 3;
+
+                        var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations);
+
+                        var gui = new dat.GUI();
+                        dat.GUI.toggleHide();
+
+                        var obj = {
+                            incDataIndex: function () {
+                                data.increaseCDI();
+                            },
+                            decDataIndex: function () {
+                                data.decreaseCDI();
+                            }
+
+                        };
+                        var guiDataFolder = gui.addFolder('data');
+                        guiDataFolder.add(obj, 'incDataIndex');
+                        guiDataFolder.add(obj, 'decDataIndex');
+
+                        var guiCamFolder = gui.addFolder('camera');
+                        guiCamFolder.add(camera.position, 'x', -5, 5).listen();
+                        guiCamFolder.add(camera.position, 'y', -5, 5).listen();
+                        guiCamFolder.add(camera.position, 'z', -5, 5).listen();
+                        return;
+                    });
+                app_loaded = true;
+            }
         });
     }
 
@@ -49,7 +95,7 @@ function init() {
 
     //create our camera
     camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
-    camera.position.z = GLOBE_RADIUS * 3;
+    camera.position.z = GLOBE_RADIUS * 20;
 
 
     // add lights
@@ -63,9 +109,8 @@ function init() {
     //init controls
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
-    controls.minDistance = GLOBE_RADIUS * 2;
-    controls.maxDistance = GLOBE_RADIUS * 3;
-    
+
+
     //sync camera and directional light so we can see what we're doing!!
     controls.addEventListener('change', function (evt) {
         directionalLight.position.copy(camera.position);
@@ -86,6 +131,9 @@ function init() {
     //load all data then we are ready to go!
     Promise.all([rp(hadcrut4_1year_mean_opts), rp(hadcrut4_annotations_opts)])
         .then(function (arr) {
+
+            hadcrut4_1year_mean = arr[0];
+            hadcrut4_annotations = arr[1];
 
             /**
              * Adds the title div to the app.
@@ -130,47 +178,24 @@ function init() {
             addAppTitle();
 
             var globe = new Globe(scene, GLOBE_RADIUS);
-            var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, arr[0], arr[1]);
-
-            var gui = new dat.GUI();
-            dat.GUI.toggleHide();
-
-            var obj = {
-                incDataIndex: function () {
-                    data.increaseCDI();
-                },
-                decDataIndex: function () {
-                    data.decreaseCDI();
-                }
-
-            };
-            var guiDataFolder = gui.addFolder('data');
-            guiDataFolder.add(obj, 'incDataIndex');
-            guiDataFolder.add(obj, 'decDataIndex');
-
-            var guiCamFolder = gui.addFolder('camera');
-            guiCamFolder.add(camera.position, 'x', -5, 5).listen();
-            guiCamFolder.add(camera.position, 'y', -5, 5).listen();
-            guiCamFolder.add(camera.position, 'z', -5, 5).listen();
 
             //begin animating stuff!
             animate();
         });
 
     //resize threejs canvas if window size is changed during interaction.
-
     function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
-
     window.addEventListener('resize', onWindowResize, false);
 }
 
 // animation loop
 function animate(time) {
     scene.dispatchEvent({type: "animate", message: time});
+    GlobeUtils.animate(time);
     controls.update();
     requestAnimationFrame(animate);
     renderer.render(scene, camera);

@@ -9,6 +9,8 @@ input[type=range] {
 input[type=range]:focus {
   outline: none;
 }
+
+
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 1px;
@@ -22,7 +24,7 @@ input[type=range]::-webkit-slider-thumb {
   box-shadow: none;
   height: 40px;
   width: 20px;
-  background-image: url("/img/slider_handle.svg");
+  background-image: url("/img/slider_handle_normal.svg");
   background-repeat: no-repeat;
   background-position-x: -10px;
   background-position-y: -6px;
@@ -32,9 +34,17 @@ input[type=range]::-webkit-slider-thumb {
   margin-top: -20px;
   z-index: 1;
 }
+input[type=range]:hover::-webkit-slider-thumb {
+  background-image: url("/img/slider_handle_roll.svg");
+}
+input[type=range]:active::-webkit-slider-thumb {
+  background-image: url("/img/slider_handle_roll.svg");
+}
 input[type=range]:focus::-webkit-slider-runnable-track {
   background: #ffffff;
 }
+
+
 input[type=range]::-moz-range-track {
   width: 100%;
   height: 8.4px;
