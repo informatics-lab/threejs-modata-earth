@@ -7,6 +7,14 @@ const GLOBE_RADIUS = 1;
 
 var OrbitControls = require('three-orbit-controls')(THREE);
 var dat = require('dat-gui');
+window.paceOptions = {
+    ajax: false, // disabled
+    document: false, // disabled
+    eventLag: false, // disabled
+    elements: {
+        selectors: ['#content.ready']
+    }
+};
 var pace = require('pace-progress');
 var rp = require('request-promise');
 // var THREE = require("three");
@@ -32,7 +40,7 @@ function init() {
             if(!app_loaded) {
                 var loadingDOM = document.getElementById("loading");
                 loadingDOM.parentNode.removeChild(loadingDOM);
-                console.log("loading done!");
+                console.log("page loading done");
                 document.getElementById(APP_DIV_ID).style.opacity = 1;
                 var us = GlobeUtils.latLonToVector3(38.9, -77, 1, 5);
                 var aus = GlobeUtils.latLonToVector3(-25.2, 133.7, 1, 4);
@@ -45,33 +53,42 @@ function init() {
                         return GlobeUtils.tweenCameraToVector3(camera, uk, 3000, 0);
                     })
                     .then(function () {
-                        console.log("called!!!");
+
+                        //lockdown controls
                         controls.minDistance = GLOBE_RADIUS * 2;
                         controls.maxDistance = GLOBE_RADIUS * 3;
 
-                        var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations);
+                        var dataC = {
+                            playbackSpeed : 16,
 
-                        var gui = new dat.GUI();
-                        dat.GUI.toggleHide();
-
-                        var obj = {
                             incDataIndex: function () {
                                 data.increaseCDI();
                             },
                             decDataIndex: function () {
                                 data.decreaseCDI();
                             }
-
                         };
+
+                        //add advanced controls - press 'h' in gui to show/hide
+                        var gui = new dat.GUI();
+                        dat.GUI.toggleHide();
+
                         var guiDataFolder = gui.addFolder('data');
-                        guiDataFolder.add(obj, 'incDataIndex');
-                        guiDataFolder.add(obj, 'decDataIndex');
+                        guiDataFolder.add(dataC, 'incDataIndex');
+                        guiDataFolder.add(dataC, 'decDataIndex');
+                        var speed = guiDataFolder.add(dataC, 'playbackSpeed',  1, 100).listen();
 
                         var guiCamFolder = gui.addFolder('camera');
                         guiCamFolder.add(camera.position, 'x', -5, 5).listen();
                         guiCamFolder.add(camera.position, 'y', -5, 5).listen();
                         guiCamFolder.add(camera.position, 'z', -5, 5).listen();
+
+                        var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations, speed);
+
+
+
                         return;
+
                     });
                 app_loaded = true;
             }
@@ -180,6 +197,9 @@ function init() {
             addAppTitle();
 
             var globe = new Globe(scene, GLOBE_RADIUS);
+
+            console.log("data loaded");
+            document.getElementById(APP_DIV_ID).setAttribute("class","ready");
 
             //begin animating stuff!
             animate();

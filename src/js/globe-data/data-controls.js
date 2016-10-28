@@ -1,12 +1,29 @@
-const DATA_PLAY_SPEED = 1000 / 16;
 
-module.exports = function (data, updateDataFnc) {
+
+module.exports = function (data, updateDataFnc, speed) {
 
     var self = this;
     self.data = data;
     self.updateDataFnc = updateDataFnc;
     self.cdi = 0;
     self.playing = false;
+    self.speed = speed;
+
+    self.speed.onChange(function(val){
+
+        self.speed = val;
+
+        if(self.playing) {
+            clearInterval(self.loop);
+            self.loop = setInterval(function () {
+                if (self.cdi < self.data.datas.length - 1) {
+                    setControls(Number(self.cdi) + 1);
+                } else {
+                    setControls(0);
+                }
+            }, 1000/self.speed);
+        }
+    });
 
     function initControls() {
 
@@ -127,7 +144,7 @@ module.exports = function (data, updateDataFnc) {
             } else {
                 setControls(0);
             }
-        }, DATA_PLAY_SPEED);
+        }, 1000/self.speed);
         self.playing = true;
         self.playPauseButton.setAttribute("class", "play");
     };
