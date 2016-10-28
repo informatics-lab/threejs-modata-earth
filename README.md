@@ -18,4 +18,4 @@ To solve force a clean first then call the serve task again using:
 `$ gulp serve`  
 
 ##credit
-Inspired by the great work of [[http://callumprentice.github.io/][Callum Prentice]] and his [[http://callumprentice.github.io/apps/global_temperature_change_webgl/index.html][Global Temperature Change WebGL]].  
+Inspired by the great work of [Callum Prentice](http://callumprentice.github.io/) and his [Global Temperature Change WebGL](http://callumprentice.github.io/apps/global_temperature_change_webgl/index.html).  
