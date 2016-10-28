@@ -2,21 +2,21 @@
    {
       "id": 0,
       "start_year":1850,
-      "end_year":1851,
+      "end_year":1853,
       "title":"HadCRUT4 begins",
       "annotation":"Temperature data are now available from enough monitoring stations to reliably construct the global average temperature at the Earth's surface."
    },
    {
       "id": 1,
       "start_year":1850,
-      "end_year":1851,
+      "end_year":1853,
       "title":"285 ppm CO<sub>2</sub>",
       "annotation":"Carbon dioxide concentrations in the atmosphere: 285 parts per million (ppm)."
    },
    {
       "id": 2,
       "start_year":1877,
-      "end_year":1879,
+      "end_year":1880,
       "annotation":"Strong El Niño event causes brief global peak in temperature (and catastrophic drought in India, 12 million perished).",
       "location":{
          "lat":12.2958,
@@ -27,7 +27,7 @@
    {
       "id": 3,
       "start_year":1883,
-      "end_year":1884,
+      "end_year":1885,
       "annotation":"Eruption of Mount Krakatoa cools the world – enormous volcanic eruptions like this inject ash high into the atmosphere, reflecting solar radiation back to space and causing global cooling.",
       "location":{
          "lat":-6.1021,
@@ -45,7 +45,7 @@
    {
       "id": 5,
       "start_year":1914,
-      "end_year":1915,
+      "end_year":1917,
       "annotation":"Opening of Panama Canal changes shipping routes from Atlantic into Pacific",
       "location":{
          "lat":8.5380,
@@ -70,7 +70,7 @@
    {
       "id": 8,
       "start_year":1940,
-      "end_year":1942,
+      "end_year":1943,
       "annotation":"Prolonged El Niño event.",
       "location":{
          "lat":-17.0637639,
@@ -81,14 +81,14 @@
    {
       "id": 9,
       "start_year":1950,
-      "end_year":1951,
+      "end_year":1953,
       "annotation":"Carbon dioxide concentrations: 311 ppm.",
       "title": "CO<sub>2</sub> at 311 ppm"
    },
    {
       "id": 10,
       "start_year":1958,
-      "end_year":1959,
+      "end_year":1961,
       "annotation":"International Geophysical Year – systematic long-term temperature measurements begin in Antarctica.",
       "location":{
          "lat":-75.6056,
@@ -117,28 +117,28 @@
    {
       "id": 13,
       "start_year":1970,
-      "end_year":1971,
+      "end_year":1973,
       "annotation":"Carbon dioxide concentrations: 326 ppm.",
       "title":"CO<sub>2</sub> at 326 ppm"
    },
    {
       "id": 14,
       "start_year":1976,
-      "end_year":1977,
+      "end_year":1979,
       "annotation":"The Great Climate Shift",
       "title":"The Great Climate Shift"
    },
    {
       "id": 15,
       "start_year":1979,
-      "end_year":1980,
+      "end_year":1982,
       "annotation":"Large release of drifting buoys improves ocean coverage in the Southern Hemisphere.",
       "title":"Increase in ocean measurements"
    },
    {
       "id": 16,
       "start_year":1982,
-      "end_year":1984,
+      "end_year":1985,
       "annotation":"Strong El Niño event and Eruption of El Chichón (March/April 1982) sort of cancel each other out",
       "location":{
          "lat":17.3604,
@@ -149,14 +149,14 @@
    {
       "id": 17,
       "start_year":1990,
-      "end_year":1991,
+      "end_year":1993,
       "annotation":"Carbon dioxide concentrations: 354 ppm.",
       "title":"CO<sub>2</sub> at 543 ppm"
    },
    {
       "id": 18,
       "start_year":1991,
-      "end_year":1992,
+      "end_year":1994,
       "annotation":"The eruption of Mount Pinatubo creates an ash cloud that envelops the world, cooling large parts of the Earth for several years.",
       "location":{
          "lat":17.3604,
@@ -167,49 +167,49 @@
    {
       "id": 19,
       "start_year":1998,
-      "end_year":1999,
+      "end_year":2000,
       "annotation":"Strong El Niño event causes brief global peak in temperature to record levels",
       "title":"El Niño"
    },
    {
       "id": 20,
       "start_year":1999,
-      "end_year":2001,
+      "end_year":2002,
       "annotation":"Prolonged La Niña event",
       "title":"La Niña"
    },
    {
       "id": 21,
       "start_year":2000,
-      "end_year":2001,
+      "end_year":2002,
       "annotation":"Carbon dioxide concentrations: 370 ppm.",
       "title":"CO<sub>2</sub> at 370 ppm"
    },
    {
       "id": 22,
       "start_year":2000,
-      "end_year":2001,
+      "end_year":2003,
       "annotation":"The rate of surface warming slows in the early years of the 21st century, despite the continued rise in greenhouse gases. Natural variability in the climate system, augmented by interaction with man-made aerosols, is thought to be responsible along with a contribution from volcanic eruptions.",
       "title":"Surface warming slows"
    },
    {
       "id": 23,
       "start_year":2010,
-      "end_year":2011,
+      "end_year":2012,
       "annotation":"Carbon dioxide concentrations: 389 ppm.",
       "title":"CO<sub>2</sub> at 389 ppm"
    },
    {
       "id": 24,
       "start_year":2014,
-      "end_year":2015,
+      "end_year":2016,
       "annotation":"Globally the warmest year on record at the time.",
       "title":"Record breaking warm year"
    },
    {
       "id": 25,
       "start_year":2015,
-      "end_year":2016,
+      "end_year":2017,
       "annotation":"El Niño augments human-driven warming to give record-breaking warmth by a large margin. Global temperatures surpass 1 °C above the pre-industrial for the first time.",
       "title":"Record breaking warm year"
    },
