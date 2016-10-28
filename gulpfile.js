@@ -52,11 +52,11 @@ gulp.task('build:js', function () {
     });
 
     return b.bundle()
-        .pipe(source('app.js'))
+        .pipe(source('app.min.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         // Add transformation tasks to the pipeline here.
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(BUILD_DEST+'/js/'));
 });
