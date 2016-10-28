@@ -2,11 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Met Office :: ThreeJS Data Visualisation</title>
+    <title>Met Office :: HadCRUT4 Visualisation</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css"/>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
 </head>
 <body>
+<div id="loading">
+  <div id="combinedlogo">
+    <img src="img/met-office-logo.svg" id="moLogo" alt="Met Office"></img>
+    <h2 id="infoLabLogo">Informatics Lab</h2>
+  </div>
+  <h3 id="hadcrut4logo">HadCRUT4</h3>
+  <div id="hadcrut4text">
+    <p>HadCRUT4 is a dataset of global surface temperature since 1850, which uses
+        data from the Met Office Hadley Centre and the Climatic Research Unit at UEA.</p>
+    <p>In this visualisation you can explore this surface temperature data, and the
+       global events which which have affected it.</p>
+    <p>Temperatures are expressed as the difference from average temperature between 1961-1990.</p>
+  </div>
+</div>
 <div id="content"></div>
 
 <!-- ---------------- Custom Shader Code ------------------------ -->
