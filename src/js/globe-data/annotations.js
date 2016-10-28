@@ -102,7 +102,6 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
 
     function activateAnnotations(year) {
         var activeIds = self.activeAnnotations.map(function(el){return el.id});
-        console.log(dataAnnotations);
         self.dataAnnotations.forEach(function(annotation) {
             if(annotation.start_year <= year && year < annotation.end_year && activeIds.indexOf(annotation.id) == -1) {
                 addAnnotation(annotation);
