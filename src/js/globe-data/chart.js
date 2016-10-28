@@ -45,18 +45,19 @@ module.exports = function(minco2, maxco2, mintemp, maxtemp) {
         bar.innerHTML = val.toPrecision(3);
         var height = (val-minco2) / co2range * maxheight;
         bar.style.height = height+"px";
-        bar.style.opacity = height/100;
+        bar.style.backgroundColor = "hsl(0.0, "+((val-minco2) / co2range * 100)+"%, 50%)";
     };
+
 
     function updateTemp(val){
         var bar = document.querySelectorAll("#tempBarChart .barChartBar")[0];
         bar.innerHTML = val.toPrecision(2);
         var height = (val-mintemp) / temprange * maxheight;
 
-        if(val < 0 ) {
-            bar.style.backgroundColor = "#0000FF";
+        if(val > 0 ) {
+            bar.style.backgroundColor = "hsl(0.0, "+((val-mintemp) / temprange * 100)+"%, 50%)";
         } else {
-            bar.style.backgroundColor = "#FF0000";
+            bar.style.backgroundColor = "hsl(240.0, "+((val-mintemp) / temprange * 100)+"%, 50%)";
         }
 
         bar.style.height = height+"px";
