@@ -10,6 +10,10 @@ ThreeJS globe for displaying Met Office data sets.
    
 `$ gulp serve`
   
+##building
+
+`$ gulp build`
+  
 ##known issues
 When rebuilding gulp task ordering is required but currently not implemented causing the build to fail.
 To solve force a clean first then call the serve task again using:
