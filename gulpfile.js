@@ -76,7 +76,7 @@ gulp.task('serve', ['clean', 'build', 'watch'], function() {
         server: {
             baseDir: BUILD_DEST
         },
-        reloadDelay: 1000
+        reloadDelay: 2000
     });
 });
 
