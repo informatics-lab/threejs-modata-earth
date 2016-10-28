@@ -13,20 +13,24 @@
   padding:0;
   margin:0;
 
-  #combinedlogo {
-    width: 100%;   
-  }
-
   #moLogo {
-    position:relative;
-    width:50%;
+    position: absolute;
+    top:15%;
+    margin: 0 auto;
+    left:20%;
+    padding:0;
+    margin:0;
     height: 100px;
   }
 
   #infoLabLogo {
-    position:relative;
+    position:absolute;
+    margin: 0 auto;
+    top:19.5%;
+    left:54%;
+    padding:0;
+    width:100%;
     color: $core-white;
-    width: 50%;
     font-size: 45px;
     font-weight:normal;
   }
