@@ -61,7 +61,6 @@ module.exports = function(minco2, maxco2, mintemp, maxtemp) {
         }
 
         bar.style.height = height+"px";
-        bar.style.opacity = height/100;
     };
 
     return {
