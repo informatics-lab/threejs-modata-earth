@@ -30,6 +30,8 @@ function init() {
         pace.restart();
         pace.on('done', function () {
             if(!app_loaded) {
+                var loadingDOM = document.getElementById("loading");
+                loadingDOM.parentNode.removeChild(loadingDOM);
                 console.log("loading done!");
                 document.getElementById(APP_DIV_ID).style.opacity = 1;
                 var us = GlobeUtils.latLonToVector3(38.9, -77, 1, 5);
