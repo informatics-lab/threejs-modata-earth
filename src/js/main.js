@@ -7,6 +7,14 @@ const GLOBE_RADIUS = 1;
 
 var OrbitControls = require('three-orbit-controls')(THREE);
 var dat = require('dat-gui');
+window.paceOptions = {
+    ajax: false, // disabled
+    document: false, // disabled
+    eventLag: false, // disabled
+    elements: {
+        selectors: ['#content.ready']
+    }
+};
 var pace = require('pace-progress');
 var rp = require('request-promise');
 // var THREE = require("three");
@@ -30,7 +38,7 @@ function init() {
         pace.restart();
         pace.on('done', function () {
             if(!app_loaded) {
-                console.log("loading done!");
+                console.log("page loading done");
                 document.getElementById(APP_DIV_ID).style.opacity = 1;
                 var us = GlobeUtils.latLonToVector3(38.9, -77, 1, 5);
                 var aus = GlobeUtils.latLonToVector3(-25.2, 133.7, 1, 4);
@@ -43,7 +51,6 @@ function init() {
                         return GlobeUtils.tweenCameraToVector3(camera, uk, 3000, 0);
                     })
                     .then(function () {
-                        console.log("called!!!");
                         controls.minDistance = GLOBE_RADIUS * 2;
                         controls.maxDistance = GLOBE_RADIUS * 3;
 
@@ -178,6 +185,9 @@ function init() {
             addAppTitle();
 
             var globe = new Globe(scene, GLOBE_RADIUS);
+
+            console.log("data loaded");
+            document.getElementById(APP_DIV_ID).setAttribute("class","ready");
 
             //begin animating stuff!
             animate();
