@@ -26,7 +26,7 @@ const SATURATION_CALIBRATION = 6;
 //
 // Some of the ideas here are inspired by Callum Prentice's work.
 // See http://callumprentice.github.io/apps/global_temperature_change_webgl/index.html
-module.exports = function(scene, radius, data, dataAnnotations) {
+module.exports = function(scene, radius, data, dataAnnotations, speed) {
 
     var self = this;
     self.scene = scene;
@@ -34,6 +34,7 @@ module.exports = function(scene, radius, data, dataAnnotations) {
     self.data = data;
     self.dataPoints = [];
     self.dataAnnotations = dataAnnotations;
+    self.speed = speed;
 
     // var faceOffsetDegrees = 0.125;
     var faceOffsetDegrees = 0.05;
@@ -156,7 +157,7 @@ module.exports = function(scene, radius, data, dataAnnotations) {
 
     self.dataMesh = getSphereDataMesh();
     self.scene.add(self.dataMesh);
-    self.controls = new DataControls(self.data, setMeshToDataSet);
+    self.controls = new DataControls(self.data, setMeshToDataSet, speed);
     self.annotations = new Annotations(self.dataMesh, self.radius * 1.01, self.dataAnnotations);
     self.chart = new Chart(self.data.min_co2, self.data.max_co2, self.data.min_temp, self.data.max_temp);
 

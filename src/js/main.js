@@ -51,32 +51,42 @@ function init() {
                         return GlobeUtils.tweenCameraToVector3(camera, uk, 3000, 0);
                     })
                     .then(function () {
+
+                        //lockdown controls
                         controls.minDistance = GLOBE_RADIUS * 2;
                         controls.maxDistance = GLOBE_RADIUS * 3;
 
-                        var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations);
+                        var dataC = {
+                            playbackSpeed : 16,
 
-                        var gui = new dat.GUI();
-                        dat.GUI.toggleHide();
-
-                        var obj = {
                             incDataIndex: function () {
                                 data.increaseCDI();
                             },
                             decDataIndex: function () {
                                 data.decreaseCDI();
                             }
-
                         };
+
+                        //add advanced controls - press 'h' in gui to show/hide
+                        var gui = new dat.GUI();
+                        dat.GUI.toggleHide();
+
                         var guiDataFolder = gui.addFolder('data');
-                        guiDataFolder.add(obj, 'incDataIndex');
-                        guiDataFolder.add(obj, 'decDataIndex');
+                        guiDataFolder.add(dataC, 'incDataIndex');
+                        guiDataFolder.add(dataC, 'decDataIndex');
+                        var speed = guiDataFolder.add(dataC, 'playbackSpeed',  1, 100).listen();
 
                         var guiCamFolder = gui.addFolder('camera');
                         guiCamFolder.add(camera.position, 'x', -5, 5).listen();
                         guiCamFolder.add(camera.position, 'y', -5, 5).listen();
                         guiCamFolder.add(camera.position, 'z', -5, 5).listen();
+
+                        var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations, speed);
+
+
+
                         return;
+
                     });
                 app_loaded = true;
             }
