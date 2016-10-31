@@ -162,7 +162,7 @@
       "start_year":1990,
       "end_year":1993,
       "annotation":"Carbon dioxide concentrations: 354 ppm.",
-      "title":"CO<sub>2</sub> at 543 ppm"
+      "title":"CO<sub>2</sub> at 354 ppm"
    },
    {
       "id": 19,
@@ -209,7 +209,7 @@
       "end_year":2012,
       "annotation":"La Niña conditions in 2008, 2011 and 2012 cause temporary drops in global temperatures.",
       "title":"La Niña"
-   },  
+   },
    {
       "id": 25,
       "start_year":2010,
