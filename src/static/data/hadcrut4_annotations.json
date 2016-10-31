@@ -4,7 +4,7 @@
       "start_year":1850,
       "end_year":1853,
       "title":"HadCRUT4 begins",
-      "annotation":"Temperature data are now available from enough monitoring stations to reliably construct the global average temperature at the Earth's surface."
+      "annotation":"Temperature data are now available from enough monitoring stations to reliably estimate the global average temperature at the Earth's surface."
    },
    {
       "id": 1,
@@ -17,7 +17,7 @@
       "id": 2,
       "start_year":1877,
       "end_year":1880,
-      "annotation":"Strong El Niño event causes brief global peak in temperature (and catastrophic drought in India, 12 million perished).",
+      "annotation":"Strong El Niño event causes brief global peak in temperature and catastrophic drought in India where 12 million perished.",
       "location":{
          "lat":12.2958,
          "lon":76.6394
@@ -64,7 +64,7 @@
       "id": 7,
       "start_year":1939,
       "end_year":1946,
-      "annotation":"Second World War leads to (amongst other things, obviously) a drop in global coverage of measurement made by ships",
+      "annotation":"Second World War leads to a drop in global coverage of measurements made by ships",
       "title":"WWII"
    },
    {
@@ -73,8 +73,8 @@
       "end_year":1943,
       "annotation":"Prolonged El Niño event.",
       "location":{
-         "lat":-17.0637639,
-         "lon":-138.831901
+         "lat":0.0,
+         "lon":-90.0
       },
       "title":"El Niño"
    },
@@ -107,12 +107,12 @@
       "id": 12,
       "start_year":1963,
       "end_year":1965,
-      "annotation":"Eruption of Mount Agung.",
+      "annotation":"Mount Agung erupts cooling large parts of the Earth.",
       "location":{
          "lat":-8.3433,
-         "lon":-115.5071
+         "lon":115.5071
       },
-      "title":"Agung erupts"
+      "title":"Mt. Agung erupts"
    },
    {
       "id": 13,
@@ -125,7 +125,7 @@
       "id": 14,
       "start_year":1976,
       "end_year":1979,
-      "annotation":"The Great Climate Shift",
+      "annotation":"The Great Climate Shift - the Pacific Decadal Oscillation shifts into its positive phase. The late 1970s also saw the start of the late 20th century warming.",
       "title":"The Great Climate Shift"
    },
    {
@@ -139,22 +139,33 @@
       "id": 16,
       "start_year":1982,
       "end_year":1985,
-      "annotation":"Strong El Niño event and Eruption of El Chichón (March/April 1982) sort of cancel each other out",
+      "annotation":"Cooling due to the eruption of El Chichón (March-April 1982) partly offset by warming from a strong El Niño event.",
       "location":{
          "lat":17.3604,
          "lon":-93.2295
       },
-      "title":"El Niño cancelled out by El Chichón erruption"
+      "title":"El Niño and El Chichón erruption"
    },
    {
       "id": 17,
+      "start_year":1982,
+      "end_year":1983,
+      "annotation":"Strong El Niño event.",
+      "location":{
+         "lat":0.0,
+         "lon":-90.0
+      },
+      "title":"El Niño"
+   },
+   {
+      "id": 18,
       "start_year":1990,
       "end_year":1993,
       "annotation":"Carbon dioxide concentrations: 354 ppm.",
       "title":"CO<sub>2</sub> at 543 ppm"
    },
    {
-      "id": 18,
+      "id": 19,
       "start_year":1991,
       "end_year":1994,
       "annotation":"The eruption of Mount Pinatubo creates an ash cloud that envelops the world, cooling large parts of the Earth for several years.",
@@ -165,73 +176,80 @@
       "title":"Mount Pinatubo erupts"
    },
    {
-      "id": 19,
+      "id": 20,
       "start_year":1998,
       "end_year":2000,
-      "annotation":"Strong El Niño event causes brief global peak in temperature to record levels",
+      "annotation":"Exceptionally strong El Niño event causes brief global peak in temperature to record levels.",
       "title":"El Niño"
    },
    {
-      "id": 20,
+      "id": 21,
       "start_year":1999,
       "end_year":2002,
       "annotation":"Prolonged La Niña event",
       "title":"La Niña"
    },
    {
-      "id": 21,
+      "id": 22,
       "start_year":2000,
       "end_year":2002,
       "annotation":"Carbon dioxide concentrations: 370 ppm.",
       "title":"CO<sub>2</sub> at 370 ppm"
    },
    {
-      "id": 22,
+      "id": 23,
       "start_year":2000,
       "end_year":2003,
       "annotation":"The rate of surface warming slows in the early years of the 21st century, despite the continued rise in greenhouse gases. Natural variability in the climate system, augmented by interaction with man-made aerosols, is thought to be responsible along with a contribution from volcanic eruptions.",
       "title":"Surface warming slows"
    },
    {
-      "id": 23,
+      "id": 24,
+      "start_year":2007,
+      "end_year":2012,
+      "annotation":"La Niña conditions in 2008, 2011 and 2012 cause temporary drops in global temperatures.",
+      "title":"La Niña"
+   },  
+   {
+      "id": 25,
       "start_year":2010,
       "end_year":2012,
       "annotation":"Carbon dioxide concentrations: 389 ppm.",
       "title":"CO<sub>2</sub> at 389 ppm"
    },
    {
-      "id": 24,
+      "id": 26,
       "start_year":2014,
       "end_year":2016,
-      "annotation":"Globally the warmest year on record at the time.",
-      "title":"Record breaking warm year"
-   },
-   {
-      "id": 25,
-      "start_year":2015,
-      "end_year":2016,
-      "annotation":"El Niño augments human-driven warming to give record-breaking warmth by a large margin. Global temperatures surpass 1 °C above the pre-industrial for the first time.",
-      "title":"Record breaking warm year"
-   },
-   {
-      "id": 26,
-      "start_year":2016,
-      "end_year":2017,
-      "annotation":"Carbon dioxide concentrations now above 400 ppm all year round.",
-      "title":"CO<sub>2</sub> cocentrations break 400 ppm"
+      "annotation":"2014 equals previous global temperature record and 2015 breaks it by a clear margin. 2016 is likely to be even warmer.",
+      "title":"Series of record warm years"
    },
    {
       "id": 27,
-      "start_year":2016,
-      "end_year":2017,
-      "annotation":"Strong El Niño event causes global rise in temperature.",
+      "start_year":2015,
+      "end_year":2016,
+      "annotation":"Strong El Niño event causes rise in global temperature.",
       "title":"El Niño"
    },
    {
       "id": 28,
+      "start_year":2015,
+      "end_year":2016,
+      "annotation":"El Niño augments human-driven warming to give record-breaking warmth. Global temperatures surpass 1 °C above the pre-industrial for the first time.",
+      "title":"2015 Record breaking warm year"
+   },
+   {
+      "id": 29,
       "start_year":2016,
       "end_year":2017,
-      "annotation":"Every month of 2016 is the warmest on record globally. 2016 is likely to be the third consecutive year of record warmth.",
-      "title":"Record breaking warm year"
+      "annotation":"Carbon dioxide concentrations now above 400 ppm all year round.",
+      "title":"CO<sub>2</sub> concentrations break 400 ppm"
+   },
+   {
+      "id": 30,
+      "start_year":2016,
+      "end_year":2016,
+      "annotation":"Monthly temperatures stay at near-record or record levels from mid-2015 to mid-2016 with the period from November 2015 to April 2016 being particularly warm.",
+      "title":"Continuing record warmth"
    }
 ]
