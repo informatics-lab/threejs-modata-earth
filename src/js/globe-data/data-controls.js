@@ -54,13 +54,7 @@ module.exports = function (data, updateDataFnc, speed) {
                 majorText.innerHTML = "Year";
                 self.majorText = majorText;
 
-                var minorText = document.createElement('span');
-                minorText.id = "minorSliderText";
-                minorText.innerHTML = "Month";
-                self.minorText = minorText;
-
                 sliderText.appendChild(majorText);
-                sliderText.appendChild(minorText);
 
                 domElement.appendChild(sliderText);
                 self.sliderText = sliderText;
@@ -102,10 +96,6 @@ module.exports = function (data, updateDataFnc, speed) {
         app.appendChild(controlsDiv);
     }
 
-    var monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
-
     window.addEventListener('resize', setControlTextPos, false);
 
     function setControlTextPos() {
@@ -121,9 +111,7 @@ module.exports = function (data, updateDataFnc, speed) {
     function setControlTextContent(dt) {
         var dateTime = new Date(dt);
         var yr = dateTime.getFullYear();
-        var month = monthNames[dateTime.getMonth()];
         self.majorText.innerHTML = yr;
-        self.minorText.innerHTML = month;
     }
 
     function setControls(i) {
