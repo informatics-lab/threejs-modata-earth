@@ -1,6 +1,6 @@
 const MET_OFFICE = "Met Office";
 const INFORMATICS_LAB = "Informatics Lab";
-const APP_NAME = "HadCRUT4";
+const APP_NAME = "Global Temperature";
 const APP_DIV_ID = "content";
 const GLOBE_RADIUS = 1;
 
