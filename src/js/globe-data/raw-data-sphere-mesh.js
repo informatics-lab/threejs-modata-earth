@@ -164,6 +164,8 @@ module.exports = function(scene, radius, data, dataAnnotations, speed) {
     //init the data mesh to the first data set
     setMeshToDataSet(self.data.datas[self.controls.getControlIndex()]);
 
+    self.controls.setControls(self.data.datas.length-1);
+
     self.scene.addEventListener("animate", function(evt){
         self.dataMesh.dispatchEvent({type:"animate", message: evt.time});
     });

@@ -35,7 +35,7 @@ module.exports = function (data, updateDataFnc, speed) {
                 slider.type = "range";
                 slider.value = self.cdi;
                 slider.min = 0;
-                slider.max = data.datas.length - 1;
+                slider.max = self.data.datas.length - 1;
 
                 slider.addEventListener('input', function (evt) {
                     setControls(slider.value);
