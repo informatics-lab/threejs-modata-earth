@@ -1,11 +1,13 @@
 'use strict';
 
 var gulp = require('gulp');
+var runSequence = require('run-sequence');
 
 var del = require('del');
 
 var htmlmin = require('gulp-htmlmin');
 var sass = require('gulp-sass');
+var prefix = require('gulp-autoprefixer');
 
 var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
@@ -36,11 +38,11 @@ gulp.task('clean:css', function () {
 
 //BUILD
 gulp.task('build:static', function() {
-    return gulp.src('./src/static/**/*')
+    gulp.src('./src/static/**/*')
         .pipe(gulp.dest(BUILD_DEST));
 });
 gulp.task('build:html', function () {
-    return gulp.src('./src/html/*.html')
+    gulp.src('./src/html/*.html')
         .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest(BUILD_DEST));
 });
@@ -51,7 +53,7 @@ gulp.task('build:js', function () {
         entries: './src/js/main.js'
     });
 
-    return b.bundle()
+    b.bundle()
         .pipe(source('app.min.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
@@ -62,16 +64,20 @@ gulp.task('build:js', function () {
 });
 
 gulp.task('build:css', function () {
-    return gulp.src('./src/sass/*.scss')
-        .pipe(sass({outputStyle: 'compressed'}))
-        // .pipe(sass())
+    gulp.src('./src/sass/styles.scss')
+        //.pipe(sass({outputStyle: 'compressed'}))        //minified
+        .pipe(sass())
+        .pipe(prefix('last 2 versions'))
         .pipe(gulp.dest(BUILD_DEST + '/css'));
 });
 
-gulp.task('build', ['build:static', 'build:html', 'build:css', 'build:js']);
+gulp.task('build', function() {
+    runSequence('clean', ['build:static', 'build:html', 'build:css', 'build:js']);
+});
+
 
 //SERVE
-gulp.task('serve', ['clean', 'build', 'watch'], function() {
+gulp.task('serve', ['build', 'watch'], function() {
     browserSync.init({
         server: {
             baseDir: BUILD_DEST
