@@ -2,173 +2,131 @@
    {
       "id": 0,
       "start_year":1850,
-      "end_year":1853,
-      "title":"HadCRUT4 begins",
-      "annotation":"Temperature data are now available from enough monitoring stations to reliably estimate the global average temperature at the Earth's surface."
+      "end_year":1860,
+      "title":"HadCRUT4 global temp record begins"
    },
    {
       "id": 1,
       "start_year":1850,
-      "end_year":1853,
-      "title":"285 ppm CO<sub>2</sub>",
-      "annotation":"Carbon dioxide concentrations in the atmosphere: 285 parts per million (ppm)."
+      "end_year":1860,
+      "title":"Atmospheric CO<sub>2</sub> at 285 ppm" 
    },
    {
       "id": 2,
       "start_year":1877,
-      "end_year":1880,
-      "annotation":"Strong El Niño event causes brief global peak in temperature and catastrophic drought in India where 12 million perished.",
+      "end_year":1885,
+      "annotation":"causes brief global peak in temperature",
       "location":{
          "lat":12.2958,
          "lon":76.6394
       },
-      "title":"El Niño causes droughts"
+      "title":"Strong El Niño"
    },
    {
       "id": 3,
       "start_year":1883,
-      "end_year":1885,
-      "annotation":"Eruption of Mount Krakatoa cools the world – enormous volcanic eruptions like this inject ash high into the atmosphere, reflecting solar radiation back to space and causing global cooling.",
+      "end_year":1888,
+      "title":"Mount Krakatoa erupts",
       "location":{
          "lat":-6.1021,
          "lon":105.4230
       },
-      "title":"Krakatoa erupts"
    },
    {
       "id": 4,
       "start_year":1880,
-      "end_year":1911,
-      "annotation":"Cooling caused by volcanic eruptions continues into the early 20th century.",
-      "title":"Volcanic cooling"
+      "end_year":1910,
+      "annotation":"that continues into 20th century",
+      "title":"Volcanic eruptions cause cooling"
    },
    {
       "id": 5,
-      "start_year":1914,
-      "end_year":1917,
-      "annotation":"Opening of Panama Canal changes shipping routes from Atlantic into Pacific",
-      "location":{
-         "lat":8.5380,
-         "lon":-80.7821
-      },
-      "title":"Panama Canal opens"
+      "start_year":1910,
+      "end_year":1915,
+      "title":"Atmospheric CO<sub>2</sub> at 300 ppm" 
    },
    {
       "id": 6,
-      "start_year":1910,
+      "start_year":1911,
       "end_year":1945,
-      "annotation":"Recovery from volcanic eruptions, a small increase in solar output, gradual increase in greenhouse gases, and natural variability, all contribute to a period of warming.",
-      "title":"End of volcanic cooling"
+      "annotation":"caused by natural variability and the gradual rise in greenhouse gases",
+      "title":"Period of warming"
    },
    {
       "id": 7,
-      "start_year":1939,
-      "end_year":1946,
-      "annotation":"Second World War leads to a drop in global coverage of measurements made by ships",
-      "title":"WWII"
-   },
-   {
-      "id": 8,
       "start_year":1940,
-      "end_year":1943,
-      "annotation":"Prolonged El Niño event.",
+      "end_year":1945,
+      "annotation":"causes brief global peak in temperature",
       "location":{
          "lat":0.0,
          "lon":-90.0
       },
-      "title":"El Niño"
+      "title":"Prolonged El Niño"
+   },
+   {
+      "id": 8,
+      "start_year":1950,
+      "end_year":1976,
+      "annotation":"keeping global temperatures fairly constant",
+      "title": "Aerosol pollution offsets greenhouse effect"
    },
    {
       "id": 9,
-      "start_year":1950,
-      "end_year":1953,
-      "annotation":"Carbon dioxide concentrations: 311 ppm.",
-      "title": "CO<sub>2</sub> at 311 ppm"
-   },
-   {
-      "id": 10,
       "start_year":1958,
-      "end_year":1961,
-      "annotation":"International Geophysical Year – systematic long-term temperature measurements begin in Antarctica.",
+      "end_year":1963,
+      "title":"Temperature measurements begin in Antarctica",
       "location":{
          "lat":-75.6056,
          "lon":-26.2075
       },
-      "title": "Measurements begin in Antarctica"
    },
    {
-      "id": 11,
-      "start_year":1950,
-      "end_year":1976,
-      "annotation":"Global temperatures are fairly constant for this period. Emissions of aerosols from human activities have a cooling effect that offsets the warming effects of increasing greenhouse gases.",
-      "title":"Greenhouse effect offset by aerosol pollution"
-   },
-   {
-      "id": 12,
+      "id": 10,
       "start_year":1963,
-      "end_year":1965,
-      "annotation":"Mount Agung erupts cooling large parts of the Earth.",
+      "end_year":1968,
+      "annotation":"cooling large parts of the Earth",
       "location":{
          "lat":-8.3433,
          "lon":115.5071
       },
-      "title":"Mt. Agung erupts"
+      "title":"Mount Agung erupts"
    },
    {
-      "id": 13,
-      "start_year":1970,
-      "end_year":1973,
-      "annotation":"Carbon dioxide concentrations: 326 ppm.",
-      "title":"CO<sub>2</sub> at 326 ppm"
-   },
-   {
-      "id": 14,
+      "id": 11,
       "start_year":1976,
-      "end_year":1979,
-      "annotation":"The Great Climate Shift - the Pacific Decadal Oscillation shifts into its positive phase. The late 1970s also saw the start of the late 20th century warming.",
-      "title":"The Great Climate Shift"
+      "end_year":1990,
+      "annotation":"begins as Pacific Decadal Oscillation shifts into its positive phase and CO<sub>2</sub> rises",
+      "title":"Late 20th century warming"
    },
    {
-      "id": 15,
+      "id": 12,
       "start_year":1979,
-      "end_year":1982,
-      "annotation":"Large release of drifting buoys improves ocean coverage in the Southern Hemisphere.",
+      "end_year":1984,
+      "annotation":"with more drifting buoys",
       "title":"Increase in ocean measurements"
    },
    {
-      "id": 16,
+      "id": 13,
       "start_year":1982,
       "end_year":1985,
-      "annotation":"Cooling due to the eruption of El Chichón (March-April 1982) partly offset by warming from a strong El Niño event.",
+      "annotation":"partly offsets El Niño warming",
       "location":{
          "lat":17.3604,
          "lon":-93.2295
       },
-      "title":"El Niño and El Chichón erruption"
+      "title":"Eruption of El Chichón"
    },
    {
-      "id": 17,
-      "start_year":1982,
-      "end_year":1983,
-      "annotation":"Strong El Niño event.",
-      "location":{
-         "lat":0.0,
-         "lon":-90.0
-      },
-      "title":"El Niño"
-   },
-   {
-      "id": 18,
-      "start_year":1990,
+      "id": 14,
+      "start_year":1988,
       "end_year":1993,
-      "annotation":"Carbon dioxide concentrations: 354 ppm.",
-      "title":"CO<sub>2</sub> at 354 ppm"
+      "title":"Atmospheric CO<sub>2</sub> at 350 ppm"
    },
    {
-      "id": 19,
+      "id": 15,
       "start_year":1991,
-      "end_year":1994,
-      "annotation":"The eruption of Mount Pinatubo creates an ash cloud that envelops the world, cooling large parts of the Earth for several years.",
+      "end_year":1996,
+      "annotation":"cooling large parts of the Earth for several years",
       "location":{
          "lat":17.3604,
          "lon":120.3496
@@ -176,80 +134,45 @@
       "title":"Mount Pinatubo erupts"
    },
    {
-      "id": 20,
-      "start_year":1998,
+      "id": 16,
+      "start_year":1997,
       "end_year":2000,
-      "annotation":"Exceptionally strong El Niño event causes brief global peak in temperature to record levels.",
-      "title":"El Niño"
+      "annotation":"brings record warmth",
+      "title":"Exceptionally strong El Niño"
    },
    {
-      "id": 21,
-      "start_year":1999,
-      "end_year":2002,
-      "annotation":"Prolonged La Niña event",
-      "title":"La Niña"
-   },
-   {
-      "id": 22,
+      "id": 17,
       "start_year":2000,
-      "end_year":2002,
-      "annotation":"Carbon dioxide concentrations: 370 ppm.",
-      "title":"CO<sub>2</sub> at 370 ppm"
-   },
-   {
-      "id": 23,
-      "start_year":2000,
-      "end_year":2003,
-      "annotation":"The rate of surface warming slows in the early years of the 21st century, despite the continued rise in greenhouse gases. Natural variability in the climate system, augmented by interaction with man-made aerosols, is thought to be responsible along with a contribution from volcanic eruptions.",
+      "end_year":2012,
+      "annotation":"Natural climate variability combined with the effect of man-made aerosols are largely responsible",
       "title":"Surface warming slows"
    },
    {
-      "id": 24,
+      "id": 18,
       "start_year":2007,
       "end_year":2012,
-      "annotation":"La Niña conditions in 2008, 2011 and 2012 cause temporary drops in global temperatures.",
-      "title":"La Niña"
+      "annotation":"cause temporary drops in global temperatures",
+      "title":"La Niña conditions"
    },
    {
-      "id": 25,
-      "start_year":2010,
-      "end_year":2012,
-      "annotation":"Carbon dioxide concentrations: 389 ppm.",
-      "title":"CO<sub>2</sub> at 389 ppm"
-   },
-   {
-      "id": 26,
+      "id": 19,
       "start_year":2014,
       "end_year":2016,
-      "annotation":"2014 equals previous global temperature record and 2015 breaks it by a clear margin. 2016 is likely to be even warmer.",
-      "title":"Series of record warm years"
+      "title":"2014 equals previous global temperature record"
    },
    {
-      "id": 27,
+      "id": 20,
       "start_year":2015,
       "end_year":2016,
-      "annotation":"Strong El Niño event causes rise in global temperature.",
-      "title":"El Niño"
+      "annotation":"influenced by a strong El Niño",
+      "title":"and 2015 breaks it by a clear margin,"
    },
    {
-      "id": 28,
-      "start_year":2015,
-      "end_year":2016,
-      "annotation":"El Niño augments human-driven warming to give record-breaking warmth. Global temperatures surpass 1 °C above the pre-industrial for the first time.",
-      "title":"2015 Record breaking warm year"
-   },
-   {
-      "id": 29,
-      "start_year":2016,
-      "end_year":2017,
-      "annotation":"Carbon dioxide concentrations now above 400 ppm all year round.",
-      "title":"CO<sub>2</sub> concentrations break 400 ppm"
-   },
-   {
-      "id": 30,
+      "id": 21,
       "start_year":2016,
       "end_year":2016,
-      "annotation":"Monthly temperatures stay at near-record or record levels from mid-2015 to mid-2016 with the period from November 2015 to April 2016 being particularly warm.",
-      "title":"Continuing record warmth"
-   }
+      "annotation":"Atmospheric CO<sub>2</sub> at 400 ppm year-round",
+      "title":"2016 likely to be warmer still"
+   },
+ 
 ]
