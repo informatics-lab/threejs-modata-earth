@@ -17,7 +17,6 @@ window.paceOptions = {
 };
 var pace = require('pace-progress');
 var rp = require('request-promise');
-// var THREE = require("three");
 
 var Globe = require('./globe');
 var GlobeData = require('./globe-data');

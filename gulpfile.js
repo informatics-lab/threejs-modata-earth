@@ -29,7 +29,7 @@ gulp.task('clean:html', function () {
 });
 
 gulp.task('clean:js', function () {
-    return del([BUILD_DEST + "/js/**/*.*"]);
+    return del([BUILD_DEST + "/js/*.*"]);
 });
 gulp.task('clean:css', function () {
     return del([BUILD_DEST + "/css/**/*.*"]);
