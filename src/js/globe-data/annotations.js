@@ -1,9 +1,11 @@
 var GlobeUtils = require('../globe-utils');
 
-module.exports = function(globeDataMesh, radius, dataAnnotations) {
+module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAnimate) {
 
     var self = this;
     self.globeDataMesh = globeDataMesh;
+    self.camera = camera;
+    self.autoAnimate = autoAnimate;
 
     self.radius = radius;
     self.dataAnnotations = dataAnnotations;
@@ -64,7 +66,6 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
         var annotationDOM = document.getElementById(annotation.id);
         annotationDOM.style.opacity = 0;
         setTimeout(function(){
-            var annotationDOM = document.getElementById(annotation.id);
             annotationsList.removeChild(annotationDOM)
         }, 1000);
     }
@@ -86,6 +87,11 @@ module.exports = function(globeDataMesh, radius, dataAnnotations) {
 
             annotation.wrapper = wrapper;
             self.globeDataMesh.add(wrapper);
+
+            if(autoAnimate) {
+                console.log("auto animate!")
+                GlobeUtils.tweenCameraToLatLon()
+            }
         }
 
         self.activeAnnotations.push(annotation);
