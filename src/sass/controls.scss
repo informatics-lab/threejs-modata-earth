@@ -19,6 +19,10 @@
 
     #slider {
       position:absolute;
+      -webkit-top: 50px;
+      -webkit-left: 50px;
+
+
       --width : calc(80vh - 150px);
       --halfWidth : calc(var(--width)/2);
       top: var(--halfWidth);

@@ -104,7 +104,7 @@ module.exports = function (data, updateDataFnc, speed) {
         var controlLength = Number(controlCss.width.substring(0, controlCss.width.length - 2));
         var controlCentrePos = Number(controlCss.top.substring(0, controlCss.top.length - 2));
         var controlTop = (controlCentrePos - (controlLength / 2)) / windowHeight - 0.01;
-        var newTopPos = ((((controlLength - 20) / windowHeight) * (self.slider.value / self.slider.max)) + controlTop) * 100; // magic number adjusts travel speed
+        var newTopPos = ((((controlLength - 18) / windowHeight) * (self.slider.value / self.slider.max)) + controlTop) * 100; // magic number adjusts travel speed
         self.sliderText.setAttribute("style", "top:" + newTopPos + "vh;");
     }
 

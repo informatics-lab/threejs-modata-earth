@@ -17,7 +17,6 @@ window.paceOptions = {
 };
 var pace = require('pace-progress');
 var rp = require('request-promise');
-// var THREE = require("three");
 
 var Globe = require('./globe');
 var GlobeData = require('./globe-data');
@@ -35,7 +34,7 @@ init();
 function init() {
 
     function pageLoading() {
-        pace.restart();
+        pace.start();
         pace.on('done', function () {
             if(!app_loaded) {
                 var loadingDOM = document.getElementById("loading");
@@ -84,9 +83,7 @@ function init() {
                         guiCamFolder.add(camera.position, 'z', -5, 5).listen();
 
                         var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations, speed);
-
-
-
+                        
                         return;
 
                     });
@@ -150,7 +147,6 @@ function init() {
     //load all data then we are ready to go!
     Promise.all([rp(hadcrut4_1year_mean_opts), rp(hadcrut4_annotations_opts)])
         .then(function (arr) {
-
             hadcrut4_1year_mean = arr[0];
             hadcrut4_annotations = arr[1];
 
