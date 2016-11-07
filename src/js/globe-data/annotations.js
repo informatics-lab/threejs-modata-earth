@@ -88,9 +88,12 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
             annotation.wrapper = wrapper;
             self.globeDataMesh.add(wrapper);
 
-            if(autoAnimate) {
-                console.log("auto animate!")
-                GlobeUtils.tweenCameraToLatLon()
+            if(autoAnimate.object.animate) {
+                console.log("AA:",autoAnimate.object.animate);
+                if(!GlobeUtils.tweening) {
+                    console.log("auto animating to annotation", annotation);
+                    GlobeUtils.tweenCameraToLatLon(self.camera, annotation.location.lat, annotation.location.lon);
+                }
             }
         }
 

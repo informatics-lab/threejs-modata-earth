@@ -32,11 +32,25 @@ module.exports = function(minco2, maxco2, mintemp, maxtemp) {
         var co2Chart = getBarChart("co2BarChart", "CO<sub>2</sub> (ppm)");
         chart.appendChild(co2Chart);
 
-        var tempChart = getBarChart("tempBarChart", "Temp anomaly (&deg;C)");
+        var tempChart = getBarChart("tempBarChart", "Temp anomaly (&deg;C)<br/>difference from 1961-1990");
         chart.appendChild(tempChart);
 
         var app = document.getElementById('content');
         app.appendChild(chart);
+
+        function setLabelPositions() {
+            var labels = document.getElementsByClassName("barChartLabel");
+            if(labels && labels.length > 0) {
+                for(var i = 0; i < labels.length; i ++){
+                    var label = labels[i];
+                    var size = label.getBoundingClientRect();
+                    var bottomPos = 20 - size.height;
+                    label.style.bottom = bottomPos+"px";
+                };
+            }
+        }
+
+        setLabelPositions();
     }
     initChart();
 

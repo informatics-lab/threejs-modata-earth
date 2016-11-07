@@ -27,7 +27,7 @@ var scene, camera, renderer, controls;
 var hadcrut4_1year_mean;
 var hadcrut4_annotations;
 var app_loaded = false;
-var autoAnimate = true;
+var autoAnimate = false;
 
 init();
 
@@ -57,8 +57,10 @@ function init() {
                         //lockdown controls
                         controls.minDistance = GLOBE_RADIUS * 2;
                         controls.maxDistance = GLOBE_RADIUS * 3;
+                        controls.enableDamping = true;
+                        controls.dampingFactor = 0.2;
 
-                        if (animate) {
+                        if (autoAnimate) {
                             controls.autoRotate = true;
                         }
 
@@ -82,13 +84,16 @@ function init() {
                         guiDataFolder.add(dataC, 'decDataIndex');
                         var speed = guiDataFolder.add(dataC, 'playbackSpeed',  1, 100).listen();
                         var autoAnimateSwitch = guiDataFolder.add(dataC, 'animate').listen();
+                        autoAnimateSwitch.onChange(function(val){
+                            controls.autoRotate = val;
+                        });
 
                         var guiCamFolder = gui.addFolder('camera');
                         guiCamFolder.add(camera.position, 'x', -5, 5).listen();
                         guiCamFolder.add(camera.position, 'y', -5, 5).listen();
                         guiCamFolder.add(camera.position, 'z', -5, 5).listen();
 
-                        var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations, speed, autoAnimateSwitch);
+                        var data = new GlobeData.rawDataSphereMesh(scene, camera, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations, speed, autoAnimateSwitch);
 
                         return;
 
