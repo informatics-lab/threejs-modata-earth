@@ -35,7 +35,7 @@ if (browser.name == 'firefox'){
 } else if (browser.name == 'chrome'){
     comptable = major_version >= 53
 } else if (browser.name == 'safari'){
-    comptable = major_version >= 10
+    comptable = major_version >= 9
 }
 
 if(comptable && !ismobile){
