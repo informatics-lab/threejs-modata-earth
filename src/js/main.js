@@ -232,6 +232,34 @@ function init() {
 
             addAppTitle();
 
+            function addInfoHover() {
+
+                var infoHover = document.createElement("span");
+                infoHover.id = "infoHover";
+                infoHover.innerHTML = "&#8505";
+
+                infoHover.addEventListener('mouseover', function() {
+                    var info = document.getElementById("info");
+                    info.style.display = "block";
+                    setTimeout(function(){
+                        info.style.opacity = 0.85;
+                    },5);
+                });
+
+                infoHover.addEventListener('mouseout', function() {
+                    var info = document.getElementById("info");
+                    info.style.opacity = 0;
+                    setTimeout(function(){
+                        info.style.display = "none";
+                    },500);
+                });
+
+                var app = document.getElementById(APP_DIV_ID);
+                app.appendChild(infoHover);
+            }
+
+            addInfoHover();
+
             var globe = new Globe(scene, GLOBE_RADIUS);
 
             console.log("data loaded");

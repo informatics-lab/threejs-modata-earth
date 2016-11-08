@@ -25,9 +25,10 @@ body {
   }
 }
 
+@import "incompatible";
 @import "loading";
 @import "title";
 @import "controls";
 @import "annotations";
 @import "chart";
-@import "incompatible";
+@import "info";

@@ -53,11 +53,14 @@
     #hadcrut4text {
       position:relative;
       color:$core-white;
-      font-size: 20px;
       font-weight:normal;
       text-align:left;
-      margin-left:115px;
-      margin-right:115px;
+
+      a{
+        color: $core-white;
+        font-weight: bold;
+      }
+
     }
 
   }
