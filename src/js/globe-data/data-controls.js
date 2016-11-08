@@ -30,12 +30,20 @@ module.exports = function (data, updateDataFnc, speed) {
         function addDataSlider(domElement) {
 
             function addSlider(domElement) {
+
+
                 var slider = document.createElement('input');
                 slider.id = "slider";
                 slider.type = "range";
                 slider.value = self.cdi;
                 slider.min = 0;
                 slider.max = self.data.datas.length - 1;
+
+                //nasty hack for safari (doesn't support css4) :(
+                var isSafari = /constructor/i.test(window.HTMLElement);
+                if (isSafari) {
+                    slider.setAttribute("style", "width: 60vh;left: -30vh;top: 30vh;");
+                }
 
                 slider.addEventListener('input', function (evt) {
                     setControls(slider.value);
