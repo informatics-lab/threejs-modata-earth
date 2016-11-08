@@ -32,7 +32,7 @@ module.exports = function(minco2, maxco2, mintemp, maxtemp) {
         var co2Chart = getBarChart("co2BarChart", "CO<sub>2</sub> (ppm)");
         chart.appendChild(co2Chart);
 
-        var tempChart = getBarChart("tempBarChart", "Temp anomaly (&deg;C)<br/>difference from 1961-1990");
+        var tempChart = getBarChart("tempBarChart", "Temp difference (&deg;C)<br/>from 1961-1990");
         chart.appendChild(tempChart);
 
         var app = document.getElementById('content');
