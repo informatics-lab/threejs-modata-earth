@@ -53,7 +53,12 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
 
     function addAnnotationText(annotation){
         var annotationDOM = document.createElement("li");
-        annotationDOM.innerHTML = "<h3>"+annotation.title+"</h3><p>"+annotation.annotation+"</p>";
+        var annotationText = "<h3>"+annotation.title+"</h3>";
+        if(annotation.annotation) {
+            annotationText = annotationText + "<p>" + annotation.annotation + "</p>";
+        }
+        annotationDOM.innerHTML = annotationText;
+
         annotationDOM.id = annotation.id;
         annotationsList.appendChild(annotationDOM);
         setTimeout(function() {
@@ -110,8 +115,11 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
     }
 
     function activateAnnotations(year) {
-        var activeIds = self.activeAnnotations.map(function(el){return el.id});
-        self.dataAnnotations.forEach(function(annotation) {
+        var activeIds = self.activeAnnotations.map(
+            function (el){
+                return el.id
+            });
+        self.dataAnnotations.forEach(function (annotation) {
             if(annotation.start_year <= year && year < annotation.end_year && activeIds.indexOf(annotation.id) == -1) {
                 addAnnotation(annotation);
             }

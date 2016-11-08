@@ -82,7 +82,7 @@ function init() {
                         var guiDataFolder = gui.addFolder('data');
                         guiDataFolder.add(dataC, 'incDataIndex');
                         guiDataFolder.add(dataC, 'decDataIndex');
-                        var speed = guiDataFolder.add(dataC, 'playbackSpeed',  1, 100).listen();
+                        var speed = guiDataFolder.add(dataC, 'playbackSpeed',  1, 20).listen();
                         var autoAnimateSwitch = guiDataFolder.add(dataC, 'animate').listen();
                         autoAnimateSwitch.onChange(function(val){
                             controls.autoRotate = val;
