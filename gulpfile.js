@@ -7,7 +7,6 @@ var del = require('del');
 
 var htmlmin = require('gulp-htmlmin');
 var sass = require('gulp-sass');
-var prefix = require('gulp-autoprefixer');
 
 var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
@@ -67,7 +66,6 @@ gulp.task('build:css', function () {
     return gulp.src('./src/sass/styles.scss')
         //.pipe(sass({outputStyle: 'compressed'}))        //minified
         .pipe(sass())
-        .pipe(prefix('last 2 versions'))
         .pipe(gulp.dest(BUILD_DEST + '/css'));
 });
 
