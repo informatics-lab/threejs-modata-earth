@@ -1,13 +1,14 @@
 # threejs-modata-earth
+Met Office Informatics Lab Prototype.
 ThreeJS globe for displaying Met Office data sets.
 
-##installation
-
+##installation  
+You will need to have [node](https://nodejs.org/en/) installed, then, from the project root:  
 `$ npm i -g gulp`  
 `$ npm install`  
    
-##running (dev mode)
-   
+##running (dev mode)  
+  
 `$ gulp serve`
   
 ##building
