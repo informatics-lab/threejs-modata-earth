@@ -73,7 +73,6 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
         window.rec = annotationDOM.getBoundingClientRect();
         annotationDOM.style.height = String(rec.height) + 'px';
         setTimeout(function(){
-            console.log(annotationDOM.style.height)
             annotationDOM.style.opacity = 0;
             annotationDOM.style.height = '0px';
         }, 5);
