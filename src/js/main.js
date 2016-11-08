@@ -4,7 +4,6 @@ const APP_NAME = "Global Temperature";
 const APP_DIV_ID = "content";
 const GLOBE_RADIUS = 1;
 
-var browser = require('detect-browser');
 
 var OrbitControls = require('three-orbit-controls')(THREE);
 var dat = require('dat-gui');
@@ -16,34 +15,29 @@ window.paceOptions = {
         selectors: ['#content.ready']
     }
 };
+var browser = require('detect-browser');
 var pace = require('pace-progress');
 var rp = require('request-promise');
+
 
 var Globe = require('./globe');
 var GlobeData = require('./globe-data');
 var GlobeUtils = require('./globe-utils');
 
-var scene, camera, renderer, controls;
-
-var hadcrut4_1year_mean;
-var hadcrut4_annotations;
-var app_loaded = false;
-var autoAnimate = false;
 
 // Initialises only if compatible.
-var ismobile=navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i)
+var ismobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
 var comptable = false;
 var major_version = parseInt(browser.version.split('.')[0]);
+
 if (browser.name == 'firefox'){
     comptable = major_version >= 49
-}
-else if (browser.name == 'chrome'){
+} else if (browser.name == 'chrome'){
     comptable = major_version >= 53
-}
-
-else if (browser.name == 'safari'){
+} else if (browser.name == 'safari'){
     comptable = major_version >= 10
 }
+
 if(comptable && !ismobile){
     init();
 } else {
@@ -53,14 +47,18 @@ if(comptable && !ismobile){
     document.getElementById("goWithNotCompatible").addEventListener("touchstart", proceedAnyway);
 }
 
-
 function proceedAnyway(){
     document.getElementById('incompatible').style.display = 'none';
     document.getElementById('loading').style.display = 'block';
     init();
 }
 
+var scene, camera, renderer, controls;
 
+var hadcrut4_1year_mean;
+var hadcrut4_annotations;
+var app_loaded = false;
+var autoAnimate = false;
 
 // initialises scene
 function init() {

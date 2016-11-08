@@ -13,50 +13,53 @@
   padding:0;
   margin:0;
 
-  #moLogo {
-    position: absolute;
-    top:15%;
-    margin: 0 auto;
-    left:20%;
-    padding:0;
-    margin:0;
-    height: 100px;
-  }
+  .wrapper {
+    max-width: 50rem;
+    margin: auto;
+    padding: 1rem;
 
-  #infoLabLogo {
-    position:absolute;
-    margin: 0 auto;
-    top:19.5%;
-    left:54%;
-    padding:0;
-    width:100%;
-    color: $core-white;
-    font-size: 45px;
-    font-weight:normal;
-  }
+    .combinedlogo {
+      position: relative;
 
-  #hadcrut4logo {
-    position:absolute;
-    top:38%;
-    text-align: center;
-    margin:0;
-    padding:0;
-    width: 100vw;
-    color:$core-white;
-    font-size: 40px;
-    font-weight:normal;
-  }
+      #moLogo {
+        height: 100px;
+        display: inline-block;
+        margin-right: -113px;
+      }
 
-  #hadcrut4text {
-    position:relative;
-    width: 55vw;
-    bottom: 0;
-    top: 55%;
-    margin: 0 auto;
-    color:$core-white;
-    font-size: 20px;
-    font-weight:normal;
-    text-align:center;
+      #infoLabLogo {
+        font-size: 45px;
+        font-weight: normal;
+        display: inline-block;
+        position: relative;
+        margin:0;
+        padding:0 113px 0 0;
+        top:-23px;
+        left: 113px;
+        color: $winter-grey;
+      }
+    }
+
+    #hadcrut4logo {
+      position: relative;
+      text-align: center;
+      margin:0;
+      padding:0;
+      color:$core-white;
+      font-size: 40px;
+      font-weight:normal;
+    }
+
+    #hadcrut4text {
+      position:relative;
+      color:$core-white;
+      font-size: 20px;
+      font-weight:normal;
+      text-align:left;
+      margin-left:115px;
+      margin-right:115px;
+    }
+
   }
 
 }

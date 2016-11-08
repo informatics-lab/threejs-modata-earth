@@ -8,40 +8,40 @@
 </head>
 <body>
 <div id="loading">
-  <div id="combinedlogo">
-    <img src="img/met-office-logo.svg" id="moLogo" alt="Met Office"></img>
-    <h2 id="infoLabLogo">Informatics Lab</h2>
-  </div>
-  <h3 id="hadcrut4logo">Global Temperature</h3>
-  <div id="hadcrut4text">
-    <p>This visualisation uses the HadCRUT4 dataset, a collection of global surface temperature since 1850, which uses
-        data from the Met Office Hadley Centre and the Climatic Research Unit at UEA.</p>
-    <p>In this visualisation you can explore this surface temperature data,<br/>
-        and some of the global events which have affected it.</p>
-    <p>Temperatures are expressed as the difference from average temperature between 1961-1990.</p>
-  </div>
+    <div class="wrapper">
+        <div class="combinedlogo">
+            <img src="img/met-office-logo.svg" id="moLogo" alt="Met Office"></img>
+            <h2 id="infoLabLogo">Informatics Lab</h2>
+        </div>
+        <h3 id="hadcrut4logo">Global Temperature</h3>
+        <div id="hadcrut4text">
+            <p>This visualisation uses the HadCRUT4 dataset, a collection of global surface temperature since 1850, which uses data from the Met Office Hadley Centre and the Climatic Research Unit at UEA.</p>
+            <p>In this visualisation you can explore this surface temperature data, and some of the global events which have affected it.</p>
+            <p>Temperatures are expressed as the difference from average temperature between 1961-1990.</p>
+        </div>
+    </div>
 </div>
 <div id="incompatible" style="display: none;">
-  <div class="wrapper">
-    <div class="combinedlogo">
-      <img src="img/met-office-logo.svg" class="moLogo" alt="Met Office" />
-      <h2 class="infoLabLogo">Informatics Lab</h2>
+    <div class="wrapper">
+        <div class="combinedlogo">
+            <img src="img/met-office-logo.svg" class="moLogo" alt="Met Office"/>
+            <h2 class="infoLabLogo">Informatics Lab</h2>
+        </div>
+        <h3>Incompatible browser</h3>
+        <div class="infotext">
+            <p>This visualisation requires a number of new and experimental browser features
+                which only work with certain modern browsers in the desktop environment.</p>
+            <p>Please use one of the following browsers:</p>
+            <ul>
+                <li>Chrome (Desktop) >= 53</li>
+                <li>Firefox (Desktop) >= 49</li>
+                <li>Safari (Desktop) >= 10</li>
+            </ul>
+        </div>
+        <p>
+            Alternatively you can <a id='goWithNotCompatible' href='#'>proceed anyway.</a>
+        </p>
     </div>
-    <h3>Incompatible browser</h3>
-    <div class="infotext">
-      <p>This visualisation requires a number of new and experimental browser features
-        which only work with certain modern browsers in the desktop environment.</p>
-      <p>Please use one of the following browsers:</p>
-      <ul>
-        <li>Chrome (Desktop) >= 53</li>
-        <li>Firefox (Desktop) >= 49</li>
-        <li>Safari (Desktop) >= 10</li>
-      </ul>
-    </div>
-    <p>
-      Alternatively you can <a id='goWithNotCompatible' href='#'>proceed anyway.</a>
-    </p>
-  </div>
 </div>
 <div id="content"></div>
 
@@ -53,6 +53,7 @@ void main()
     vNormal = normalize( normalMatrix * normal );
     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }
+
 </script>
 
 <script id="glowFragmentShader" type="x-shader/x-vertex">
@@ -62,6 +63,7 @@ void main()
 	float intensity = pow( 0.7 - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) ), 4.0 );
     gl_FragColor = vec4( 0.57, 0.80, 0.04, 1.0 ) * intensity;
 }
+
 </script>
 
 
@@ -107,6 +109,7 @@ void main()
         vNormal = normalize( normalMatrix * normal );
         vUv = uv;
       }
+
 </script>
 
 <script id="cloudFragmentShader" type="x-shader/x-fragment">
@@ -137,6 +140,7 @@ void main()
             gl_FragColor.a = 0.0;
         }
       }
+
 </script>
 <!-- ----------------------------------------------------------- -->
 <script type="text/javascript" src="js/app.min.js"></script>
