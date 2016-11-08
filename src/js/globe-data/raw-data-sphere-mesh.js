@@ -26,15 +26,17 @@ const SATURATION_CALIBRATION = 6;
 //
 // Some of the ideas here are inspired by Callum Prentice's work.
 // See http://callumprentice.github.io/apps/global_temperature_change_webgl/index.html
-module.exports = function(scene, radius, data, dataAnnotations, speed) {
+module.exports = function(scene, camera, radius, data, dataAnnotations, speed, autoAnimate) {
 
     var self = this;
     self.scene = scene;
+    self.camera = camera;
     self.radius = radius;
     self.data = data;
     self.dataPoints = [];
     self.dataAnnotations = dataAnnotations;
     self.speed = speed;
+    self.autoAnimate = autoAnimate;
 
     // var faceOffsetDegrees = 0.125;
     var faceOffsetDegrees = 0.05;
@@ -110,7 +112,7 @@ module.exports = function(scene, radius, data, dataAnnotations, speed) {
 
         for(var y = startY; y < 90; y += faceHeight) {
             for (var x = startX; x < 180; x += faceWidth) {
-                var sphereFace = getSphereFaceBufferGeometry(y,x)
+                var sphereFace = getSphereFaceBufferGeometry(y,x);
                 mesh.add(sphereFace);
                 self.dataPoints.push(sphereFace);
             }
@@ -158,7 +160,7 @@ module.exports = function(scene, radius, data, dataAnnotations, speed) {
     self.dataMesh = getSphereDataMesh();
     self.scene.add(self.dataMesh);
     self.controls = new DataControls(self.data, setMeshToDataSet, speed);
-    self.annotations = new Annotations(self.dataMesh, self.radius * 1.01, self.dataAnnotations);
+    self.annotations = new Annotations(self.dataMesh, self.camera, self.radius * 1.01, self.dataAnnotations, self.autoAnimate);
     self.chart = new Chart(self.data.min_co2, self.data.max_co2, self.data.min_temp, self.data.max_temp);
 
     //init the data mesh to the first data set

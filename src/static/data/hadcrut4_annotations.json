@@ -30,7 +30,7 @@
       "location":{
          "lat":-6.1021,
          "lon":105.4230
-      },
+      }
    },
    {
       "id": 4,
@@ -78,7 +78,7 @@
       "location":{
          "lat":-75.6056,
          "lon":-26.2075
-      },
+      }
    },
    {
       "id": 10,
@@ -173,6 +173,5 @@
       "end_year":2016,
       "annotation":"Atmospheric CO<sub>2</sub> at 400 ppm year-round",
       "title":"2016 likely to be warmer still"
-   },
- 
+   }
 ]

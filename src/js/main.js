@@ -27,6 +27,7 @@ var scene, camera, renderer, controls;
 var hadcrut4_1year_mean;
 var hadcrut4_annotations;
 var app_loaded = false;
+var autoAnimate = false;
 
 init();
 
@@ -56,10 +57,16 @@ function init() {
                         //lockdown controls
                         controls.minDistance = GLOBE_RADIUS * 2;
                         controls.maxDistance = GLOBE_RADIUS * 3;
+                        controls.enableDamping = true;
+                        controls.dampingFactor = 0.2;
+
+                        if (autoAnimate) {
+                            controls.autoRotate = true;
+                        }
 
                         var dataC = {
                             playbackSpeed : 16,
-
+                            animate : autoAnimate,
                             incDataIndex: function () {
                                 data.increaseCDI();
                             },
@@ -75,15 +82,19 @@ function init() {
                         var guiDataFolder = gui.addFolder('data');
                         guiDataFolder.add(dataC, 'incDataIndex');
                         guiDataFolder.add(dataC, 'decDataIndex');
-                        var speed = guiDataFolder.add(dataC, 'playbackSpeed',  1, 100).listen();
+                        var speed = guiDataFolder.add(dataC, 'playbackSpeed',  1, 20).listen();
+                        var autoAnimateSwitch = guiDataFolder.add(dataC, 'animate').listen();
+                        autoAnimateSwitch.onChange(function(val){
+                            controls.autoRotate = val;
+                        });
 
                         var guiCamFolder = gui.addFolder('camera');
                         guiCamFolder.add(camera.position, 'x', -5, 5).listen();
                         guiCamFolder.add(camera.position, 'y', -5, 5).listen();
                         guiCamFolder.add(camera.position, 'z', -5, 5).listen();
 
-                        var data = new GlobeData.rawDataSphereMesh(scene, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations, speed);
-                        
+                        var data = new GlobeData.rawDataSphereMesh(scene, camera, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations, speed, autoAnimateSwitch);
+
                         return;
 
                     });
@@ -125,8 +136,8 @@ function init() {
     //init controls
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
-
-
+    
+    
     //sync camera and directional light so we can see what we're doing!!
     controls.addEventListener('change', function (evt) {
         directionalLight.position.copy(camera.position);

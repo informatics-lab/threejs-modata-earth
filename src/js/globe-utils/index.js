@@ -5,9 +5,12 @@ const GLOBE_RADIUS = 1;
 const ORIGIN = new THREE.Vector3(0, 0, 0);
 
 var TWEEN = require('tween.js');
+var tweening = false;
 
 module.exports = {
 
+    tweening: tweening,
+    
     /**
      * Gets the xyz position of a given lat lon
      * @param lat
@@ -65,9 +68,11 @@ module.exports = {
             .to(this.latLonToVector3(lat, lon, GLOBE_RADIUS, distToOrigin - GLOBE_RADIUS), 1000)
             .easing(TWEEN.Easing.Quadratic.InOut)
             .onUpdate(function () {
+                tweening = true;
                 camera.lookAt(ORIGIN);
             })
             .onComplete(function () {
+                tweening = false;
                 camera.lookAt(ORIGIN);
             })
             .start();
@@ -82,10 +87,12 @@ module.exports = {
                 .easing(TWEEN.Easing.Quadratic.InOut)
 
                 .onUpdate(function () {
+                    tweening = true;
                     camera.lookAt(ORIGIN);
                 })
 
                 .onComplete(function () {
+                    tweening = false;
                     camera.lookAt(ORIGIN);
                     resolve();
                 })

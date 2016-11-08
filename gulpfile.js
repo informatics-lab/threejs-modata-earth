@@ -38,7 +38,7 @@ gulp.task('clean:css', function () {
 
 //BUILD
 gulp.task('build:static', function() {
-    gulp.src('./src/static/**/*')
+    return gulp.src('./src/static/**/*')
         .pipe(gulp.dest(BUILD_DEST));
 });
 gulp.task('build:html', function () {

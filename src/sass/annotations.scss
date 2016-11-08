@@ -17,6 +17,7 @@
     color: $winter-grey;
     opacity: 0;
     transition: opacity 1.5s ease;
+    transition: height 1.5s ease;
     -webkit-transition: opacity 1.5s ease;
 
     p {
