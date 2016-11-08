@@ -4,6 +4,7 @@ const APP_NAME = "Global Temperature";
 const APP_DIV_ID = "content";
 const GLOBE_RADIUS = 1;
 
+var browser = require('detect-browser');
 
 var OrbitControls = require('three-orbit-controls')(THREE);
 var dat = require('dat-gui');
@@ -29,7 +30,37 @@ var hadcrut4_annotations;
 var app_loaded = false;
 var autoAnimate = false;
 
-init();
+// Initialises only if compatible.
+var ismobile=navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i)
+var comptable = false;
+var major_version = parseInt(browser.version.split('.')[0]);
+if (browser.name == 'firefox'){
+    comptable = major_version >= 49
+}
+else if (browser.name == 'chrome'){
+    comptable = major_version >= 53
+}
+
+else if (browser.name == 'safari'){
+    comptable = major_version >= 10
+}
+if(comptable && !ismobile){
+    init();
+} else {
+    document.getElementById('incompatible').style.display = 'block';
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById("goWithNotCompatible").addEventListener("click", proceedAnyway);
+    document.getElementById("goWithNotCompatible").addEventListener("touchstart", proceedAnyway);
+}
+
+
+function proceedAnyway(){
+    document.getElementById('incompatible').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+    init();
+}
+
+
 
 // initialises scene
 function init() {

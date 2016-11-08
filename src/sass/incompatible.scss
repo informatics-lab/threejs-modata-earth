@@ -1,0 +1,61 @@
+/*
+ * Styles for the #loading div
+ */
+
+@import "mo-style-variables";
+
+#incompatible {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  padding:0;
+  margin:0;
+  color: $core-white;
+  z-index: 10;
+
+  a {
+    color: $core-white;
+    font-weight: bold;
+
+  }
+
+  .wrapper {
+
+    max-width: 50rem;
+    margin: auto;
+    padding: 1rem;
+
+    .combinedlogo{
+
+      position: relative;
+      .moLogo {
+        height: 100px;
+        display: inline-block;
+        margin-right: -113px;
+      }
+
+      .infoLabLogo {
+        font-size: 45px;
+        font-weight: normal;
+        display: inline-block;
+        position: relative;
+        margin:0;
+        padding:0 113px 0 0;
+        top:-23px;
+        left: 113px;
+      }
+
+    }
+
+    h3 {
+      font-size: 40px;
+      font-weight: normal;
+    }
+    .infotext {
+      font-size: 20px;
+      font-weight: normal;
+    }
+  }
+}
