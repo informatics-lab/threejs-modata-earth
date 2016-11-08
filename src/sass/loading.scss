@@ -20,34 +20,36 @@
 
     .combinedlogo {
       position: relative;
+      padding-bottom: 30px;
 
-      #moLogo {
-        height: 100px;
+      .moLogo {
+        height: 80px;
         display: inline-block;
         margin-right: -113px;
       }
 
-      #infoLabLogo {
-        font-size: 45px;
+      .infoLabLogo {
+        font-size: 28px;
         font-weight: normal;
         display: inline-block;
-        position: relative;
+        position: absolute;
         margin:0;
-        padding:0 113px 0 0;
-        top:-23px;
-        left: 113px;
+        padding:0;
+        top:64px;
+        left: 90px;
         color: $winter-grey;
       }
-    }
 
-    #hadcrut4logo {
-      position: relative;
-      text-align: center;
-      margin:0;
-      padding:0;
-      color:$core-white;
-      font-size: 40px;
-      font-weight:normal;
+      .hadcrut4logo {
+        position: absolute;
+        left:360px;
+        top:24px;
+        margin:0;
+        padding:0;
+        color:$core-white;
+        font-size: 40px;
+        font-weight:normal;
+      }
     }
 
     #hadcrut4text {
@@ -55,6 +57,7 @@
       color:$core-white;
       font-weight:normal;
       text-align:left;
+      font-size: 20px;
 
       a{
         color: $core-white;
