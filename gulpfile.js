@@ -73,8 +73,8 @@ gulp.task('build', function() {
     runSequence('clean', ['build:static', 'build:html', 'build:css', 'build:js']);
 });
 
-gulp.task('build:', function() {
-    runSequence('clean', ['build:static', 'build:html', 'build:css', 'build:js']);
+gulp.task('build:prod', function() {
+    runSequence('clean', ['build:html', 'build:css', 'build:js']);
 });
 
 //SERVE

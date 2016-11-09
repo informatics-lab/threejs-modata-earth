@@ -3,7 +3,7 @@ node_js:
   - "6"
 before_script:
   - npm install -g gulp
-script: gulp build
+script: gulp build:prod
 deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY
