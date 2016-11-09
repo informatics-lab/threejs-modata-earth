@@ -22,7 +22,7 @@
          "lat":12.2958,
          "lon":76.6394
       },
-      "title":"Strong El Niño"
+      "title":"Strong <a target=\"_blank\" href=\"http://www.metoffice.gov.uk/learning/learn-about-the-weather/what-is-el-nino-la-nina\">El Niño</a>"
    },
    {
       "id": 3,
@@ -148,7 +148,7 @@
       "id": 17,
       "start_year":2000,
       "end_year":2012,
-      "annotation":"Natural climate variability combined with the effect of man-made aerosols are largely responsible",
+      "annotation":"Natural climate variability combined with the effect of <a target=\"_blank\" href=\"http://www.metoffice.gov.uk/news/releases/2016/aerosols_slowdown_surface_warming\" >man-made aerosols</a> are largely responsible",
       "title":"Surface warming slows"
    },
    {
@@ -162,14 +162,14 @@
       "id": 19,
       "start_year":2014,
       "end_year":2016,
-      "title":"2014 equals previous global temperature record"
+      "title":"<a target=\"_blank\" href=\"http://www.metoffice.gov.uk/news/releases/2015/2014-global-temperature\" >2014</a> equals previous global temperature record"
    },
    {
       "id": 20,
       "start_year":2015,
       "end_year":2016,
       "annotation":"influenced by a strong El Niño",
-      "title":"and 2015 breaks it by a clear margin,"
+      "title":"<a target=\"_blank\" href=\"http://www.metoffice.gov.uk/news/releases/2016/stateoftheglobalclimate2015\" >2015</a> breaks it by a clear margin,"
    },
    {
       "id": 21,
