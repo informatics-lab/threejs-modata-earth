@@ -163,9 +163,7 @@ module.exports = function(scene, camera, radius, data, dataAnnotations, speed, a
     self.annotations = new Annotations(self.dataMesh, self.camera, self.radius * 1.01, self.dataAnnotations, self.autoAnimate);
     self.chart = new Chart(self.data.min_co2, self.data.max_co2, self.data.min_temp, self.data.max_temp);
 
-    //init the data mesh to the first data set
-    setMeshToDataSet(self.data.datas[self.controls.getControlIndex()]);
-
+    //init the data mesh to the last data set
     self.controls.setControls(self.data.datas.length-1);
 
     self.scene.addEventListener("animate", function(evt){
