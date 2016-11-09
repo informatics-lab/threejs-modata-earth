@@ -3,13 +3,15 @@
       "id": 0,
       "start_year":1850,
       "end_year":1860,
-      "title":"HadCRUT4 global temp record begins"
+       "annotation":"The record begins",
+      "title":"HadCRUT4 global temperature"
    },
    {
       "id": 1,
       "start_year":1850,
       "end_year":1860,
-      "title":"Atmospheric CO<sub>2</sub> at 285 ppm" 
+      "annotation":"285 parts per million (ppm)",
+      "title":"Atmospheric CO<sub>2</sub>:" 
    },
    {
       "id": 2,
@@ -43,7 +45,8 @@
       "id": 5,
       "start_year":1910,
       "end_year":1915,
-      "title":"Atmospheric CO<sub>2</sub> at 300 ppm" 
+      "annotation":"300 ppm",
+      "title":"Atmospheric CO<sub>2</sub>:" 
    },
    {
       "id": 6,
@@ -120,7 +123,8 @@
       "id": 14,
       "start_year":1988,
       "end_year":1993,
-      "title":"Atmospheric CO<sub>2</sub> at 350 ppm"
+      "annotation":"350 ppm",
+      "title":"Atmospheric CO<sub>2</sub>:"
    },
    {
       "id": 15,
@@ -172,6 +176,6 @@
       "start_year":2016,
       "end_year":2017,
       "annotation":"Atmospheric CO<sub>2</sub> at 400 ppm year-round",
-      "title":"2016 likely to be warmer still"
+      "title":"2016 is likely to be the warmest year on record"
    }
 ]
