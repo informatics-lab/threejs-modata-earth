@@ -1,6 +1,7 @@
 # threejs-modata-earth
-Met Office Informatics Lab Prototype.
-ThreeJS globe for displaying Met Office data sets.
+Met Office Informatics Lab Prototype. ThreeJS globe for displaying Met Office data sets.    
+Append `#skipIntro` to the web url to skip the initial tweening animation sequence.
+
 
 ##installation  
 You will need to have [node](https://nodejs.org/en/) installed, then, from the project root:  
