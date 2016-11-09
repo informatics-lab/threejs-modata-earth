@@ -34,7 +34,7 @@
    },
    {
       "id": 4,
-      "start_year":1880,
+      "start_year":1885,
       "end_year":1910,
       "annotation":"that continues into 20th century",
       "title":"Volcanic eruptions cause cooling"
@@ -68,7 +68,7 @@
       "start_year":1950,
       "end_year":1976,
       "annotation":"keeping global temperatures fairly constant",
-      "title": "Aerosol pollution offsets greenhouse effect"
+      "title": "Aerosol pollution partly offsets greenhouse effect"
    },
    {
       "id": 9,
