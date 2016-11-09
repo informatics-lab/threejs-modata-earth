@@ -16,7 +16,7 @@
     padding: 0;
     color: $winter-grey;
     opacity: 0;
-    transition: all 1s ease;
+    transition: opacity 500ms ease, height 1s ease;
     margin:0;
 
     .annotationWrapper {

@@ -76,7 +76,7 @@ function init() {
                 var uk = GlobeUtils.latLonToVector3(55.3, -3.4, 1, 2);
 
                 var initTween = Promise.resolve();
-                if(window.location.hash.search('skipInitTween') == -1){
+                if(window.location.hash.search('skipIntro') == -1){
                     initTween = GlobeUtils.tweenCameraToVector3(camera, us, 3000, 2000)
                         .then(function () {
                             return GlobeUtils.tweenCameraToVector3(camera, aus, 3000, 0);
