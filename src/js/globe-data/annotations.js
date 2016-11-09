@@ -57,7 +57,8 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
         if(annotation.annotation) {
             annotationText = annotationText + "<p>" + annotation.annotation + "</p>";
         }
-        annotationDOM.innerHTML = annotationText;
+
+        annotationDOM.innerHTML = "<div class='annotationWrapper'>" + annotationText + "</div>";
 
         annotationDOM.id = annotation.id;
         annotationsList.appendChild(annotationDOM);
@@ -69,10 +70,15 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
 
     function removeAnnotationText(annotation){
         var annotationDOM = document.getElementById(annotation.id);
-        annotationDOM.style.opacity = 0;
+        var rec = annotationDOM.getBoundingClientRect();
+        annotationDOM.style.height = String(rec.height) + 'px';
+        setTimeout(function(){
+            annotationDOM.style.opacity = 0;
+            annotationDOM.style.height = '0px';
+        }, 5);
         setTimeout(function(){
             annotationsList.removeChild(annotationDOM)
-        }, 1000);
+        }, 1010);
     }
     
     function addAnnotation(annotation) {
@@ -94,9 +100,7 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
             self.globeDataMesh.add(wrapper);
 
             if(autoAnimate.object.animate) {
-                console.log("AA:",autoAnimate.object.animate);
                 if(!GlobeUtils.tweening) {
-                    console.log("auto animating to annotation", annotation);
                     GlobeUtils.tweenCameraToLatLon(self.camera, annotation.location.lat, annotation.location.lon);
                 }
             }

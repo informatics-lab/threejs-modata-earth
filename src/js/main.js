@@ -74,59 +74,63 @@ function init() {
                 var us = GlobeUtils.latLonToVector3(38.9, -77, 1, 5);
                 var aus = GlobeUtils.latLonToVector3(-25.2, 133.7, 1, 4);
                 var uk = GlobeUtils.latLonToVector3(55.3, -3.4, 1, 2);
-                GlobeUtils.tweenCameraToVector3(camera, us, 3000, 2000)
-                    .then(function () {
-                        return GlobeUtils.tweenCameraToVector3(camera, aus, 3000, 0);
-                    })
-                    .then(function () {
-                        return GlobeUtils.tweenCameraToVector3(camera, uk, 3000, 0);
-                    })
-                    .then(function () {
 
-                        //lockdown controls
-                        controls.minDistance = GLOBE_RADIUS * 2;
-                        controls.maxDistance = GLOBE_RADIUS * 3;
-                        controls.enableDamping = true;
-                        controls.dampingFactor = 0.2;
-
-                        if (autoAnimate) {
-                            controls.autoRotate = true;
-                        }
-
-                        var dataC = {
-                            playbackSpeed : 16,
-                            animate : autoAnimate,
-                            incDataIndex: function () {
-                                data.increaseCDI();
-                            },
-                            decDataIndex: function () {
-                                data.decreaseCDI();
-                            }
-                        };
-
-                        //add advanced controls - press 'h' in gui to show/hide
-                        var gui = new dat.GUI();
-                        dat.GUI.toggleHide();
-
-                        var guiDataFolder = gui.addFolder('data');
-                        guiDataFolder.add(dataC, 'incDataIndex');
-                        guiDataFolder.add(dataC, 'decDataIndex');
-                        var speed = guiDataFolder.add(dataC, 'playbackSpeed',  1, 20).listen();
-                        var autoAnimateSwitch = guiDataFolder.add(dataC, 'animate').listen();
-                        autoAnimateSwitch.onChange(function(val){
-                            controls.autoRotate = val;
+                var initTween = Promise.resolve();
+                if(window.location.hash.search('skipIntro') == -1){
+                    initTween = GlobeUtils.tweenCameraToVector3(camera, us, 3000, 2000)
+                        .then(function () {
+                            return GlobeUtils.tweenCameraToVector3(camera, aus, 3000, 0);
+                        })
+                        .then(function () {
+                            return GlobeUtils.tweenCameraToVector3(camera, uk, 3000, 0);
                         });
+                }
+                initTween.then(function () {
 
-                        var guiCamFolder = gui.addFolder('camera');
-                        guiCamFolder.add(camera.position, 'x', -5, 5).listen();
-                        guiCamFolder.add(camera.position, 'y', -5, 5).listen();
-                        guiCamFolder.add(camera.position, 'z', -5, 5).listen();
+                    //lockdown controls
+                    controls.minDistance = GLOBE_RADIUS * 2;
+                    controls.maxDistance = GLOBE_RADIUS * 3;
+                    controls.enableDamping = true;
+                    controls.dampingFactor = 0.2;
 
-                        var data = new GlobeData.rawDataSphereMesh(scene, camera, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations, speed, autoAnimateSwitch);
+                    if (autoAnimate) {
+                        controls.autoRotate = true;
+                    }
 
-                        return;
+                    var dataC = {
+                        playbackSpeed : 16,
+                        animate : autoAnimate,
+                        incDataIndex: function () {
+                            data.increaseCDI();
+                        },
+                        decDataIndex: function () {
+                            data.decreaseCDI();
+                        }
+                    };
 
+                    //add advanced controls - press 'h' in gui to show/hide
+                    var gui = new dat.GUI();
+                    dat.GUI.toggleHide();
+
+                    var guiDataFolder = gui.addFolder('data');
+                    guiDataFolder.add(dataC, 'incDataIndex');
+                    guiDataFolder.add(dataC, 'decDataIndex');
+                    var speed = guiDataFolder.add(dataC, 'playbackSpeed',  1, 20).listen();
+                    var autoAnimateSwitch = guiDataFolder.add(dataC, 'animate').listen();
+                    autoAnimateSwitch.onChange(function(val){
+                        controls.autoRotate = val;
                     });
+
+                    var guiCamFolder = gui.addFolder('camera');
+                    guiCamFolder.add(camera.position, 'x', -5, 5).listen();
+                    guiCamFolder.add(camera.position, 'y', -5, 5).listen();
+                    guiCamFolder.add(camera.position, 'z', -5, 5).listen();
+
+                    var data = new GlobeData.rawDataSphereMesh(scene, camera, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations, speed, autoAnimateSwitch);
+
+                    return;
+
+                });
                 app_loaded = true;
             }
         });
