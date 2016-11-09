@@ -30,15 +30,15 @@ var ismobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webO
 var comptable = false;
 var major_version = parseInt(browser.version.split('.')[0]);
 
-if (browser.name == 'firefox'){
+if (browser.name == 'firefox') {
     comptable = major_version >= 49
-} else if (browser.name == 'chrome'){
+} else if (browser.name == 'chrome') {
     comptable = major_version >= 53
-} else if (browser.name == 'safari'){
+} else if (browser.name == 'safari') {
     comptable = major_version >= 9
 }
 
-if(comptable && !ismobile){
+if (comptable && !ismobile) {
     init();
 } else {
     document.getElementById('incompatible').style.display = 'block';
@@ -47,7 +47,7 @@ if(comptable && !ismobile){
     document.getElementById("goWithNotCompatible").addEventListener("touchstart", proceedAnyway);
 }
 
-function proceedAnyway(){
+function proceedAnyway() {
     document.getElementById('incompatible').style.display = 'none';
     document.getElementById('loading').style.display = 'block';
     init();
@@ -66,7 +66,7 @@ function init() {
     function pageLoading() {
         pace.start();
         pace.on('done', function () {
-            if(!app_loaded) {
+            if (!app_loaded) {
                 var loadingDOM = document.getElementById("loading");
                 loadingDOM.parentNode.removeChild(loadingDOM);
                 console.log("page loading done");
@@ -76,7 +76,7 @@ function init() {
                 var uk = GlobeUtils.latLonToVector3(55.3, -3.4, 1, 2);
 
                 var initTween = Promise.resolve();
-                if(window.location.hash.search('skipIntro') == -1){
+                if (window.location.hash.search('skipIntro') == -1) {
                     initTween = GlobeUtils.tweenCameraToVector3(camera, us, 3000, 2000)
                         .then(function () {
                             return GlobeUtils.tweenCameraToVector3(camera, aus, 3000, 0);
@@ -98,8 +98,8 @@ function init() {
                     }
 
                     var dataC = {
-                        playbackSpeed : 16,
-                        animate : autoAnimate,
+                        playbackSpeed: 16,
+                        animate: autoAnimate,
                         incDataIndex: function () {
                             data.increaseCDI();
                         },
@@ -115,9 +115,9 @@ function init() {
                     var guiDataFolder = gui.addFolder('data');
                     guiDataFolder.add(dataC, 'incDataIndex');
                     guiDataFolder.add(dataC, 'decDataIndex');
-                    var speed = guiDataFolder.add(dataC, 'playbackSpeed',  1, 20).listen();
+                    var speed = guiDataFolder.add(dataC, 'playbackSpeed', 1, 20).listen();
                     var autoAnimateSwitch = guiDataFolder.add(dataC, 'animate').listen();
-                    autoAnimateSwitch.onChange(function(val){
+                    autoAnimateSwitch.onChange(function (val) {
                         controls.autoRotate = val;
                     });
 
@@ -169,8 +169,8 @@ function init() {
     //init controls
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
-    
-    
+
+
     //sync camera and directional light so we can see what we're doing!!
     controls.addEventListener('change', function (evt) {
         directionalLight.position.copy(camera.position);
@@ -236,38 +236,44 @@ function init() {
 
             addAppTitle();
 
-            function addInfoHover() {
+            function addInfoClick() {
 
-                var infoHover = document.createElement("span");
-                infoHover.id = "infoHover";
-                infoHover.innerHTML = "&#8505";
+                var infoShowing = false;
+                var infoClick = document.createElement("span");
+                infoClick.id = "infoClick";
+                infoClick.innerHTML = "i";
 
-                infoHover.addEventListener('mouseover', function() {
+                infoClick.addEventListener('click', function () {
+                    console.log("info showing", infoShowing);
                     var info = document.getElementById("info");
-                    info.style.display = "block";
-                    setTimeout(function(){
-                        info.style.opacity = 0.85;
-                    },5);
-                });
+                    if (!infoShowing) {
+                        infoClick.innerHTML = "x";
+                        info.style.display = "block";
+                        setTimeout(function () {
+                            info.style.opacity = 0.85;
+                            infoShowing = true;
+                        }, 5);
 
-                infoHover.addEventListener('mouseout', function() {
-                    var info = document.getElementById("info");
-                    info.style.opacity = 0;
-                    setTimeout(function(){
-                        info.style.display = "none";
-                    },500);
+                    } else {
+                        infoClick.innerHTML = "i";
+                        info.style.opacity = 0;
+                        setTimeout(function () {
+                            info.style.display = "none";
+                            infoShowing = false;
+                        }, 500);
+                    }
                 });
 
                 var app = document.getElementById(APP_DIV_ID);
-                app.appendChild(infoHover);
+                app.appendChild(infoClick);
             }
 
-            addInfoHover();
+            addInfoClick();
 
             var globe = new Globe(scene, GLOBE_RADIUS);
 
             console.log("data loaded");
-            document.getElementById(APP_DIV_ID).setAttribute("class","ready");
+            document.getElementById(APP_DIV_ID).setAttribute("class", "ready");
 
             //begin animating stuff!
             animate();
@@ -279,6 +285,7 @@ function init() {
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
+
     window.addEventListener('resize', onWindowResize, false);
 }
 

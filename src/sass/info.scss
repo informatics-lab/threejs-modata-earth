@@ -1,50 +1,71 @@
 @import "mo-style-variables";
 
-#infoHover {
+#infoClick {
+  width:1em;
+  z-index: 1000;
+  text-align: center;
   position: absolute;
-  bottom: 4px;
-  left: 12px;
-  color: $winter-grey;
-  font-size: 40px;
+  bottom: 10px;
+  left: 22px;
+  color: $core-white;
+  font-size: 30px;
   cursor: pointer;
+  border: 1px solid $core-white;
+  border-radius: 50px;
+  padding-left:3px;
+  padding-right:3px;
 
   &:hover {
-    color: $core-white;
+    color: $core-green;
+    border-color: $core-green;
   }
 }
 
 #info {
   opacity: 0;
   display: none;
-
+  width: 100vw;
+  height:100vh;
   z-index: 1;
   position: absolute;
-  text-align: left;
-  width: 40vw;
-  margin: 0 30vw;
-  padding: 20px;
-  top: 20vh;
-  border: 1px solid $winter-grey;
-  border-radius: 5px;
-  background-color: $core-black;
+  top:0;
+  left:0;
   transition: opacity 500ms ease;
-  color: $core-white;
 
-  h3 {
-    margin-top:0px;
-    font-weight: normal;
-    font-size: 22px;
+  .wrapper {
+    position: relative;
+    width: 40vw;
+    max-height:60vh;
+    overflow: scroll;
+    margin: 0 auto;
+    margin-top: 20vh;
+    text-align: left;
+    border: 1px solid $winter-grey;
+    border-radius: 5px;
+    background-color: $core-black;
+    color: $core-white;
+    padding:20px;
 
-    span {
-      font-size: 36px;
+    h3 {
+      margin-top: 0px;
+      font-weight: normal;
+      font-size: 22px;
+
+      span {
+        font-size: 20px;
+        border: 1px solid $core-white;
+        border-radius: 50px;
+        width: 1em;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+
+    p {
+      a {
+        font-weight: bold;
+        color: $core-white;
+      }
     }
   }
-
-  p {
-    a {
-      font-weight: bold;
-      color: $core-white;
-    }
-  }
-
 }
