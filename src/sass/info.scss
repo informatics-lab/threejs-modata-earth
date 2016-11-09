@@ -65,6 +65,10 @@
       a {
         font-weight: bold;
         color: $core-white;
+        
+        &:hover {
+          color: $core-green;
+        }
       }
     }
   }

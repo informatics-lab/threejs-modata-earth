@@ -11,7 +11,7 @@
       "start_year":1850,
       "end_year":1860,
       "annotation":"285 parts per million (ppm)",
-      "title":"Atmospheric CO<sub>2</sub>:" 
+      "title":"Atmospheric CO<sub>2</sub>"
    },
    {
       "id": 2,
@@ -46,7 +46,7 @@
       "start_year":1910,
       "end_year":1915,
       "annotation":"300 ppm",
-      "title":"Atmospheric CO<sub>2</sub>:" 
+      "title":"Atmospheric CO<sub>2</sub>"
    },
    {
       "id": 6,
@@ -124,7 +124,7 @@
       "start_year":1988,
       "end_year":1993,
       "annotation":"350 ppm",
-      "title":"Atmospheric CO<sub>2</sub>:"
+      "title":"Atmospheric CO<sub>2</sub>"
    },
    {
       "id": 15,
@@ -161,13 +161,13 @@
    {
       "id": 19,
       "start_year":2014,
-      "end_year":2016,
+      "end_year":2017,
       "title":"<a target=\"_blank\" href=\"http://www.metoffice.gov.uk/news/releases/2015/2014-global-temperature\" >2014</a> equals previous global temperature record"
    },
    {
       "id": 20,
       "start_year":2015,
-      "end_year":2016,
+      "end_year":2017,
       "annotation":"influenced by a strong El Niño",
       "title":"<a target=\"_blank\" href=\"http://www.metoffice.gov.uk/news/releases/2016/stateoftheglobalclimate2015\" >2015</a> breaks it by a clear margin,"
    },

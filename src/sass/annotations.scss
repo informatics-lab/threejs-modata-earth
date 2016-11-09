@@ -5,6 +5,7 @@
 
 #annotations {
   position: absolute;
+  z-index: 1;
   right: 40px;
   top: 45px;
   padding: 0;
@@ -39,7 +40,13 @@
         a{
           font-weight: bold;
           color: $core-white;
+
+          &:hover {
+            color: $core-green;
+          }
+
         }
+
 
     }
   }

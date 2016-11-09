@@ -73,6 +73,9 @@ gulp.task('build', function() {
     runSequence('clean', ['build:static', 'build:html', 'build:css', 'build:js']);
 });
 
+gulp.task('build:', function() {
+    runSequence('clean', ['build:static', 'build:html', 'build:css', 'build:js']);
+});
 
 //SERVE
 gulp.task('serve', ['watch'], function() {

@@ -19,6 +19,9 @@
     color: $core-white;
     font-weight: bold;
 
+    &:hover {
+      color: $core-green;
+    }
   }
 
   .wrapper {
