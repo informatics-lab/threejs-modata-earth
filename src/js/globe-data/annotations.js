@@ -70,7 +70,6 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
 
     function removeAnnotationText(annotation){
         var annotationDOM = document.getElementById(annotation.id);
-        window.rec = annotationDOM.getBoundingClientRect();
         annotationDOM.style.height = String(rec.height) + 'px';
         setTimeout(function(){
             annotationDOM.style.opacity = 0;
@@ -78,7 +77,7 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
         }, 5);
         setTimeout(function(){
             annotationsList.removeChild(annotationDOM)
-        }, 1105);
+        }, 1010);
     }
     
     function addAnnotation(annotation) {
