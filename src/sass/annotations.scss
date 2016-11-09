@@ -31,5 +31,10 @@
 
     }
   }
+}
 
+@media (max-width: 750px) {
+  #annotations {
+    display: none;
+  }
 }

@@ -42,7 +42,13 @@ module.exports = function (data, updateDataFnc, speed) {
                 //nasty hack for safari (doesn't support css4) :(
                 var isSafari = /constructor/i.test(window.HTMLElement);
                 if (isSafari) {
-                    slider.setAttribute("style", "width: 60vh;left: -30vh;top: 30vh;");
+                    function setSliderHeight() {
+                        var winHeight = window.innerHeight;
+                        var sliderLength = ((winHeight-150)/100)*60;
+                        slider.setAttribute("style", "width: "+sliderLength+"px;left: -"+sliderLength/2+"px;top: "+sliderLength/2+"px;");
+                    }
+                    setSliderHeight();
+                    window.addEventListener('resize', setSliderHeight, false);
                 }
 
                 slider.addEventListener('input', function (evt) {
