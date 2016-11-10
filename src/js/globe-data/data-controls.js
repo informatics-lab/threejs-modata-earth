@@ -21,10 +21,10 @@ module.exports = function (data, updateDataFnc, speed) {
     self.cdi = 0;
     self.playing = false;
     self.speed = speed;
+    self.speedVal = speed.initialValue;
 
     self.speed.onChange(function(val){
-
-        self.speed = val;
+        self.speedVal = val;
 
         if(self.playing) {
             clearInterval(self.loop);
@@ -34,7 +34,7 @@ module.exports = function (data, updateDataFnc, speed) {
                 } else {
                     setControls(0);
                 }
-            }, 1000/self.speed);
+            }, 1000/self.speedVal);
         }
     });
 
@@ -159,7 +159,7 @@ module.exports = function (data, updateDataFnc, speed) {
             } else {
                 setControls(0);
             }
-        }, 1000/self.speed.initialValue);
+        }, 1000/self.speedVal);
         self.playing = true;
         self.playPauseButton.setAttribute("class", "play");
         var slider = document.getElementById('slider');
