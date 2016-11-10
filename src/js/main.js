@@ -28,14 +28,16 @@ var GlobeUtils = require('./globe-utils');
 // Initialises only if compatible.
 var ismobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
 var comptable = false;
-var major_version = parseInt(browser.version.split('.')[0]);
+if(browser.version) {
+    var major_version = parseInt(browser.version.split('.')[0]);
 
-if (browser.name == 'firefox') {
-    comptable = major_version >= 49
-} else if (browser.name == 'chrome') {
-    comptable = major_version >= 53
-} else if (browser.name == 'safari') {
-    comptable = major_version >= 9
+    if (browser.name == 'firefox') {
+        comptable = major_version >= 49
+    } else if (browser.name == 'chrome') {
+        comptable = major_version >= 53
+    } else if (browser.name == 'safari') {
+        comptable = major_version >= 9
+    }
 }
 
 if (comptable && !ismobile) {
