@@ -4,8 +4,8 @@
 @import "mo-style-variables";
 
 #annotations {
+  z-index: 0;
   position: absolute;
-  z-index: 1;
   right: 40px;
   top: 45px;
   padding: 0;

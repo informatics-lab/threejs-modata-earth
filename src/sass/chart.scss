@@ -4,6 +4,7 @@
 @import "mo-style-variables";
 
 #chart {
+  z-index: 0;
   position: absolute;
   bottom: 45px;
   right: 40px;

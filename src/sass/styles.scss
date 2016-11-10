@@ -23,6 +23,10 @@ body {
     opacity: 0;
     transition: opacity 3s ease;
   }
+
+  .dg.ac{
+    display: none;
+  }
 }
 
 @import "incompatible";
