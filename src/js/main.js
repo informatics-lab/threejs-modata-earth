@@ -40,7 +40,7 @@ if(browser.version) {
     }
 }
 
-if (comptable && !ismobile) {
+if (comptable && ismobile) {
     init();
 } else {
     document.getElementById('incompatible').style.display = 'block';
