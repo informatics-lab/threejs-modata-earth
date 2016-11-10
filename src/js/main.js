@@ -244,7 +244,6 @@ function init() {
                 infoClick.innerHTML = "i";
 
                 infoClick.addEventListener('click', function () {
-                    console.log("info showing", infoShowing);
                     var info = document.getElementById("info");
                     if (!infoShowing) {
                         infoClick.innerHTML = "x";
@@ -287,6 +286,21 @@ function init() {
     }
 
     window.addEventListener('resize', onWindowResize, false);
+
+    var dgVisible = false;
+    window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+        if (key == 72) {
+            var dg = document.getElementsByClassName("ac")[0];
+            if(!dgVisible) {
+                dg.style.display = "block";
+                dgVisible = true;
+            } else {
+                dg.style.display = "none";
+                dgVisible = false;
+            }
+        }
+    }
 }
 
 // animation loop

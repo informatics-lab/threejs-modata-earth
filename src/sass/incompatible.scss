@@ -5,6 +5,7 @@
 @import "mo-style-variables";
 
 #incompatible {
+  z-index: 10;
   position:absolute;
   top:0;
   left:0;
@@ -13,7 +14,7 @@
   padding:0;
   margin:0;
   color: $core-white;
-  z-index: 10;
+
 
   a {
     color: $core-white;
