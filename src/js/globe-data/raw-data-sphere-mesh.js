@@ -165,17 +165,18 @@ module.exports = function(scene, camera, radius, data, dataAnnotations, speed, a
 
     //init the data mesh to the last data set
     self.controls.setControls(self.data.datas.length-1);
+    //init the data mesh to the first data set
+    // self.controls.setControls(0);
 
     self.scene.addEventListener("animate", function(evt){
         self.dataMesh.dispatchEvent({type:"animate", message: evt.time});
     });
 
     return {
-
-        // mesh : self.dataMesh,
-        // radius : self.radius,
-        // origin : self.scene.origin,
-
+        
+        play : function() {
+            self.controls.play();
+        },
         increaseCDI : function() {
             if(self.controls.getControlIndex() < self.data.datas.length-1) {
                 var val = Number(self.controls.getControlIndex());

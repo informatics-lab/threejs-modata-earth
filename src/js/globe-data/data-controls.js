@@ -1,4 +1,17 @@
-
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
 
 module.exports = function (data, updateDataFnc, speed) {
 
@@ -31,13 +44,13 @@ module.exports = function (data, updateDataFnc, speed) {
 
             function addSlider(domElement) {
 
-
                 var slider = document.createElement('input');
                 slider.id = "slider";
                 slider.type = "range";
                 slider.value = self.cdi;
                 slider.min = 0;
                 slider.max = self.data.datas.length - 1;
+                slider.setAttribute("class","inactive");
 
                 //nasty hack for safari (doesn't support css4) :(
                 var isSafari = /constructor/i.test(window.HTMLElement);
@@ -51,9 +64,9 @@ module.exports = function (data, updateDataFnc, speed) {
                     window.addEventListener('resize', setSliderHeight, false);
                 }
 
-                slider.addEventListener('input', function (evt) {
+                slider.addEventListener('input', debounce(function(evt){
                     setControls(slider.value);
-                });
+                },50));
 
                 domElement.appendChild(slider);
                 self.slider = slider;
@@ -146,15 +159,21 @@ module.exports = function (data, updateDataFnc, speed) {
             } else {
                 setControls(0);
             }
-        }, 1000/self.speed);
+        }, 1000/self.speed.initialValue);
         self.playing = true;
         self.playPauseButton.setAttribute("class", "play");
-    };
+        var slider = document.getElementById('slider');
+        slider.disabled = true;
+        slider.setAttribute("class","active");
+    }
 
     function pause() {
         clearInterval(self.loop);
         self.playing = false;
         self.playPauseButton.setAttribute("class", "pause");
+        var slider = document.getElementById('slider');
+        slider.disabled = false;
+        slider.setAttribute("class","inactive");
     }
 
     //init
@@ -163,6 +182,10 @@ module.exports = function (data, updateDataFnc, speed) {
     setControlTextContent(self.data.datas[self.cdi].date_time);
 
     return {
+
+        play: function() {
+            play();
+        },
 
         getControlIndex: function () {
             return self.cdi;

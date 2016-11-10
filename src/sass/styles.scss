@@ -29,6 +29,12 @@ body {
   }
 }
 
+//hack to preload images
+body::after{
+  position:absolute; width:0; height:0; overflow:hidden; z-index:-1;
+  content:url("/img/slider_handle_normal.svg") url("/img/slider_handle_roll.svg") url("/img/play_normal.svg") url("/img/play_roll.svg");
+}
+
 @import "incompatible";
 @import "loading";
 @import "title";

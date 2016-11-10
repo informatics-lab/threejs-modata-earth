@@ -61,6 +61,7 @@ var hadcrut4_1year_mean;
 var hadcrut4_annotations;
 var app_loaded = false;
 var autoAnimate = false;
+var autoPlay = false;
 
 // initialises scene
 function init() {
@@ -75,7 +76,7 @@ function init() {
                 document.getElementById(APP_DIV_ID).style.opacity = 1;
                 var us = GlobeUtils.latLonToVector3(38.9, -77, 1, 5);
                 var aus = GlobeUtils.latLonToVector3(-25.2, 133.7, 1, 4);
-                var uk = GlobeUtils.latLonToVector3(55.3, -3.4, 1, 2);
+                var uk = GlobeUtils.latLonToVector3(20.0, -3.4, 1, 2); // below the uk
 
                 var initTween = Promise.resolve();
                 if (window.location.hash.search('skipIntro') == -1) {
@@ -93,15 +94,13 @@ function init() {
                     controls.minDistance = GLOBE_RADIUS * 2;
                     controls.maxDistance = GLOBE_RADIUS * 3;
                     controls.enableDamping = true;
-                    controls.dampingFactor = 0.2;
-
-                    if (autoAnimate) {
-                        controls.autoRotate = true;
-                    }
+                    controls.dampingFactor = 0.15;
+                    controls.rotateSpeed = 0.3;
+                    controls.autoRotate = autoAnimate;
+                    controls.autoRotateSpeed = 0.6;
 
                     var dataC = {
-                        playbackSpeed: 16,
-                        animate: autoAnimate,
+                        dataSpeed: 10,
                         incDataIndex: function () {
                             data.increaseCDI();
                         },
@@ -114,22 +113,27 @@ function init() {
                     var gui = new dat.GUI();
                     dat.GUI.toggleHide();
 
-                    var guiDataFolder = gui.addFolder('data');
-                    guiDataFolder.add(dataC, 'incDataIndex');
-                    guiDataFolder.add(dataC, 'decDataIndex');
-                    var speed = guiDataFolder.add(dataC, 'playbackSpeed', 1, 20).listen();
-                    var autoAnimateSwitch = guiDataFolder.add(dataC, 'animate').listen();
-                    autoAnimateSwitch.onChange(function (val) {
-                        controls.autoRotate = val;
-                    });
+                    var guiControlsFolder = gui.addFolder('controls');
+                    guiControlsFolder.add(dataC, 'incDataIndex');
+                    guiControlsFolder.add(dataC, 'decDataIndex');
+                    var speed = guiControlsFolder.add(dataC, 'dataSpeed', 1, 20).listen();
+                    guiControlsFolder.add(controls, 'rotateSpeed',0,1).listen();
+                    var autoAnimateSwitch = guiControlsFolder.add(controls, 'autoRotate').listen();
+                    guiControlsFolder.add(controls, 'autoRotateSpeed',0,1).listen();
+                    guiControlsFolder.add(controls, 'enableDamping').listen();
+                    guiControlsFolder.add(controls, 'dampingFactor',0,1).listen();
+
 
                     var guiCamFolder = gui.addFolder('camera');
                     guiCamFolder.add(camera.position, 'x', -5, 5).listen();
                     guiCamFolder.add(camera.position, 'y', -5, 5).listen();
                     guiCamFolder.add(camera.position, 'z', -5, 5).listen();
+                    
 
                     var data = new GlobeData.rawDataSphereMesh(scene, camera, GLOBE_RADIUS * 1.02, hadcrut4_1year_mean, hadcrut4_annotations, speed, autoAnimateSwitch);
-
+                    if(autoPlay) {
+                        data.play();
+                    }
                     return;
 
                 });

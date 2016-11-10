@@ -83,7 +83,8 @@ gulp.task('serve', ['watch'], function() {
         server: {
             baseDir: BUILD_DEST
         },
-        reloadDelay: 2000
+        reloadDelay: 2000,
+        notify:false
     });
 });
 

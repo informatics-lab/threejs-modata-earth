@@ -99,7 +99,7 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
             annotation.wrapper = wrapper;
             self.globeDataMesh.add(wrapper);
 
-            if(autoAnimate.object.animate) {
+            if(autoAnimate.object.autoRotate) {
                 if(!GlobeUtils.tweening) {
                     GlobeUtils.tweenCameraToLatLon(self.camera, annotation.location.lat, annotation.location.lon);
                 }
@@ -135,7 +135,7 @@ module.exports = function(globeDataMesh, camera, radius, dataAnnotations, autoAn
             if(year < annotation.start_year || year >= annotation.end_year) {
                 removeAnnotation(annotation);
             }
-        })
+        });
     }
 
     self.globeDataMesh.addEventListener('animate', function(){
