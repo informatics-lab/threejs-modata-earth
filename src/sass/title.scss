@@ -30,12 +30,13 @@
     color: $winter-grey;
     font-size: 18px;
     font-weight:normal;
+    display: none;
   }
 
   #appName {
     position:absolute;
     top:15px;
-    left:220px;
+    left:230px;
     margin:0;
     padding:0;
     width: 100vw;
