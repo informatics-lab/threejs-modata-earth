@@ -185,7 +185,7 @@ function init() {
 
     //setup data to load in
     var hadcrut4_1year_mean_opts = {
-        uri: document.location.origin + "/data/hadcrut4_1year_mean.json",
+        uri: document.location.origin + "/data/hadcrut4_1year_mean_20170117.json",
         json: true
     };
     var hadcrut4_annotations_opts = {
